@@ -1,0 +1,46 @@
+{
+  "name": "@meogic/tab-manager-vue",
+  "description": "This package provides TabManager components and hooks for Vue applications.",
+  "keywords": [
+    "vue",
+    "tabs",
+    "drag-and-drop",
+    "tabset"
+  ],
+  "main": "./@meogic/tab-manager-vue.cjs.js",
+  "module": "./@meogic/tab-manager-vue.es.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./@meogic/tab-manager-vue.cjs.js",
+      "import": "./@meogic/tab-manager-vue.es.js"
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && vue-tsc && vite build"
+  },
+  "dependencies": {
+    "@meogic/tab-manager": "1.0.6",
+    "@meogic/tab-manager-utils": "1.0.6",
+    "@meogic/tab-manager-tab-group-bar": "1.0.6",
+    "@meogic/tab-manager-resizable": "1.0.6",
+    "@meogic/tab-manager-draggable": "1.0.6",
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "vite": "^2.9.5",
+    "vue-tsc": "^0.40.13",
+    "vite-plugin-replace": "0.1.1"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.22"
+  },
+  "license": "MIT",
+  "version": "1.0.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meogic-tech/meogic-tab-manager",
+    "directory": "packages/tab-manager-vue"
+  }
+}

@@ -1,0 +1,1 @@
+select strftime('%Y-%m-%d', commits.committer_when), count(distinct commits.hash), sum(stats.additions) + sum(stats.deletions) from commits, stats('', commits.hash) where stats.file_path not like '%lock%' group by strftime('%Y-%m-%d', commits.committer_when)

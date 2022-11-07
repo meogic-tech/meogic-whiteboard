@@ -1,0 +1,140 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ *
+ */
+
+* {
+  box-sizing: border-box;
+}
+$prefix: 'PlaygroundTabManagerTheme__'!default;
+/*
+window和tabGroup不要设置padding，会影响修改宽度
+*/
+.#{$prefix}window{
+  width: 100%;
+  height: 100%;
+  background: #EEE;
+}
+.#{$prefix}tab-group{
+  width: 0;
+  height: 100%;
+  background: #DDD;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  position: relative;
+  border: 1px solid #999;
+}
+.#{$prefix}tab-group.#{$prefix}active{
+  border: 1px solid darkblue;
+}
+.#{$prefix}tab-group-resize-handle{
+  height: calc(100%);
+  width: 1px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #CCC;
+  z-index: 2;
+}
+.#{$prefix}tab-group-resize-handle:hover {
+  background: #999;
+  cursor: pointer;
+  width: 2px;
+}
+/*不允许最右侧和最下侧的tabGroup拥有resizeHandle*/
+.#{$prefix}tab-group:last-child .#{$prefix}tab-group-resize-handle{
+  display: none;
+}
+.#{$prefix}tab-group-cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.33);
+}
+.#{$prefix}tab{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: #FFF;
+  max-height: 500px;
+  overflow-y: auto;
+}
+.#{$prefix}tab-group-bar{
+  height: 32px;
+  width: 100%;
+  position: relative;
+  background: #CCC;
+  display: flex;
+  padding-right: 28px;
+  overflow: hidden;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.#{$prefix}tab-group-bar-button{
+  position: absolute;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  top: calc(50% - 8px);
+  right: 12px;
+}
+.#{$prefix}tab-group-bar-button:hover{
+  cursor: pointer;
+}
+
+.#{$prefix}tab-group-bar-item{
+  height: 100%;
+  min-width: 120px;
+  background: rgb(60, 63, 65);
+  color: rgb(172, 172, 172);
+  flex: 1 1 0;
+  max-width: 160px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 0 12px;
+  box-sizing: border-box;
+  user-select: none;
+  &:hover{
+    background: rgb(39, 41, 42);
+    cursor: pointer;
+  }
+}
+//只允许激活的tab-group下的标签栏才显示激活的样式
+.#{$prefix}tab-group.#{$prefix}active
+ .#{$prefix}tab-group-bar-item.#{$prefix}active{
+  background: rgb(39, 41, 42);
+}
+
+.#{$prefix}tab-group-bar-item-text{
+  line-height: 32px;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.#{$prefix}tab-group-bar-item-button{
+  position: sticky;
+  height: 16px;
+  width: 16px;
+  margin-left: 14px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.#{$prefix}tab-group-bar-item-draggable:hover{
+  background: gray;
+}
+.#{$prefix}tab-group-bar-item-button:hover{
+  cursor: pointer;
+}
+

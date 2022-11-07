@@ -1,0 +1,1 @@
+select strftime('%Y-%m-%d', commits.committer_when), commits.hash, stats.additions from commits, stats('', commits.hash) where strftime('%Y-%m-%d', commits.committer_when) = '2022-09-06' and stats.file_path not like '%lock%'

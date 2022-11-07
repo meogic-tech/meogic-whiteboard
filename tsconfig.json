@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.ITERABLE"],
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "strict": true,
+    "baseUrl": ".",
+    "typeRoots": ["node_modules/@types", "libdefs/globals"],
+    "skipLibCheck": true,
+    "paths": {
+      "@meogic/tab-manager": ["./packages/tab-manager/src/"],
+      "@meogic/tab-manager-tab-group-bar": ["./packages/tab-manager-tab-group-bar/src/"],
+      "@meogic/tab-manager-vue": ["./packages/tab-manager-vue/src"],
+      "@meogic/tab-manager-resizable": ["./packages/tab-manager-resizable/src"],
+      "@meogic/tab-manager-draggable": ["./packages/tab-manager-draggable/src"],
+      "@meogic/tab-manager-utils": ["./packages/tab-manager-utils/src/"],
+      "shared/invariant": ["./packages/shared/src/invariant.ts"],
+      "shared/getDOMSelection": ["./packages/shared/src/getDOMSelection.ts"]
+    }
+  },
+  "include": ["./libdefs", "./packages"],
+  "exclude": [
+    "**/__tests__/**",
+    "**/dist/**",
+    "**/npm/**",
+    "**/node_modules/**",
+    "./packages/playwright-core/**"
+  ]
+}

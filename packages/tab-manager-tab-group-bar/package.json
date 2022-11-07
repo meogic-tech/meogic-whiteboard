@@ -1,0 +1,14 @@
+{
+  "name": "@meogic/tab-manager-tab-group-bar",
+  "peerDependencies": {
+    "@meogic/tab-manager": "1.0.6"
+  },
+  "license": "MIT",
+  "version": "1.0.6",
+  "main": "TabManagerTabGroupBar.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meogic-tech/meogic-tab-manager",
+    "directory": "packages/tab-manager-tab-group-bar"
+  }
+}

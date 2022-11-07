@@ -1,0 +1,21 @@
+{
+  "name": "shared",
+  "private": "true",
+  "keywords": [
+    "vue",
+    "react",
+    "headless",
+    "tabs",
+    "drag-and-drop",
+    "tabset"
+  ],
+  "dependencies": {
+  },
+  "license": "MIT",
+  "version": "1.0.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meogic-tech/meogic-tab-manager",
+    "directory": "packages/shared"
+  }
+}
