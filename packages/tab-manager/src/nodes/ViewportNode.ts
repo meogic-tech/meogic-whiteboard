@@ -55,7 +55,7 @@ export class ViewportNode extends ElementNode {
     return false
   }
 
-  updateDOMProperties(prevNode: ViewportNode, dom: HTMLElement, config: TabManagerConfig): boolean {
+  updateDOMProperties(prevNode: ViewportNode, dom: HTMLElement, config: TabManagerConfig) {
     dom.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
   }
 

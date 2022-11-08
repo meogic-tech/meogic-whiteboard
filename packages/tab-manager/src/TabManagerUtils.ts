@@ -161,6 +161,13 @@ export const $getViewportNode = (): ViewportNode | undefined => {
     return Array.from(getActiveTabManager().getTabManagerState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
 }
 
+export const getCenter = (x: number, y: number, width: number, height: number) => {
+    return {
+        x: x + width / 2,
+        y: y + height / 2,
+    }
+}
+
 export function $getPointInWhiteboardFromEventPoint(x: number, y: number): {
     x: number, y: number
 } | undefined {

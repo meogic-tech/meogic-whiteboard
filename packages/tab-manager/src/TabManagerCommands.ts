@@ -44,3 +44,7 @@ export const CONTAINER_MOVE_COMMAND : TabManagerCommand<{
 export const CONTAINER_ZOOM_COMMAND : TabManagerCommand<{
     zoom: number,
 }> = createCommand()
+
+export const COMPONENT_NODE_MOVING_COMMAND: TabManagerCommand<{
+    nodeKey: NodeKey,
+}> = createCommand()

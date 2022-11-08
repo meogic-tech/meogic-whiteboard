@@ -40,6 +40,9 @@ import HandleContainerMove from "./plugin/HandleContainerMove.vue";
 import ZoomContainer from "./plugin/ZoomContainer.vue";
 import PrintPoint from "./plugin/PrintPoint.vue";
 import MoveNode from "./plugin/MoveNode.vue";
+import { $createLinkNode, LinkNode } from "@meogic/tab-manager/src/nodes/LinkNode";
+import { $createLinkContainerNode } from "@meogic/tab-manager/src/nodes/LinkContainerNode";
+import MoveLink from "./plugin/MoveLink.vue";
 
 const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   WindowNode,
@@ -50,7 +53,8 @@ const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   UserTabNode,
   ViewportNode,
   ContainerNode,
-  ShapeNode
+  ShapeNode,
+  LinkNode
 ]
 
 const theme: TabManagerThemeClasses = {
@@ -71,15 +75,25 @@ const theme: TabManagerThemeClasses = {
 function prepared() {
   const root = $getRoot();
   const containerNode = $createContainerNode()
-  const backgroundNode = $createBackgroundNode(0, 0, 1)
-  const viewportNode = $createViewportNode(0, 0, 1)
-  for (let i = 0; i < 50; i++) {
-    for (let j = 0; j < 50; j++) {
+  const backgroundNode = $createBackgroundNode(0, 0, 2)
+  const viewportNode = $createViewportNode(0, 0, 2)
+  const linkContainerNode = $createLinkContainerNode()
+  viewportNode.append(linkContainerNode)
+  const keys = []
+  for (let i = 0; i < 100; i++) {
+    for (let j = 0; j < 100; j++) {
       const shapeNode = $createShapeNode(50 + 200 * i, 50 + 200 * j, 150, 150)
+      keys.push(shapeNode.__key)
       viewportNode
         .append(shapeNode)
     }
   }
+
+  for (let i = 0; i < keys.length-1; i+=2) {
+    const linkNode = $createLinkNode(keys[i], keys[i+1])
+    linkContainerNode.append(linkNode)
+  }
+
 
 
 
@@ -134,6 +148,7 @@ const { locale, t } = useI18n({
         <ZoomContainer/>
         <PrintPoint/>
         <MoveNode/>
+        <MoveLink/>
       </TabManagerComposer>
     </div>
   </div>

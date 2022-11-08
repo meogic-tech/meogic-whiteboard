@@ -10,7 +10,7 @@ import {
 } from "@meogic/tab-manager";
 import { mergeRegister } from "@meogic/tab-manager-utils";
 import { $getViewportNode } from "@meogic/tab-manager/src/TabManagerUtils";
-import { CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
+import { COMPONENT_NODE_MOVING_COMMAND, CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
 const tabManager = useTabManager()
 let unregister: () => void
 let isMouseDown = false
@@ -53,10 +53,17 @@ onMounted(() => {
       if(!movingNode){
         return false
       }
+      const viewportNode = $getViewportNode()
+      if(!viewportNode){
+        return false
+      }
       const deltaX = mouseEvent.x - startX
       const deltaY = mouseEvent.y - startY
-      movingNode!.getWritable()._x = startOffsetX + deltaX
-      movingNode!.getWritable()._y = startOffsetY + deltaY
+      movingNode!.getWritable()._x = startOffsetX + deltaX / viewportNode._zoom
+      movingNode!.getWritable()._y = startOffsetY + deltaY / viewportNode._zoom
+      tabManager.dispatchCommand(COMPONENT_NODE_MOVING_COMMAND, {
+        nodeKey: movingNode.__key
+      })
       return true
     }, 2),
     tabManager.registerCommand(MOUSE_UP_COMMAND, (mouseEvent: MouseEvent) => {
