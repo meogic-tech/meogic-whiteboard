@@ -130,4 +130,11 @@ export {
 } from './nodes/ViewportNode'
 
 
+export {
+    BackgroundNode,
+    $isBackgroundNode,
+    $createBackgroundNode
+} from './nodes/BackgroundNode'
+
+
 

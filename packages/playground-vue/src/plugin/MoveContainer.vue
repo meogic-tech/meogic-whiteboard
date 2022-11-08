@@ -9,6 +9,7 @@ import {
   MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND, ViewportNode
 } from "@meogic/tab-manager";
 import { mergeRegister } from "@meogic/tab-manager-utils";
+import { CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
 
 const tabManager = useTabManager()
 let unregister: () => void
@@ -23,7 +24,6 @@ const $getViewportNode = (): ViewportNode | undefined => {
 }
 
 onMounted(() => {
-  console.log('onMount');
   unregister = mergeRegister(
     tabManager.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
       const viewportNode = $getViewportNode()
@@ -48,8 +48,10 @@ onMounted(() => {
       }
       const deltaX = mouseEvent.x - startX
       const deltaY = mouseEvent.y - startY
-      viewportNode.getWritable()._offsetX = startOffsetX + deltaX
-      viewportNode.getWritable()._offsetY = startOffsetY + deltaY
+      tabManager.dispatchCommand(CONTAINER_MOVE_COMMAND, {
+        offsetX: startOffsetX + deltaX,
+        offsetY: startOffsetY + deltaY,
+      })
       return false
     }, 1),
     tabManager.registerCommand(MOUSE_UP_COMMAND, (mouseEvent: MouseEvent) => {

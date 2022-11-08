@@ -18,16 +18,18 @@ export class ViewportNode extends ElementNode {
   }
 
   static clone(node: ViewportNode): ViewportNode {
-    const containerNode = new ViewportNode(node.__key)
+    const containerNode = new ViewportNode(node._offsetX, node._offsetY, node._zoom, node.__key)
     return containerNode
   }
   _offsetX: number
   _offsetY: number
+  _zoom: number
 
-  constructor(offsetX: number, offsetY: number, key?: NodeKey) {
+  constructor(offsetX: number, offsetY: number, zoom: number, key?: NodeKey) {
     super(key);
     this._offsetX = offsetX;
     this._offsetY = offsetY;
+    this._zoom = zoom
   }
 
   getOffsetX() : number {
@@ -45,7 +47,7 @@ export class ViewportNode extends ElementNode {
   createDOM(config: TabManagerConfig, tabManager: TabManager): HTMLElement {
     const svgNS = 'http://www.w3.org/2000/svg';
     const div = document.createElementNS(svgNS, 'g')
-    div.setAttribute('transform', `matrix(1, 0, 0, 1, ${this._offsetX}, ${this._offsetY})`)
+    div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
     return div
   }
 
@@ -54,7 +56,7 @@ export class ViewportNode extends ElementNode {
   }
 
   updateDOMProperties(prevNode: ViewportNode, dom: HTMLElement, config: TabManagerConfig): boolean {
-    dom.setAttribute('transform', `matrix(1, 0, 0, 1, ${this._offsetX}, ${this._offsetY})`)
+    dom.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
   }
 
   //endregion
@@ -80,8 +82,8 @@ export class ViewportNode extends ElementNode {
 
 }
 
-export function $createViewportNode(offsetX: number, offsetY: number) {
-  return new ViewportNode(offsetX, offsetY)
+export function $createViewportNode(offsetX: number, offsetY: number, zoom: number) {
+  return new ViewportNode(offsetX, offsetY, zoom)
 }
 
 export function $isViewportNode(

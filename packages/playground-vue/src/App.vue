@@ -35,6 +35,10 @@ import { useI18n } from 'vue-i18n'
 import TreeViewPlugin from './plugin/TreeViewPlugin.vue'
 import {onMounted} from "vue";
 import MoveContainer from "./plugin/MoveContainer.vue";
+import { $createBackgroundNode } from "@meogic/tab-manager/src/nodes/BackgroundNode";
+import HandleContainerMove from "./plugin/HandleContainerMove.vue";
+import ZoomContainer from "./plugin/ZoomContainer.vue";
+import PrintPoint from "./plugin/PrintPoint.vue";
 
 const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   WindowNode,
@@ -63,15 +67,18 @@ const theme: TabManagerThemeClasses = {
 function prepared() {
   const root = $getRoot();
   const containerNode = $createContainerNode()
-  const viewportNode = $createViewportNode(0, 0)
-  const shapeNode = $createShapeNode(50, 20, 150, 150)
+  const backgroundNode = $createBackgroundNode(-100, -100, 1)
+  const viewportNode = $createViewportNode(-100, -100, 1)
+  const shapeNode = $createShapeNode(150, 120, 150, 150)
 
 
   root.append(
     containerNode
-      .append(viewportNode
-        .append(shapeNode)
+      .append(
+        viewportNode
+          .append(shapeNode)
       )
+    ,backgroundNode
   )
 }
 const config = {
@@ -85,21 +92,6 @@ const config = {
 const onError = (error: Error) => {
   throw error;
 }
-const userList: User[] = [
-  createUser({
-    name: 'JohnJohnJohnJohnJohnJohnJohnJohnJohnJohn',
-    gender: GENDER.Male,
-    detail: 'John is MALE'
-  }), createUser({
-    name: 'Tom',
-    gender: GENDER.Male,
-    detail: 'Tom is MALE'
-  }), createUser({
-    name: 'Jenny',
-    gender: GENDER.Female,
-    detail: 'Jenny is FEMALE'
-  })
-]
 const { locale, t } = useI18n({
   inheritLocale: true
 })
@@ -117,9 +109,6 @@ const { locale, t } = useI18n({
     </div>
   </div>
   <div class="main">
-    <div class="user-list">
-      <UserInList v-for="user in userList" :user="user"/>
-    </div>
     <div class="tab-manager-container">
       <TabManagerComposer :initial-config="config" @error="onError">
         <TabManagerRootElement/>
@@ -131,6 +120,9 @@ const { locale, t } = useI18n({
 <!--        <TabGroupDraggablePlugin/>-->
         <TreeViewPlugin/>
         <MoveContainer/>
+        <HandleContainerMove/>
+        <ZoomContainer/>
+        <PrintPoint/>
       </TabManagerComposer>
     </div>
   </div>

@@ -35,3 +35,12 @@ export const DRAGGING_RESIZE_HANDLE_HORIZONTALLY_COMMAND: TabManagerCommand<{
     percent: number,
     nodeKey: NodeKey
 }> = createCommand()
+
+export const CONTAINER_MOVE_COMMAND : TabManagerCommand<{
+    offsetX: number,
+    offsetY: number,
+}> = createCommand()
+
+export const CONTAINER_ZOOM_COMMAND : TabManagerCommand<{
+    zoom: number,
+}> = createCommand()

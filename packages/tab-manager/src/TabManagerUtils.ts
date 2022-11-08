@@ -18,6 +18,7 @@ import {HAS_DIRTY_NODES} from "./TabManagerConstants";
 import invariant from "shared/invariant";
 import {RootNode} from "./nodes/RootNode";
 import {$isElementNode} from "./nodes/ElementNode";
+import { $isViewportNode, ViewportNode } from "./nodes/ViewportNode";
 
 let keyCounter = 1;
 
@@ -154,6 +155,33 @@ export function $getNodeByKey<T extends TabManagerNode>(
         return null;
     }
     return node;
+}
+
+export const $getViewportNode = (): ViewportNode | undefined => {
+    return Array.from(getActiveTabManager().getTabManagerState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
+}
+
+export function $getPointInWhiteboardFromEventPoint(x: number, y: number): {
+    x: number, y: number
+} | undefined {
+    const tabManager = getActiveTabManager()
+    const root = tabManager.getRootElement()
+    if (!root) {
+        return
+    }
+    const viewportNode = $getViewportNode()
+    if (!viewportNode) {
+        return
+    }
+    const rect = root.getBoundingClientRect()
+    // 视觉上的距离
+    const deltaX = x - rect.x
+    const deltaY = y - rect.y
+    return {
+        // 减去offset代表的是图上的距离
+        x: (deltaX - viewportNode._offsetX) / viewportNode.getLatest()._zoom,
+        y: (deltaY - viewportNode._offsetY) / viewportNode.getLatest()._zoom
+    }
 }
 
 export function getNodeFromDOMNode(
