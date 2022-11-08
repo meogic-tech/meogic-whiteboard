@@ -43,6 +43,7 @@ import MoveNode from "./plugin/MoveNode.vue";
 import { $createLinkNode, LinkNode } from "@meogic/tab-manager/src/nodes/LinkNode";
 import { $createLinkContainerNode } from "@meogic/tab-manager/src/nodes/LinkContainerNode";
 import MoveLink from "./plugin/MoveLink.vue";
+import History from "./plugin/History.vue";
 
 const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   WindowNode,
@@ -149,6 +150,7 @@ const { locale, t } = useI18n({
         <PrintPoint/>
         <MoveNode/>
         <MoveLink/>
+        <History/>
       </TabManagerComposer>
     </div>
   </div>

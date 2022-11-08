@@ -18,6 +18,7 @@ onMounted(() => {
   <div
       ref="root"
       class="container"
+      tabindex="-1"
      style="height: 100%;width: 100%;position: relative"
   />
 </template>

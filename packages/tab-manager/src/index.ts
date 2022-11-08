@@ -5,6 +5,7 @@ export type {
     TabManagerConfig,
     TabManagerCommand,
     TabManagerThemeClasses,
+    IntentionallyMarkedAsDirtyElement
 } from './TabManager';
 export type {TabManagerState, SerializedTabManagerState} from './TabManagerState';
 
@@ -37,6 +38,7 @@ export {
     COMMAND_PRIORITY_HIGH,
     COMMAND_PRIORITY_CRITICAL,
     createTabManager,
+
 } from './TabManager';
 
 
@@ -49,6 +51,12 @@ export {
     MOUSE_DOWN_COMMAND,
     MOUSE_MOVE_COMMAND,
     MOUSE_UP_COMMAND,
+    CAN_REDO_COMMAND,
+    CAN_UNDO_COMMAND,
+    CLEAR_EDITOR_COMMAND,
+    CLEAR_HISTORY_COMMAND,
+    REDO_COMMAND,
+    UNDO_COMMAND,
     createCommand
 } from './TabManagerCommands'
 

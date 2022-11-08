@@ -78,7 +78,7 @@ export type TabManagerSetOptions = {
 export type UpdateListener = (arg0: {
     tabManagerState: TabManagerState;
     normalizedNodes: Set<NodeKey>;
-    prevEditorState: TabManagerState;
+    prevTabManagerState: TabManagerState;
     tags: Set<string>;
 }) => void;
 

@@ -19,6 +19,7 @@ import invariant from "shared/invariant";
 import {RootNode} from "./nodes/RootNode";
 import {$isElementNode} from "./nodes/ElementNode";
 import { $isViewportNode, ViewportNode } from "./nodes/ViewportNode";
+import { IS_APPLE } from "shared/environment";
 
 let keyCounter = 1;
 
@@ -354,4 +355,32 @@ export const debounceExecLast = (func, timeout = 200) => {
             timer = undefined
         }, timeout);
     };
+}
+
+export function controlOrMeta(metaKey: boolean, ctrlKey: boolean): boolean {
+    if (IS_APPLE) {
+        return metaKey;
+    }
+    return ctrlKey;
+}
+
+export function isUndo(
+  keyCode: number,
+  shiftKey: boolean,
+  metaKey: boolean,
+  ctrlKey: boolean,
+): boolean {
+    return keyCode === 90 && !shiftKey && controlOrMeta(metaKey, ctrlKey);
+}
+
+export function isRedo(
+  keyCode: number,
+  shiftKey: boolean,
+  metaKey: boolean,
+  ctrlKey: boolean,
+): boolean {
+    if (IS_APPLE) {
+        return keyCode === 90 && metaKey && shiftKey;
+    }
+    return (keyCode === 89 && ctrlKey) || (keyCode === 90 && ctrlKey && shiftKey);
 }

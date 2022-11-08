@@ -1,13 +1,13 @@
 import getDOMSelection from "shared/src/getDOMSelection";
 import {TabManager} from "./TabManager";
-import {dispatchCommand} from "./TabManagerUtils";
+import { dispatchCommand, isRedo, isUndo } from "./TabManagerUtils";
 import {
     BLUR_COMMAND, CLICK_COMMAND,
     DRAGEND_COMMAND,
     DRAGOVER_COMMAND,
     DRAGSTART_COMMAND,
     DROP_COMMAND,
-    FOCUS_COMMAND, MOUSE_DOWN_COMMAND, MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND
+    FOCUS_COMMAND, MOUSE_DOWN_COMMAND, MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND, REDO_COMMAND, UNDO_COMMAND
 } from "./TabManagerCommands";
 
 let lastKeyDownTimeStamp = 0;
@@ -29,6 +29,7 @@ type RootElementEvents = Array<
 const PASS_THROUGH_COMMAND = Object.freeze({});
 
 const rootElementEvents: RootElementEvents = [
+    ['keydown', onKeyDown],
     ['click', PASS_THROUGH_COMMAND],
     ['mousedown', PASS_THROUGH_COMMAND],
     ['mousemove', PASS_THROUGH_COMMAND],
@@ -40,6 +41,39 @@ const rootElementEvents: RootElementEvents = [
     ['blur', PASS_THROUGH_COMMAND],
     ['drop', PASS_THROUGH_COMMAND],
 ];
+
+function hasStoppedTabManagerPropagation(event: Event): boolean {
+    // @ts-ignore
+    const stopped = event._tabManagerHandled === true;
+    return stopped;
+}
+
+function stopTabManagerPropagation(event: Event): void {
+    // We attach a special property to ensure the same event doesn't re-fire
+    // for parent editors.
+    // @ts-ignore
+    event._tabManagerHandled = true;
+}
+
+function onKeyDown(event: KeyboardEvent, tabManager: TabManager): void {
+    if (hasStoppedTabManagerPropagation(event)) {
+        return;
+    }
+    stopTabManagerPropagation(event);
+    lastKeyDownTimeStamp = event.timeStamp;
+    lastKeyCode = event.keyCode;
+    const {keyCode, shiftKey, ctrlKey, metaKey, altKey} = event;
+    console.log('keydown');
+    if(isUndo(keyCode, shiftKey, metaKey, ctrlKey)){
+        event.preventDefault();
+        console.log('undo');
+        dispatchCommand(tabManager, UNDO_COMMAND, undefined);
+    }else if(isRedo(keyCode, shiftKey, metaKey, ctrlKey)){
+        event.preventDefault();
+        dispatchCommand(tabManager, REDO_COMMAND, undefined);
+    }
+
+}
 
 function getRootElementRemoveHandles(
     rootElement: HTMLElement,

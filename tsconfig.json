@@ -19,7 +19,8 @@
       "@meogic/tab-manager-draggable": ["./packages/tab-manager-draggable/src"],
       "@meogic/tab-manager-utils": ["./packages/tab-manager-utils/src/"],
       "shared/invariant": ["./packages/shared/src/invariant.ts"],
-      "shared/getDOMSelection": ["./packages/shared/src/getDOMSelection.ts"]
+      "shared/getDOMSelection": ["./packages/shared/src/getDOMSelection.ts"],
+      "shared/environment": ["./packages/shared/src/environment.ts"]
     }
   },
   "include": ["./libdefs", "./packages"],
