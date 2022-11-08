@@ -270,3 +270,81 @@ export function cloneDecorators(
     tabManager._pendingDecorators = pendingDecorators;
     return pendingDecorators;
 }
+
+
+/**
+ * 当执行func之后，timeout时间内再触发的话，会不执行，同时时间从零开始计算，直到timeout时间结束
+ * func才会触发
+ * @param func
+ * @param timeout
+ * @param onCancel
+ */
+// @ts-ignore
+export function debounceLeading(func, timeout = 200, onCancel = undefined){
+    let timer: NodeJS.Timeout | undefined;
+    let isDidRun = false;
+    // @ts-ignore
+    return (...args) => {
+        if (!isDidRun) {
+            // @ts-ignore
+            func.apply(this, args);
+            isDidRun = true
+        }else{
+            if(onCancel){
+                // @ts-ignore
+                onCancel.apply(this, args)
+            }
+        }
+
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            isDidRun = false;
+        }, timeout);
+
+    };
+}
+
+/**
+ * 当执行func之后，timeout时间内再触发的话，会不执行，直到timeout时间结束
+ * func才会触发
+ * @param func
+ * @param timeout
+ * @param onCancel
+ */
+// @ts-ignore
+export function debounceEach(func, timeout = 200, onCancel = undefined){
+    let timer: NodeJS.Timeout | undefined;
+    let isDidRun = false;
+    // @ts-ignore
+    return (...args) => {
+        if (!isDidRun) {
+            // @ts-ignore
+            func.apply(this, args);
+            isDidRun = true
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                isDidRun = false;
+            }, timeout);
+        }else{
+            if(onCancel){
+                // @ts-ignore
+                onCancel.apply(this, args)
+            }
+        }
+    };
+}
+
+// @ts-ignore
+export const debounceExecLast = (func, timeout = 200) => {
+    let timer: NodeJS.Timeout | undefined;
+    // @ts-ignore
+    return (...args) => {
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+            func.apply(this, args);
+            timer = undefined
+        }, timeout);
+    };
+}

@@ -2,16 +2,15 @@
 import { useTabManager } from "@meogic/tab-manager-vue";
 import { onMounted, onUnmounted } from "vue";
 import {
-  $getNearestNodeFromDOMNode,
-  $getNearestNodeTypeFromDOMNode, $isViewportNode,
-  getActiveTabManager,
+  $getNearestNodeTypeFromDOMNode,
   MOUSE_DOWN_COMMAND,
-  MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND, ViewportNode
+  MOUSE_MOVE_COMMAND,
+  MOUSE_UP_COMMAND,
+  ShapeNode
 } from "@meogic/tab-manager";
 import { mergeRegister } from "@meogic/tab-manager-utils";
-import { CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
 import { $getViewportNode } from "@meogic/tab-manager/src/TabManagerUtils";
-
+import { CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
 const tabManager = useTabManager()
 let unregister: () => void
 let isMouseDown = false
@@ -19,44 +18,57 @@ let startX = 0
 let startY = 0
 let startOffsetX = 0
 let startOffsetY = 0
+let movingNode: ShapeNode | undefined
 
 
 onMounted(() => {
   unregister = mergeRegister(
     tabManager.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
-      const viewportNode = $getViewportNode()
-      if(!viewportNode){
+      const node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
+      if(!node){
         return false
       }
-      console.log("viewportNode", viewportNode);
+      const parent = node.getParent()
+      if(!parent){
+        return false
+      }
+      if(parent.getLastChild() !== node){
+        // 当node不是最后一个的时候
+        node.remove()
+        parent?.append(node)
+      }
+      movingNode = node
       isMouseDown = true
       startX = mouseEvent.x
       startY = mouseEvent.y
-      startOffsetX = viewportNode.getOffsetX()
-      startOffsetY = viewportNode.getOffsetY()
-      return false
-    }, 1),
+      startOffsetX = node.getX()
+      startOffsetY = node.getY()
+
+      return true
+    }, 2),
     tabManager.registerCommand(MOUSE_MOVE_COMMAND, (mouseEvent: MouseEvent) => {
       if(!isMouseDown){
         return false
       }
-      const viewportNode = $getViewportNode()
-      if(!viewportNode){
+      if(!movingNode){
         return false
       }
       const deltaX = mouseEvent.x - startX
       const deltaY = mouseEvent.y - startY
-      tabManager.dispatchCommand(CONTAINER_MOVE_COMMAND, {
-        offsetX: startOffsetX + deltaX,
-        offsetY: startOffsetY + deltaY,
-      })
-      return false
-    }, 1),
+      movingNode!.getWritable()._x = startOffsetX + deltaX
+      movingNode!.getWritable()._y = startOffsetY + deltaY
+      return true
+    }, 2),
     tabManager.registerCommand(MOUSE_UP_COMMAND, (mouseEvent: MouseEvent) => {
-      isMouseDown = false
+      if(isMouseDown){
+        isMouseDown = false
+        movingNode = undefined
+        return true
+      }
       return false
-    }, 1),
+    }, 2),
   )
+
 })
 
 onUnmounted(() => {

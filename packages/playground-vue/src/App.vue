@@ -14,11 +14,11 @@ import {
   $createContainerNode, $createShapeNode,
   $createViewportNode,
   $createWindowNode,
-  $getRoot, ACTIVE_TAB_COMMAND,
-  Klass,
+  $getRoot, ACTIVE_TAB_COMMAND, ContainerNode,
+  Klass, ShapeNode,
   TabGroupNode,
   TabManagerNode,
-  TabManagerThemeClasses,
+  TabManagerThemeClasses, ViewportNode,
   WindowNode
 } from "@meogic/tab-manager";
 import {createUser, GENDER, User} from "./model";
@@ -39,6 +39,7 @@ import { $createBackgroundNode } from "@meogic/tab-manager/src/nodes/BackgroundN
 import HandleContainerMove from "./plugin/HandleContainerMove.vue";
 import ZoomContainer from "./plugin/ZoomContainer.vue";
 import PrintPoint from "./plugin/PrintPoint.vue";
+import MoveNode from "./plugin/MoveNode.vue";
 
 const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   WindowNode,
@@ -46,7 +47,10 @@ const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
   ResizableTabGroupNode,
   TabGroupBarNode,
   TabGroupBarItemNode,
-  UserTabNode
+  UserTabNode,
+  ViewportNode,
+  ContainerNode,
+  ShapeNode
 ]
 
 const theme: TabManagerThemeClasses = {
@@ -67,16 +71,22 @@ const theme: TabManagerThemeClasses = {
 function prepared() {
   const root = $getRoot();
   const containerNode = $createContainerNode()
-  const backgroundNode = $createBackgroundNode(-100, -100, 1)
-  const viewportNode = $createViewportNode(-100, -100, 1)
-  const shapeNode = $createShapeNode(150, 120, 150, 150)
+  const backgroundNode = $createBackgroundNode(0, 0, 1)
+  const viewportNode = $createViewportNode(0, 0, 1)
+  for (let i = 0; i < 50; i++) {
+    for (let j = 0; j < 50; j++) {
+      const shapeNode = $createShapeNode(50 + 200 * i, 50 + 200 * j, 150, 150)
+      viewportNode
+        .append(shapeNode)
+    }
+  }
+
 
 
   root.append(
     containerNode
       .append(
         viewportNode
-          .append(shapeNode)
       )
     ,backgroundNode
   )
@@ -118,11 +128,12 @@ const { locale, t } = useI18n({
         <TabManagerActiveTabGroup/>
 <!--        <TabGroupResizablePlugin/>-->
 <!--        <TabGroupDraggablePlugin/>-->
-        <TreeViewPlugin/>
+<!--        <TreeViewPlugin/>-->
         <MoveContainer/>
         <HandleContainerMove/>
         <ZoomContainer/>
         <PrintPoint/>
+        <MoveNode/>
       </TabManagerComposer>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import {
-  ElementNode,
+  ElementNode, getActiveTabManager,
   NodeKey,
   SerializedElementNode,
   Spread,
@@ -103,13 +103,22 @@ export class ShapeNode extends ElementNode {
     rect.setAttributeNS(null, 'y', self._y.toString());
     rect.setAttributeNS(null, 'height', self._height.toString());
     rect.setAttributeNS(null, 'width', self._width.toString());
-    rect.setAttributeNS(null, 'style', 'fill:blue;stroke:pink;stroke-width:5;opacity:0.5');
+    rect.setAttributeNS(null, 'style', 'fill:blue;stroke:pink;stroke-width:5');
     // @ts-ignore
     return rect as HTMLElement
   }
 
   updateDOM(prevNode: ShapeNode, dom: HTMLElement, config: TabManagerConfig): boolean {
     return false
+  }
+
+  updateDOMProperties(prevNode: ShapeNode, dom: HTMLElement, config: TabManagerConfig): boolean {
+    if(this._x !== prevNode._x){
+      dom.setAttributeNS(null, 'x', this._x.toString());
+    }
+    if(this._y !== prevNode._y){
+      dom.setAttributeNS(null, 'y', this._y.toString());
+    }
   }
   //endregion
 
