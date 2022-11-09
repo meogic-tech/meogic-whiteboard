@@ -19,7 +19,7 @@ export default function invariant(
   }
 
   throw new Error(
-    'Internal TabManager error: invariant() is meant to be replaced at compile ' +
+    'Internal Whiteboard error: invariant() is meant to be replaced at compile ' +
       'time. There is no runtime version.',
   );
 }

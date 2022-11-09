@@ -1,76 +1,37 @@
 <script lang="ts" setup>
-import {TabGroupBarPlugin, TabManagerComposer, TabManagerRootElement,TabGroupResizablePlugin, TabGroupDraggablePlugin} from '@meogic/tab-manager-vue'
-import {
-  $activeTabNode,
-  $createTabGroupBarNode, $updateTabGroupBarNode,
-  TabGroupBarItemNode,
-  TabGroupBarNode
-} from "@meogic/tab-manager-tab-group-bar";
-import {
-  $createResizableTabGroupNode,
-  ResizableTabGroupNode
-} from "@meogic/tab-manager-resizable";
+import {WhiteboardComposer, WhiteboardRootElement} from '@meogic/whiteboard-vue'
 import {
   $createContainerNode, $createShapeNode,
   $createViewportNode,
-  $createWindowNode,
-  $getRoot, ACTIVE_TAB_COMMAND, ContainerNode,
+  $getRoot, ContainerNode,
   Klass, ShapeNode,
-  TabGroupNode,
-  TabManagerNode,
-  TabManagerThemeClasses, ViewportNode,
-  WindowNode
-} from "@meogic/tab-manager";
-import {createUser, GENDER, User} from "./model";
-import UserInList from "./components/UserInList.vue";
-import TabManagerOpenPlugin from "./plugin/TabManagerOpenPlugin.vue";
-import TabManagerTreePlugin from "./plugin/TabManagerTreePlugin.vue";
+  WhiteboardNode,
+  WhiteboardThemeClasses, ViewportNode,
+  $createBackgroundNode,
+  $createLinkNode, LinkNode,
+  $createLinkContainerNode
+} from "@meogic/whiteboard";
 
-import TabManagerActiveTabGroup from "./plugin/TabManagerActiveTabGroup.vue";
-
-import {$createUserTabNode, UserTabNode} from "./nodes/UserTabNode";
-import {Decorators} from '@meogic/tab-manager-vue'
+import {Decorators} from '@meogic/whiteboard-vue'
 
 import { useI18n } from 'vue-i18n'
-import TreeViewPlugin from './plugin/TreeViewPlugin.vue'
-import {onMounted} from "vue";
 import MoveContainer from "./plugin/MoveContainer.vue";
-import { $createBackgroundNode } from "@meogic/tab-manager/src/nodes/BackgroundNode";
 import HandleContainerMove from "./plugin/HandleContainerMove.vue";
 import ZoomContainer from "./plugin/ZoomContainer.vue";
 import PrintPoint from "./plugin/PrintPoint.vue";
 import MoveNode from "./plugin/MoveNode.vue";
-import { $createLinkNode, LinkNode } from "@meogic/tab-manager/src/nodes/LinkNode";
-import { $createLinkContainerNode } from "@meogic/tab-manager/src/nodes/LinkContainerNode";
 import MoveLink from "./plugin/MoveLink.vue";
 import History from "./plugin/History.vue";
 
-const PlaygroundNodes: Array<Klass<TabManagerNode>> = [
-  WindowNode,
-  TabGroupNode,
-  ResizableTabGroupNode,
-  TabGroupBarNode,
-  TabGroupBarItemNode,
-  UserTabNode,
+const PlaygroundNodes: Array<Klass<WhiteboardNode>> = [
   ViewportNode,
   ContainerNode,
   ShapeNode,
   LinkNode
 ]
 
-const theme: TabManagerThemeClasses = {
-  window: 'PlaygroundTabManagerTheme__window',
-  tab: 'PlaygroundTabManagerTheme__tab',
-  "tab-group": 'PlaygroundTabManagerTheme__tab-group',
-  "tab-group-cover": 'PlaygroundTabManagerTheme__tab-group-cover',
-  active: 'PlaygroundTabManagerTheme__active',
-  "tab-group-resize-handle": 'PlaygroundTabManagerTheme__tab-group-resize-handle',
-  "tab-group-bar": 'PlaygroundTabManagerTheme__tab-group-bar',
-  "tab-group-bar-button": 'PlaygroundTabManagerTheme__tab-group-bar-button',
-  "tab-group-bar-item": 'PlaygroundTabManagerTheme__tab-group-bar-item',
-  "tab-group-bar-item-text": 'PlaygroundTabManagerTheme__tab-group-bar-item-text',
-  "tab-group-bar-item-button": 'PlaygroundTabManagerTheme__tab-group-bar-item-button',
-  "tab-group-bar-item-draggable": 'PlaygroundTabManagerTheme__tab-group-bar-item-draggable',
+const theme: WhiteboardThemeClasses = {
+  active: 'PlaygroundWhiteboardTheme__active',
 }
 
 function prepared() {
@@ -107,11 +68,9 @@ function prepared() {
   )
 }
 const config = {
-  tabManagerState: prepared,
+  whiteboardState: prepared,
   namespace: 'Playground',
   nodes: [...PlaygroundNodes],
-  tabNodes: [UserTabNode],
-  tabGroupNodes: [ResizableTabGroupNode],
   theme
 }
 const onError = (error: Error) => {
@@ -134,16 +93,10 @@ const { locale, t } = useI18n({
     </div>
   </div>
   <div class="main">
-    <div class="tab-manager-container">
-      <TabManagerComposer :initial-config="config" @error="onError">
-        <TabManagerRootElement/>
-        <TabGroupBarPlugin/>
-        <TabManagerOpenPlugin/>
+    <div class="whiteboard-container">
+      <WhiteboardComposer :initial-config="config" @error="onError">
+        <WhiteboardRootElement/>
         <Decorators/>
-        <TabManagerActiveTabGroup/>
-<!--        <TabGroupResizablePlugin/>-->
-<!--        <TabGroupDraggablePlugin/>-->
-<!--        <TreeViewPlugin/>-->
         <MoveContainer/>
         <HandleContainerMove/>
         <ZoomContainer/>
@@ -151,7 +104,7 @@ const { locale, t } = useI18n({
         <MoveNode/>
         <MoveLink/>
         <History/>
-      </TabManagerComposer>
+      </WhiteboardComposer>
     </div>
   </div>
 </template>
@@ -176,7 +129,7 @@ const { locale, t } = useI18n({
     width: 300px;
     padding: 8px 16px;
   }
-  .tab-manager-container{
+  .whiteboard-container{
     height: 100%;
     width: 100%;
     display: flex;

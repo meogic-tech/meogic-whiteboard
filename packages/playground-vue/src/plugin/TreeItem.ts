@@ -1,4 +1,4 @@
-import {NodeKey} from "@meogic/tab-manager";
+import {NodeKey} from "@meogic/whiteboard";
 
 export type TreeItem = {
     key?: NodeKey,

@@ -12,7 +12,7 @@
     "packages/playground/**/*",
     "packages/playground-vue/**/*",
     "packages/playwright-core/**/*",
-    "packages/tab-manager-vue/vite.config.ts"
+    "packages/whiteboard-vue/vite.config.ts"
   ],
   "extends": "./tsconfig.json"
 }

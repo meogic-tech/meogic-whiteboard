@@ -26,10 +26,9 @@ module.exports = {
       },
       moduleNameMapper: {
         '^./dist/(.+)': './src/$1',
-        '^@meogic/tab-manager$': '<rootDir>/packages/tab-manager/src/index.ts',
-        '^@meogic/tab-manager-resizable$': '<rootDir>/packages/tab-manager-resizable/src/index.ts',
-        '^@meogic/tab-manager-tab-group-bar': '<rootDir>/packages/tab-manager-tab-group-bar/src/index.ts',
-        '^@meogic/tab-manager-utils$': '<rootDir>/packages/tab-manager-utils/src/index.ts',
+        '^@meogic/whiteboard$': '<rootDir>/packages/whiteboard/src/index.ts',
+        '^@meogic/whiteboard-history$': '<rootDir>/packages/whiteboard-history/src/index.ts',
+        '^@meogic/whiteboard-utils$': '<rootDir>/packages/whiteboard-utils/src/index.ts',
         '^shared/invariant$': '<rootDir>/packages/shared/src/invariant.ts',
       },
       preset: 'ts-jest',

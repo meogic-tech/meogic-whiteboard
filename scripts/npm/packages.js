@@ -10,13 +10,10 @@
 
 'use strict';
 
-const TAB_MANAGER_PKG = 'tab-manager';
+const TAB_MANAGER_PKG = 'whiteboard';
 const DEFAULT_PKGS = [
-    'tab-manager-tab-group-bar',
-    'tab-manager-resizable',
-    'tab-manager-draggable',
-    'tab-manager-vue',
-    'tab-manager-utils'
+    'whiteboard-vue',
+    'whiteboard-utils'
 ];
 const SHARED_PKG = 'shared';
 

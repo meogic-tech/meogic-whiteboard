@@ -13,7 +13,7 @@
 const {exec} = require('child-process-promise');
 const {TAB_MANAGER_PKG, DEFAULT_PKGS} = require('./packages');
 
-async function prepareTabManagerPackage() {
+async function prepareWhiteboardPackage() {
   await exec(`rm -rf ./packages/${TAB_MANAGER_PKG}/npm`);
   await exec(`mkdir ./packages/${TAB_MANAGER_PKG}/npm`);
   await exec(
@@ -46,5 +46,5 @@ async function prepareDefaultPackages() {
   }
 }
 
-prepareTabManagerPackage();
+prepareWhiteboardPackage();
 prepareDefaultPackages();

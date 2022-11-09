@@ -36,21 +36,17 @@ const extractCodes = argv.codes;
 
 
 const wwwMappings = {
-  '@meogic/tab-manager': 'tab-manager',
-  '@meogic/tab-manager-vue': 'tab-manager-vue',
-  '@meogic/tab-manager-tab-group-bar': 'tab-manager-tab-group-bar',
-  '@meogic/tab-manager-draggable': 'tab-manager-tab-group-draggable',
-  '@meogic/tab-manager-resizable': 'tab-manager-tab-group-resizable',
-  '@meogic/tab-manager-utils': 'tab-manager-utils',
+  '@meogic/whiteboard': 'whiteboard',
+  '@meogic/whiteboard-vue': 'whiteboard-vue',
+  '@meogic/whiteboard-history': 'whiteboard-history',
+  '@meogic/whiteboard-utils': 'whiteboard-utils',
 };
 
 const externals = [
-  '@meogic/tab-manager',
-  '@meogic/tab-manager-vue',
-  '@meogic/tab-manager-tab-group-bar',
-  '@meogic/tab-manager-draggable',
-  '@meogic/tab-manager-resizable',
-  '@meogic/tab-manager-utils',
+  '@meogic/whiteboard',
+  '@meogic/whiteboard-vue',
+  '@meogic/whiteboard-history',
+  '@meogic/whiteboard-utils',
   ...Object.values(wwwMappings),
 ];
 
@@ -166,7 +162,7 @@ ${source}`;
       image(),
     ],
     // This ensures PrismJS imports get included in the bundle
-    treeshake: isWWW || name !== 'TabManager Code' ? 'smallest' : undefined,
+    treeshake: isWWW || name !== 'Whiteboard Code' ? 'smallest' : undefined,
   };
   const outputOptions = {
     esModule: false,
@@ -210,62 +206,38 @@ const packages = [
   {
     modules: [
       {
-        outputFileName: 'MeogicTabManager',
+        outputFileName: 'MeogicWhiteboard',
         sourceFileName: 'index.ts',
       },
     ],
-    name: 'Tab Manager',
-    outputPath: './packages/tab-manager/dist/',
-    packageName: 'tab-manager',
-    sourcePath: './packages/tab-manager/src/',
+    name: 'Whiteboard',
+    outputPath: './packages/whiteboard/dist/',
+    packageName: 'whiteboard',
+    sourcePath: './packages/whiteboard/src/',
   },
   {
     modules: [
       {
-        outputFileName: 'TabManagerDraggable',
+        outputFileName: 'MeogicWhiteboardHistory',
         sourceFileName: 'index.ts',
       },
     ],
-    name: 'TabManager Draggable',
-    outputPath: './packages/tab-manager-draggable/dist/',
-    packageName: 'tab-manager-draggable',
-    sourcePath: './packages/tab-manager-draggable/src/',
+    name: 'Whiteboard History',
+    outputPath: './packages/whiteboard-history/dist/',
+    packageName: 'whiteboard',
+    sourcePath: './packages/whiteboard-history/src/',
   },
   {
     modules: [
       {
-        outputFileName: 'TabManagerResizable',
+        outputFileName: 'WhiteboardUtils',
         sourceFileName: 'index.ts',
       },
     ],
-    name: 'TabManager Resizable',
-    outputPath: './packages/tab-manager-resizable/dist/',
-    packageName: 'tab-manager-resizable',
-    sourcePath: './packages/tab-manager-resizable/src/',
-  },
-  {
-    modules: [
-      {
-        outputFileName: 'TabManagerTabGroupBar',
-        sourceFileName: 'index.ts',
-      },
-    ],
-    name: 'TabManager TabGroupBar',
-    outputPath: './packages/tab-manager-tab-group-bar/dist/',
-    packageName: 'tab-manager-tab-group-bar',
-    sourcePath: './packages/tab-manager-tab-group-bar/src/',
-  },
-  {
-    modules: [
-      {
-        outputFileName: 'TabManagerUtils',
-        sourceFileName: 'index.ts',
-      },
-    ],
-    name: 'TabManager Utils',
-    outputPath: './packages/tab-manager-utils/dist/',
-    packageName: 'tab-manager-utils',
-    sourcePath: './packages/tab-manager-utils/src/',
+    name: 'Whiteboard Utils',
+    outputPath: './packages/whiteboard-utils/dist/',
+    packageName: 'whiteboard-utils',
+    sourcePath: './packages/whiteboard-utils/src/',
   },
 ];
 
@@ -334,21 +306,21 @@ async function buildAll() {
   }
 }
 async function buildVue() {
-  const prefix = 'packages/tab-manager-vue'
-  const tabManagerVue = path.resolve(prefix)
-  if(!fsExtra.pathExistsSync(tabManagerVue)){
-    console.error(`${tabManagerVue} doesn't exist`)
+  const prefix = 'packages/whiteboard-vue'
+  const whiteboardVue = path.resolve(prefix)
+  if(!fsExtra.pathExistsSync(whiteboardVue)){
+    console.error(`${whiteboardVue} doesn't exist`)
     return
   }
   await exec(`npm run build --prefix ${prefix}`);
-  const typeDirs = fs.readdirSync(`${tabManagerVue}/dist/types`)
+  const typeDirs = fs.readdirSync(`${whiteboardVue}/dist/types`)
   for (let typeDir of typeDirs) {
-    if(typeDir !== 'tab-manager-vue'){
-      fs.rmSync(`${tabManagerVue}/dist/types/${typeDir}`, {recursive:true})
+    if(typeDir !== 'whiteboard-vue'){
+      fs.rmSync(`${whiteboardVue}/dist/types/${typeDir}`, {recursive:true})
     }
   }
-  await fsExtra.copy(`${tabManagerVue}/dist/types/tab-manager-vue/src`, `${tabManagerVue}/dist/types`)
-  fs.rmSync(`${tabManagerVue}/dist/types/tab-manager-vue`, {recursive:true})
+  await fsExtra.copy(`${whiteboardVue}/dist/types/whiteboard-vue/src`, `${whiteboardVue}/dist/types`)
+  fs.rmSync(`${whiteboardVue}/dist/types/whiteboard-vue`, {recursive:true})
 }
 buildAll().then(() => {
   buildVue()

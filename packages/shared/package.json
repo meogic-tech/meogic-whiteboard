@@ -5,17 +5,15 @@
     "vue",
     "react",
     "headless",
-    "tabs",
-    "drag-and-drop",
-    "tabset"
+    "drag-and-drop"
   ],
   "dependencies": {
   },
   "license": "MIT",
-  "version": "1.0.6",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/meogic-tech/meogic-tab-manager",
+    "url": "https://github.com/meogic-tech/meogic-whiteboard",
     "directory": "packages/shared"
   }
 }

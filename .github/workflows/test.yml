@@ -1,4 +1,4 @@
-name: TabManager Tests
+name: Whiteboard Tests
 
 on:
   push:

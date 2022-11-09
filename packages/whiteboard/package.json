@@ -1,0 +1,18 @@
+{
+  "name": "@meogic/whiteboard",
+  "description": "MeogicWhiteboard",
+  "keywords": [
+    "vue",
+    "react",
+    "headless",
+    "drag-and-drop"
+  ],
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "MeogicWhiteboard.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meogic-tech/meogic-whiteboard",
+    "directory": "packages/whiteboard"
+  }
+}

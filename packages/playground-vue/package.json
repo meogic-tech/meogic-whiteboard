@@ -1,5 +1,5 @@
 {
-  "name": "@meogic/tab-manager-playground-vue",
+  "name": "@meogic/whiteboard-playground-vue",
   "version": "0.1.1",
   "scripts": {
     "dev": "vite --host",
@@ -9,8 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@meogic/tab-manager-vue": "1.0.6",
-    "@meogic/tab-manager-resizable": "1.0.6",
+    "@meogic/whiteboard-vue": "1.0.0",
     "mitt": "3.0.0",
     "vue": "^3.2.38"
   },

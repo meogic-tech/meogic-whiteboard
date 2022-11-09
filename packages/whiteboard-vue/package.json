@@ -1,0 +1,41 @@
+{
+  "name": "@meogic/whiteboard-vue",
+  "description": "This package provides Whiteboard components and hooks for Vue applications.",
+  "keywords": [
+    "vue",
+    "drag-and-drop"
+  ],
+  "main": "./@meogic/whiteboard-vue.cjs.js",
+  "module": "./@meogic/whiteboard-vue.es.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./@meogic/whiteboard-vue.cjs.js",
+      "import": "./@meogic/whiteboard-vue.es.js"
+    }
+  },
+  "scripts": {
+    "build": "rimraf dist && vue-tsc && vite build"
+  },
+  "dependencies": {
+    "@meogic/whiteboard": "1.0.0",
+    "@meogic/whiteboard-utils": "1.0.0",
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "vite": "^2.9.5",
+    "vue-tsc": "^0.40.13",
+    "vite-plugin-replace": "0.1.1"
+  },
+  "peerDependencies": {
+    "vue": ">=3.2.22"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meogic-tech/meogic-whiteboard",
+    "directory": "packages/whiteboard-vue"
+  }
+}

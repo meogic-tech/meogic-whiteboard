@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 
-import { useTabManager } from "@meogic/tab-manager-vue";
+import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { onMounted, onUnmounted } from "vue";
-import { $isViewportNode, ViewportNode } from "@meogic/tab-manager";
-import { $getPointInWhiteboardFromEventPoint, $getViewportNode } from "@meogic/tab-manager/src/TabManagerUtils";
+import { $isViewportNode, ViewportNode,  $getPointInWhiteboardFromEventPoint, $getViewportNode } from "@meogic/whiteboard";
 
-const tabManager = useTabManager()
+const whiteboard = useWhiteboard()
 let unregister: () => void
 
 
@@ -13,7 +12,7 @@ const onWheel = (event: WheelEvent) => {
   if(event.metaKey){
     return
   }
-  tabManager.update(() => {
+  whiteboard.update(() => {
     const viewportNode = $getViewportNode()
     if(!viewportNode){
       console.warn('not found viewport node');
@@ -46,11 +45,11 @@ const onWheel = (event: WheelEvent) => {
 }
 
 onMounted(() => {
-  tabManager.getRootElement()?.addEventListener('wheel', onWheel)
+  whiteboard.getRootElement()?.addEventListener('wheel', onWheel)
 })
 
 onUnmounted(() => {
-  tabManager.getRootElement()?.removeEventListener('wheel', onWheel)
+  whiteboard.getRootElement()?.removeEventListener('wheel', onWheel)
 })
 
 </script>

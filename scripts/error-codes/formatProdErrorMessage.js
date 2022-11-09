@@ -14,7 +14,7 @@
 
 function formatProdErrorMessage(code) {
   throw Error(
-    `Minified TabManager error #${code}.`,
+    `Minified Whiteboard error #${code}.`,
   );
 }
 

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {$getRoot, $isElementNode, ElementNode, TabManagerNode} from "@meogic/tab-manager";
-import {TabManagerState} from "@meogic/tab-manager";
+import {$getRoot, $isElementNode, ElementNode, WhiteboardNode} from "@meogic/whiteboard";
+import {WhiteboardState} from "@meogic/whiteboard";
 import {onMounted, ref} from "vue";
-import {useTabManager} from "@meogic/tab-manager-vue";
+import {useWhiteboard} from "@meogic/whiteboard-vue";
 
 const SYMBOLS: Record<string, string> = Object.freeze({
   ancestorHasNextSibling: '|',
@@ -13,7 +13,7 @@ const SYMBOLS: Record<string, string> = Object.freeze({
   selectedLine: '>',
 });
 
-function printNode(node: TabManagerNode) {
+function printNode(node: WhiteboardNode) {
   let detailObj: any = node.exportJSON()
   delete detailObj.children
   delete detailObj.type
@@ -23,12 +23,12 @@ function printNode(node: TabManagerNode) {
   })
 }
 
-function generateContent(tabManagerState: TabManagerState): string {
+function generateContent(whiteboardState: WhiteboardState): string {
   let res = ' root\n';
 
-  tabManagerState.read(() => {
+  whiteboardState.read(() => {
 
-    visitTree($getRoot(), (node: TabManagerNode, indent: Array<string>) => {
+    visitTree($getRoot(), (node: WhiteboardNode, indent: Array<string>) => {
       const nodeKey = node.getKey();
       const nodeKeyDisplay = `(${nodeKey})`;
       const typeDisplay = node.getType() || '';
@@ -47,7 +47,7 @@ function generateContent(tabManagerState: TabManagerState): string {
 
 function visitTree(
     currentNode: ElementNode,
-    visitor: (node: TabManagerNode, indentArr: Array<string>) => void,
+    visitor: (node: WhiteboardNode, indentArr: Array<string>) => void,
     indent: Array<string> = [],
 ) {
   const childNodes = currentNode.getChildren();
@@ -77,13 +77,13 @@ function visitTree(
   });
 }
 const content = ref<string>('')
-const tabManager = useTabManager()
+const whiteboard = useWhiteboard()
 onMounted(() => {
-  content.value = generateContent(tabManager.getTabManagerState())
-  tabManager.registerUpdateListener(({tabManagerState}) => {
-    content.value = generateContent(tabManagerState)
+  content.value = generateContent(whiteboard.getWhiteboardState())
+  whiteboard.registerUpdateListener(({whiteboardState}) => {
+    content.value = generateContent(whiteboardState)
     /*setTimeout(() => {
-      console.log("tabManager.getTabManagerState()._nodeMap", tabManager.getTabManagerState()._nodeMap);
+      console.log("whiteboard.getWhiteboardState()._nodeMap", whiteboard.getWhiteboardState()._nodeMap);
     }, 200)*/
   })
 })

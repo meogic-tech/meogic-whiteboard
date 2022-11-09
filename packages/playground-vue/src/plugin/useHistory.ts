@@ -1,12 +1,12 @@
-import { TabManager } from '@meogic/tab-manager';
+import { Whiteboard } from '@meogic/whiteboard';
 import { computed, Ref, watchEffect } from 'vue';
 
-import { createEmptyHistoryState, HistoryState, registerHistory } from '../../../tab-manager-history/src';
+import { createEmptyHistoryState, HistoryState, registerHistory } from '../../../whiteboard-history/src';
 import { getRealValue } from '../utils';
 
 
 export function useHistory(
-  tabManager: TabManager,
+  whiteboard: Whiteboard,
   externalHistoryState?: Ref<HistoryState> | HistoryState,
   delay?: Ref<number> | number,
 ) {
@@ -15,7 +15,7 @@ export function useHistory(
   )
 
   watchEffect((onInvalidate) => {
-    const unregisterListener = registerHistory(tabManager, historyState.value, getRealValue(delay) || 1000)
+    const unregisterListener = registerHistory(whiteboard, historyState.value, getRealValue(delay) || 1000)
     onInvalidate(() => {
       unregisterListener()
     })

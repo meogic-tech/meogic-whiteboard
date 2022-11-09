@@ -1,25 +1,24 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from "vue";
-import { useTabManager } from "@meogic/tab-manager-vue";
-import { CONTAINER_MOVE_COMMAND } from "@meogic/tab-manager/src/TabManagerCommands";
-import { $isBackgroundNode, $isViewportNode, ViewportNode } from "@meogic/tab-manager";
-import { mergeRegister } from "@meogic/tab-manager-utils";
+import { useWhiteboard } from "@meogic/whiteboard-vue";
+import { $isBackgroundNode, $isViewportNode, CONTAINER_MOVE_COMMAND, ViewportNode } from "@meogic/whiteboard";
+import { mergeRegister } from "@meogic/whiteboard-utils";
 
 
-const tabManager = useTabManager()
+const whiteboard = useWhiteboard()
 
 const $getViewportNode = (): ViewportNode | undefined => {
-  return Array.from(tabManager.getTabManagerState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
+  return Array.from(whiteboard.getWhiteboardState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
 }
 
 const $getBackgroundNode = (): ViewportNode | undefined => {
-  return Array.from(tabManager.getTabManagerState()._nodeMap.values()).filter((n) => $isBackgroundNode(n))[0] as ViewportNode | undefined
+  return Array.from(whiteboard.getWhiteboardState()._nodeMap.values()).filter((n) => $isBackgroundNode(n))[0] as ViewportNode | undefined
 }
 
 let unregister: () => void
 onMounted(() => {
   unregister = mergeRegister(
-    tabManager.registerCommand(CONTAINER_MOVE_COMMAND, ({offsetX, offsetY}) => {
+    whiteboard.registerCommand(CONTAINER_MOVE_COMMAND, ({offsetX, offsetY}) => {
       const viewportNode = $getViewportNode()
       if(!viewportNode){
         return false

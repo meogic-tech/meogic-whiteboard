@@ -15,28 +15,20 @@ import babel from '@rollup/plugin-babel';
 
 const moduleResolution = [
   {
-    find: /\@meogic\/tab\-manager$/,
-    replacement: path.resolve('../tab-manager/src/index.ts'),
+    find: /\@meogic\/whiteboard$/,
+    replacement: path.resolve('../whiteboard/src/index.ts'),
   },
   {
-    find: /\@meogic\/tab\-manager\-vue/,
-    replacement: path.resolve('../tab-manager-vue/src/index.ts'),
+    find: /\@meogic\/whiteboard\-vue/,
+    replacement: path.resolve('../whiteboard-vue/src/index.ts'),
   },
   {
-    find: /\@meogic\/tab\-manager\-tab\-group\-bar$/,
-    replacement: path.resolve('../tab-manager-tab-group-bar/src/index.ts'),
+    find: '@meogic/whiteboard-history',
+    replacement: path.resolve('../whiteboard-history/src/index.ts'),
   },
   {
-    find: '@meogic/tab-manager-resizable',
-    replacement: path.resolve('../tab-manager-resizable/src/index.ts'),
-  },
-  {
-    find: '@meogic/tab-manager-draggable',
-    replacement: path.resolve('../tab-manager-draggable/src/index.ts'),
-  },
-  {
-    find: '@meogic/tab-manager-utils',
-    replacement: path.resolve('../tab-manager-utils/src/index.ts'),
+    find: '@meogic/whiteboard-utils',
+    replacement: path.resolve('../whiteboard-utils/src/index.ts'),
   },
   {
     find: 'shared',
@@ -45,13 +37,13 @@ const moduleResolution = [
 ];
 // Vue
 [
-  'TabManagerComposer',
-  'TabManagerComposerContext',
+  'WhiteboardComposer',
+  'WhiteboardComposerContext',
   'TabGroupBarPlugin',
 ].forEach((module) => {
-  let resolvedPath = path.resolve(`../tab-manager-vue/src/${module}.ts`);
+  let resolvedPath = path.resolve(`../whiteboard-vue/src/${module}.ts`);
   moduleResolution.push({
-    find: `@meogic/tab-manager-vue/${module}`,
+    find: `@meogic/whiteboard-vue/${module}`,
     replacement: resolvedPath,
   });
 });
