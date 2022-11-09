@@ -209,6 +209,9 @@ export function registerHistory(
 
     tags: Set<string>;
   }): void => {
+    if(tags.has('ignoreHistory')){
+      return;
+    }
     const current = historyState.current;
     const redoStack = historyState.redoStack;
     const undoStack = historyState.undoStack;

@@ -63,10 +63,8 @@ function onKeyDown(event: KeyboardEvent, tabManager: TabManager): void {
     lastKeyDownTimeStamp = event.timeStamp;
     lastKeyCode = event.keyCode;
     const {keyCode, shiftKey, ctrlKey, metaKey, altKey} = event;
-    console.log('keydown');
     if(isUndo(keyCode, shiftKey, metaKey, ctrlKey)){
         event.preventDefault();
-        console.log('undo');
         dispatchCommand(tabManager, UNDO_COMMAND, undefined);
     }else if(isRedo(keyCode, shiftKey, metaKey, ctrlKey)){
         event.preventDefault();
