@@ -12,3 +12,6 @@
 }
 $prefix: 'PlaygroundWhiteboardTheme__'!default;
 
+.#{$prefix}selected{
+  outline: 1px solid blue;
+}

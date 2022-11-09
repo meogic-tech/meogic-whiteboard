@@ -9,7 +9,7 @@ import {
   WhiteboardThemeClasses, ViewportNode,
   $createBackgroundNode,
   $createLinkNode, LinkNode,
-  $createLinkContainerNode
+  $createLinkContainerNode, TextNode, $createTextNode
 } from "@meogic/whiteboard";
 
 import {Decorators} from '@meogic/whiteboard-vue'
@@ -22,15 +22,18 @@ import PrintPoint from "./plugin/PrintPoint.vue";
 import MoveNode from "./plugin/MoveNode.vue";
 import MoveLink from "./plugin/MoveLink.vue";
 import History from "./plugin/History.vue";
+import AddData from "./plugin/AddData.vue";
 
 const PlaygroundNodes: Array<Klass<WhiteboardNode>> = [
   ViewportNode,
   ContainerNode,
   ShapeNode,
-  LinkNode
+  LinkNode,
+  TextNode
 ]
 
 const theme: WhiteboardThemeClasses = {
+  selected: 'PlaygroundWhiteboardTheme__selected',
   active: 'PlaygroundWhiteboardTheme__active',
 }
 
@@ -39,24 +42,6 @@ function prepared() {
   const containerNode = $createContainerNode()
   const backgroundNode = $createBackgroundNode(0, 0, 2)
   const viewportNode = $createViewportNode(0, 0, 2)
-  const linkContainerNode = $createLinkContainerNode()
-  viewportNode.append(linkContainerNode)
-  const keys = []
-  for (let i = 0; i < 100; i++) {
-    for (let j = 0; j < 100; j++) {
-      const shapeNode = $createShapeNode(50 + 200 * i, 50 + 200 * j, 150, 150)
-      keys.push(shapeNode.__key)
-      viewportNode
-        .append(shapeNode)
-    }
-  }
-
-  for (let i = 0; i < keys.length-1; i+=2) {
-    const linkNode = $createLinkNode(keys[i], keys[i+1])
-    linkContainerNode.append(linkNode)
-  }
-
-
 
 
   root.append(
@@ -104,6 +89,7 @@ const { locale, t } = useI18n({
         <MoveNode/>
         <MoveLink/>
         <History/>
+        <AddData/>
       </WhiteboardComposer>
     </div>
   </div>

@@ -2,11 +2,11 @@
 import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { onMounted, onUnmounted } from "vue";
 import {
-  $getNearestNodeTypeFromDOMNode, $getViewportNode, COMPONENT_NODE_MOVING_COMMAND,
+  $getNearestNodeTypeFromDOMNode, $getViewportNode, $isTextNode, COMPONENT_NODE_MOVING_COMMAND,
   MOUSE_DOWN_COMMAND,
   MOUSE_MOVE_COMMAND,
   MOUSE_UP_COMMAND,
-  ShapeNode
+  ShapeNode, TextNode, WhiteboardNode
 } from "@meogic/whiteboard";
 import { mergeRegister } from "@meogic/whiteboard-utils";
 const whiteboard = useWhiteboard()
@@ -17,12 +17,29 @@ let startY = 0
 let startOffsetX = 0
 let startOffsetY = 0
 let movingNode: ShapeNode | undefined
-
+let selectedNodes: WhiteboardNode[] = []
 
 onMounted(() => {
   unregister = mergeRegister(
     whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
-      const node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
+      let node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
+      if(!node){
+        node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, TextNode) as TextNode
+        if(!node){
+          for (let whiteboardNode of selectedNodes) {
+            if($isTextNode(whiteboardNode)){
+              whiteboardNode.setSelected(false)
+            }
+          }
+          selectedNodes = []
+          return false
+        }
+        console.log("node", node);
+        if(!node.getSelected()){
+          node.setSelected(true)
+          selectedNodes.push(node)
+        }
+      }
       if(!node){
         return false
       }

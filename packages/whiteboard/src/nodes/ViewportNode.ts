@@ -49,6 +49,7 @@ export class ViewportNode extends ElementNode {
     const svgNS = 'http://www.w3.org/2000/svg';
     const div = document.createElementNS(svgNS, 'g')
     div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
+    div.style.position = 'relative'
     // @ts-ignore
     return div
   }

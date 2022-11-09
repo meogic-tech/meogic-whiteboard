@@ -203,7 +203,7 @@ export function commitPendingUpdates(whiteboard: Whiteboard): void {
     const dirtyLeaves = whiteboard._dirtyLeaves;
     const dirtyElements = whiteboard._dirtyElements;
     const tags = whiteboard._updateTags;
-    const pendingDecorators = whiteboard._pendingDecorators;
+
     const deferred = whiteboard._deferred;
 
     if (needsUpdate) {
@@ -230,7 +230,7 @@ export function commitPendingUpdates(whiteboard: Whiteboard): void {
             dirtyLeaves,
         );
     }
-
+    const pendingDecorators = whiteboard._pendingDecorators;
     if(pendingDecorators !== null) {
         whiteboard._decorators = pendingDecorators
         whiteboard._pendingDecorators = null;
