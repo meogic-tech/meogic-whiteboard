@@ -18,7 +18,8 @@ export type SerializedTextNode = Spread<
     width: number,
     height: number,
     text: string,
-    selected: boolean
+    selected: boolean,
+    editing: boolean
   },
   SerializedWhiteboardNode
   >;
@@ -30,7 +31,7 @@ export class TextNode extends DecoratorNode<Component> {
   }
 
   static clone(node: TextNode): TextNode {
-    const shapeNode = new TextNode(node._x, node._y, node._width, node._height, node._text, node._selected, node.__key)
+    const shapeNode = new TextNode(node._x, node._y, node._width, node._height, node._text, node._selected, node._editing, node.__key)
     return shapeNode
   }
 
@@ -129,6 +130,7 @@ export class TextNode extends DecoratorNode<Component> {
               height: number,
               text: string,
               selected: boolean,
+              editing: boolean,
               key?: NodeKey) {
     super(key);
     this._x = x
@@ -137,6 +139,7 @@ export class TextNode extends DecoratorNode<Component> {
     this._height = height
     this._text = text
     this._selected = selected
+    this._editing = editing
   }
 
   //region DOM
@@ -196,6 +199,7 @@ export class TextNode extends DecoratorNode<Component> {
       serializedNode.height,
       serializedNode.text,
       serializedNode.selected,
+      serializedNode.editing,
     );
     return node;
   }
@@ -209,7 +213,8 @@ export class TextNode extends DecoratorNode<Component> {
       x: this.getX(),
       y: this.getY(),
       text: this.getText(),
-      selected: this.getSelected()
+      selected: this.getSelected(),
+      editing: this.getEditing(),
     };
   }
 
@@ -222,8 +227,9 @@ export function $createTextNode(x: number,
                                  width: number,
                                  height: number,
                                 text: string,
-                                selected: boolean) {
-  return new TextNode(x, y, width, height, text, selected)
+                                selected: boolean,
+                                editing: boolean) {
+  return new TextNode(x, y, width, height, text, selected, editing)
 }
 
 export function $isTextNode(

@@ -9,7 +9,7 @@ let unregister: () => void
 
 
 const onWheel = (event: WheelEvent) => {
-  if(event.metaKey){
+  if(!event.metaKey){
     return
   }
   whiteboard.update(() => {

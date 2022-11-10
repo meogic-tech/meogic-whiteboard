@@ -9,16 +9,16 @@ const props = defineProps<{
   width: number,
   height: number,
   text: string,
-  selected: boolean
+  selected: boolean,
+  editing: boolean
 }>()
 
 const style = ref({
   'user-select': 'none',
   'pointer-events': 'none',
-  'outline': 'none'
 })
-const contenteditable = ref(false)
 const editor = ref<HTMLElement | undefined>()
+const foreignObject = ref<HTMLElement | undefined>()
 const foreignObjectHeight = ref<number>(props.height!)
 const classNames = ref<string>("")
 //endregion
@@ -26,16 +26,27 @@ const classNames = ref<string>("")
 //region 事件
 watchEffect(() => {
   if(props.selected){
+    classNames.value = 'selected'
+  }else{
+    classNames.value = ''
+  }
+})
+watchEffect(() => {
+  if(props.editing){
     style.value = {
     }
-    contenteditable.value = true
-    classNames.value = 'hover-text-select'
+    classNames.value += ' hover-text-select'
+    editor.value!.focus()
+    const range = document.createRange()
+    range.selectNode(editor.value!.lastChild!)
+    range.collapse(false)
+    window.getSelection()?.removeAllRanges()
+    window.getSelection()?.addRange(range)
   }else{
     style.value = {
       'user-select': 'none',
       'pointer-events': 'none'
     }
-    contenteditable.value = false
   }
 })
 const onMousedown =  (mouseEvent: MouseEvent) => {
@@ -60,14 +71,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <foreignObject :x="props.x"
+  <foreignObject ref="foreignObject"
+                 :x="props.x"
                  :y="props.y"
                  :width="props.width"
                  :height="foreignObjectHeight"
                  class="editor-container"
   >
-    <div ref="editor" :class="classNames"
-          class="editor" :style="style" :contenteditable="contenteditable"
+    <div ref="editor"
+         :class="classNames"
+          class="editor" :style="style" :contenteditable="true"
          v-html="props.text"
          @mousedown="onMousedown"
          @input="onInput"
@@ -90,9 +103,12 @@ onMounted(() => {
   border: 1px solid transparent;
   background: white;
   padding: 8px 16px;
+  &.selected{
+    border: 1px solid blue;
+  }
   &:focus{
     outline: none;
-    border: 1px solid blue;
+    border: 1px solid red;
   }
 }
 </style>

@@ -26,7 +26,6 @@ onMounted(() => {
       if(!viewportNode){
         return false
       }
-      console.log("viewportNode", viewportNode);
       isMouseDown = true
       startX = mouseEvent.x
       startY = mouseEvent.y
@@ -35,6 +34,7 @@ onMounted(() => {
       return false
     }, 1),
     whiteboard.registerCommand(MOUSE_MOVE_COMMAND, (mouseEvent: MouseEvent) => {
+      mouseEvent.preventDefault()
       if(!isMouseDown){
         return false
       }

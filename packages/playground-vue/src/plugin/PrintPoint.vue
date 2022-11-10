@@ -8,7 +8,6 @@ const whiteboard = useWhiteboard()
 onMounted(() => {
   whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
     const point = $getPointInWhiteboardFromEventPoint(mouseEvent.x, mouseEvent.y)
-    console.log("point", point);
     return false
   }, 1)
 })

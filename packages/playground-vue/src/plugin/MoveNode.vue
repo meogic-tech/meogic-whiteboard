@@ -18,10 +18,12 @@ let startOffsetX = 0
 let startOffsetY = 0
 let movingNode: ShapeNode | undefined
 let selectedNodes: WhiteboardNode[] = []
+let isMoved = false
 
 onMounted(() => {
   unregister = mergeRegister(
     whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
+      isMoved = false
       let node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
       if(!node){
         node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, TextNode) as TextNode
@@ -29,12 +31,12 @@ onMounted(() => {
           for (let whiteboardNode of selectedNodes) {
             if($isTextNode(whiteboardNode)){
               whiteboardNode.setSelected(false)
+              whiteboardNode.setEditing(false)
             }
           }
           selectedNodes = []
           return false
         }
-        console.log("node", node);
         if(!node.getSelected()){
           node.setSelected(true)
           selectedNodes.push(node)
@@ -68,6 +70,7 @@ onMounted(() => {
       if(!movingNode){
         return false
       }
+      isMoved = true
       const viewportNode = $getViewportNode()
       if(!viewportNode){
         return false
@@ -96,6 +99,13 @@ onMounted(() => {
           whiteboard.dispatchCommand(COMPONENT_NODE_MOVING_COMMAND, {
             nodeKey: movingNode!.__key
           })
+          if(!isMoved){
+            if($isTextNode(movingNode)){
+              movingNode.getWritable()._editing = true
+            }
+          }else{
+            isMoved = false
+          }
         }, {
           onUpdate() {
             movingNode = undefined
