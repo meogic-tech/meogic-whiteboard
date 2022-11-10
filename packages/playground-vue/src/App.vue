@@ -12,16 +12,17 @@ import {
   $createLinkContainerNode, TextNode, $createTextNode
 } from "@meogic/whiteboard";
 
-import {Decorators} from '@meogic/whiteboard-vue'
+import {Decorators,
+  MoveContainer,
+  HandleContainerMove,
+  ZoomContainer,
+  PrintPoint,
+  MoveNode,
+  MoveLink,
+  History,
+} from '@meogic/whiteboard-vue'
 
 import { useI18n } from 'vue-i18n'
-import MoveContainer from "./plugin/MoveContainer.vue";
-import HandleContainerMove from "./plugin/HandleContainerMove.vue";
-import ZoomContainer from "./plugin/ZoomContainer.vue";
-import PrintPoint from "./plugin/PrintPoint.vue";
-import MoveNode from "./plugin/MoveNode.vue";
-import MoveLink from "./plugin/MoveLink.vue";
-import History from "./plugin/History.vue";
 import AddData from "./plugin/AddData.vue";
 
 const PlaygroundNodes: Array<Klass<WhiteboardNode>> = [

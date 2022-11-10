@@ -1,6 +1,5 @@
 import {
   DecoratorNode,
-  ElementNode, getCachedClassNameArray,
   NodeKey,
   SerializedWhiteboardNode,
   Spread,
@@ -161,33 +160,6 @@ export class TextNode extends DecoratorNode<Component> {
     return false
   }
 
-  /*updateDOMProperties(prevNode: TextNode, dom: HTMLElement, config: WhiteboardConfig): void {
-    if(this._x !== prevNode._x){
-      dom.setAttributeNS(null, 'x', this._x.toString());
-    }
-    if(this._y !== prevNode._y){
-      dom.setAttributeNS(null, 'y', this._y.toString());
-    }
-    if(this._selected){
-      const selectedClass = getCachedClassNameArray(config.theme, 'selected')
-      if(selectedClass){
-        dom.classList.add(selectedClass)
-      }
-    }
-
-    if(this._editing){
-      const child = dom.children[0] as HTMLElement | undefined
-      if(child){
-        child.setAttribute('contenteditable', 'true')
-        child.style.pointerEvents = 'auto'
-        child.style.userSelect = 'auto'
-        child.addEventListener('mousedown', (mouseEvent) => {
-          mouseEvent.stopPropagation()
-        })
-      }
-
-    }
-  }*/
   //endregion
 
   //region json

@@ -6,4 +6,8 @@ export {
     useDecorators
 } from './composables/useDecorators'
 
+export {
+    useHistory
+} from './composables/useHistory'
+
 export * from './components'
