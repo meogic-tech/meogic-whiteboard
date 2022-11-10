@@ -50,6 +50,7 @@ export class ViewportNode extends ElementNode {
     const div = document.createElementNS(svgNS, 'g')
     div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
     div.style.position = 'relative'
+    div.style.transition = 'transform .1s linear'
     // @ts-ignore
     return div
   }

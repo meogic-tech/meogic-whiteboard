@@ -3,13 +3,17 @@
 import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { onMounted, onUnmounted } from "vue";
 import { $isViewportNode, ViewportNode,  $getPointInWhiteboardFromEventPoint, $getViewportNode } from "@meogic/whiteboard";
+import { IS_APPLE } from "shared/environment";
 
 const whiteboard = useWhiteboard()
 let unregister: () => void
 
 
 const onWheel = (event: WheelEvent) => {
-  if(!event.metaKey){
+  if(IS_APPLE && !event.metaKey){
+    return
+  }
+  if(!IS_APPLE && !event.ctrlKey){
     return
   }
   whiteboard.update(() => {

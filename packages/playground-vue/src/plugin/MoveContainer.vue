@@ -17,6 +17,32 @@ let startX = 0
 let startY = 0
 let startOffsetX = 0
 let startOffsetY = 0
+let lastTransition = 'none'
+
+const onWheel = (event: WheelEvent) => {
+  if(event.metaKey || event.ctrlKey){
+    return
+  }
+  whiteboard.update(() => {
+    const viewportNode = $getViewportNode()
+    if(!viewportNode){
+      return false
+    }
+    startOffsetX = viewportNode.getOffsetX()
+    startOffsetY = viewportNode.getOffsetY()
+    let deltaX = 0
+    let deltaY = 0
+    if(event.shiftKey){
+      deltaX = event.wheelDeltaX > 0 ? 100 : -100
+    }else{
+      deltaY = event.wheelDeltaY > 0 ? 100 : -100
+    }
+    whiteboard.dispatchCommand(CONTAINER_MOVE_COMMAND, {
+      offsetX: startOffsetX + deltaX,
+      offsetY: startOffsetY + deltaY,
+    })
+  })
+}
 
 
 onMounted(() => {
@@ -31,6 +57,11 @@ onMounted(() => {
       startY = mouseEvent.y
       startOffsetX = viewportNode.getOffsetX()
       startOffsetY = viewportNode.getOffsetY()
+      const element = whiteboard.getElementByKey(viewportNode.getKey())
+      if(element){
+        lastTransition = element.style.transition
+        element.style.transition = 'none'
+      }
       return false
     }, 1),
     whiteboard.registerCommand(MOUSE_MOVE_COMMAND, (mouseEvent: MouseEvent) => {
@@ -52,13 +83,24 @@ onMounted(() => {
     }, 1),
     whiteboard.registerCommand(MOUSE_UP_COMMAND, (mouseEvent: MouseEvent) => {
       isMouseDown = false
+      const viewportNode = $getViewportNode()
+      if(!viewportNode){
+        return false
+      }
+      const element = whiteboard.getElementByKey(viewportNode.getKey())
+      if(element){
+        element.style.transition = lastTransition
+        lastTransition = 'none'
+      }
       return false
     }, 1),
   )
+  whiteboard.getRootElement()?.addEventListener('wheel', onWheel)
 })
 
 onUnmounted(() => {
   unregister()
+  whiteboard.getRootElement()?.removeEventListener('wheel', onWheel)
 })
 
 </script>
