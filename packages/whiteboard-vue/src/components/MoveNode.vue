@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { useWhiteboard } from "@meogic/whiteboard-vue";
+import { useWhiteboard } from "../composables/useWhiteboard";
 import { onMounted, onUnmounted } from "vue";
 import {
-  $getNearestNodeTypeFromDOMNode, $getViewportNode, $isTextNode, COMPONENT_NODE_MOVING_COMMAND,
+  $getNearestNodeTypeFromDOMNode, $getViewportNode, COMPONENT_NODE_MOVING_COMMAND,
   MOUSE_DOWN_COMMAND,
   MOUSE_MOVE_COMMAND,
   MOUSE_UP_COMMAND,
-  ShapeNode, TextNode, WhiteboardNode
+  ShapeNode, WhiteboardNode
 } from "@meogic/whiteboard";
 import { mergeRegister } from "@meogic/whiteboard-utils";
+import { $isTextNode, TextNode } from "../nodes";
 const whiteboard = useWhiteboard()
 let unregister: () => void
 let isMouseDown = false
@@ -16,7 +17,7 @@ let startX = 0
 let startY = 0
 let startOffsetX = 0
 let startOffsetY = 0
-let movingNode: ShapeNode | undefined
+let movingNode: ShapeNode | TextNode | undefined
 let selectedNodes: WhiteboardNode[] = []
 let isMoved = false
 
@@ -24,7 +25,7 @@ onMounted(() => {
   unregister = mergeRegister(
     whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
       isMoved = false
-      let node: ShapeNode|TextNode = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
+      let node: ShapeNode|TextNode | undefined = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
       if(!node){
         node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, TextNode) as TextNode
         if(!node){

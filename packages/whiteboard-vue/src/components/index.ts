@@ -26,8 +26,5 @@ export {
     default as PrintPoint
 } from './PrintPoint.vue'
 export {
-    default as TreeViewPlugin
-} from './TreeViewPlugin.vue'
-export {
     default as ZoomContainer
 } from './ZoomContainer.vue'

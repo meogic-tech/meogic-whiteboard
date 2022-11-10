@@ -829,9 +829,13 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@meogic/whiteboard-history@1.0.0", "@meogic/whiteboard-history@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-history":
+  "resolved" "file:packages/whiteboard-history"
+  "version" "1.0.0"
+
 "@meogic/whiteboard-playground-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/playground-vue":
   "resolved" "file:packages/playground-vue"
-  "version" "0.1.1"
+  "version" "1.0.0"
   dependencies:
     "@meogic/whiteboard-vue" "1.0.0"
     "mitt" "3.0.0"

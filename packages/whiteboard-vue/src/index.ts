@@ -11,3 +11,5 @@ export {
 } from './composables/useHistory'
 
 export * from './components'
+
+export * from './nodes'

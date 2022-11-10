@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from "vue";
-import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { $isBackgroundNode, $isViewportNode, CONTAINER_MOVE_COMMAND, ViewportNode } from "@meogic/whiteboard";
 import { mergeRegister } from "@meogic/whiteboard-utils";
+import { useWhiteboard } from "../composables/useWhiteboard";
 
 
 const whiteboard = useWhiteboard()

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import TreeView from '@meogic/whiteboard-playground-vue/src/components/TreeView.vue'
+import TreeView from './TreeView.vue'
 </script>
 
 <template>

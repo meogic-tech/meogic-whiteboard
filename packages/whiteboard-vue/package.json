@@ -20,6 +20,7 @@
   "dependencies": {
     "@meogic/whiteboard": "1.0.0",
     "@meogic/whiteboard-utils": "1.0.0",
+    "@meogic/whiteboard-history": "1.0.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {
@@ -37,5 +38,6 @@
     "type": "git",
     "url": "https://github.com/meogic-tech/meogic-whiteboard",
     "directory": "packages/whiteboard-vue"
-  }
+  },
+  "private": true
 }

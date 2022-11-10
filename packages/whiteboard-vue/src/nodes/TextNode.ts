@@ -145,6 +145,7 @@ export class TextNode extends DecoratorNode<Component> {
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
     const svgNS = 'http://www.w3.org/2000/svg';
     const g = document.createElementNS(svgNS, 'g')
+    // @ts-ignore
     return g
   }
 

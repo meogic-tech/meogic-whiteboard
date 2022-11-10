@@ -18,7 +18,7 @@ import {
   CAN_UNDO_COMMAND,
   CLEAR_EDITOR_COMMAND,
   CLEAR_HISTORY_COMMAND,
-  COMMAND_PRIORITY_TAB_MANAGER,
+  COMMAND_PRIORITY_WHITEBOARD,
   REDO_COMMAND,
   UNDO_COMMAND,
 } from '@meogic/whiteboard';
@@ -256,7 +256,7 @@ export function registerHistory(
         undo(whiteboard, historyState);
         return true;
       },
-      COMMAND_PRIORITY_TAB_MANAGER,
+      COMMAND_PRIORITY_WHITEBOARD,
     ),
     whiteboard.registerCommand(
       REDO_COMMAND,
@@ -264,7 +264,7 @@ export function registerHistory(
         redo(whiteboard, historyState);
         return true;
       },
-      COMMAND_PRIORITY_TAB_MANAGER,
+      COMMAND_PRIORITY_WHITEBOARD,
     ),
     whiteboard.registerCommand(
       CLEAR_EDITOR_COMMAND,
@@ -272,7 +272,7 @@ export function registerHistory(
         clearHistory(historyState);
         return false;
       },
-      COMMAND_PRIORITY_TAB_MANAGER,
+      COMMAND_PRIORITY_WHITEBOARD,
     ),
     whiteboard.registerCommand(
       CLEAR_HISTORY_COMMAND,
@@ -282,7 +282,7 @@ export function registerHistory(
         whiteboard.dispatchCommand(CAN_UNDO_COMMAND, false);
         return true;
       },
-      COMMAND_PRIORITY_TAB_MANAGER,
+      COMMAND_PRIORITY_WHITEBOARD,
     ),
     whiteboard.registerUpdateListener(applyChange),
   );

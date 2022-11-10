@@ -9,7 +9,7 @@ import {
   WhiteboardThemeClasses, ViewportNode,
   $createBackgroundNode,
   $createLinkNode, LinkNode,
-  $createLinkContainerNode, TextNode, $createTextNode
+  $createLinkContainerNode,
 } from "@meogic/whiteboard";
 
 import {Decorators,
@@ -24,6 +24,7 @@ import {Decorators,
 
 import { useI18n } from 'vue-i18n'
 import AddData from "./plugin/AddData.vue";
+import { TextNode } from "@meogic/whiteboard-vue";
 
 const PlaygroundNodes: Array<Klass<WhiteboardNode>> = [
   ViewportNode,

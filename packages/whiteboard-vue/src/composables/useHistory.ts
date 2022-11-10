@@ -2,7 +2,7 @@ import { Whiteboard } from '@meogic/whiteboard';
 import { computed, Ref, watchEffect } from 'vue';
 
 import { createEmptyHistoryState, HistoryState, registerHistory } from '@meogic/whiteboard-history';
-import { getRealValue } from '@meogic/whiteboard-playground-vue/src/utils';
+import { getRealValue } from "../utils";
 
 
 export function useHistory(

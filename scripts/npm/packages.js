@@ -10,15 +10,16 @@
 
 'use strict';
 
-const TAB_MANAGER_PKG = 'whiteboard';
+const WHITEBOARD_PKG = 'whiteboard';
 const DEFAULT_PKGS = [
     'whiteboard-vue',
-    'whiteboard-utils'
+    'whiteboard-utils',
+    'whiteboard-history'
 ];
 const SHARED_PKG = 'shared';
 
 module.exports = {
     DEFAULT_PKGS,
-    TAB_MANAGER_PKG,
+    WHITEBOARD_PKG,
     SHARED_PKG,
 };

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { onMounted, onUnmounted } from "vue";
 import {
   $getNearestNodeFromDOMNode,
@@ -9,6 +8,7 @@ import {
   MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND, ViewportNode
 } from "@meogic/whiteboard";
 import { mergeRegister } from "@meogic/whiteboard-utils";
+import { useWhiteboard } from "../composables/useWhiteboard";
 
 const whiteboard = useWhiteboard()
 let unregister: () => void
@@ -33,8 +33,10 @@ const onWheel = (event: WheelEvent) => {
     let deltaX = 0
     let deltaY = 0
     if(event.shiftKey){
+      // @ts-ignore
       deltaX = event.wheelDeltaX > 0 ? 100 : -100
     }else{
+      // @ts-ignore
       deltaY = event.wheelDeltaY > 0 ? 100 : -100
     }
     whiteboard.dispatchCommand(CONTAINER_MOVE_COMMAND, {

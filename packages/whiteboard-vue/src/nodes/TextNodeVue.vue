@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { SerializedTextNode } from "@meogic/whiteboard";
 import { onMounted, ref, watchEffect } from "vue";
 
 //region 数据
@@ -13,7 +12,7 @@ const props = defineProps<{
   editing: boolean
 }>()
 
-const style = ref({
+const style = ref<{ [key: string]: string }>({
   'user-select': 'none',
   'pointer-events': 'none',
 })

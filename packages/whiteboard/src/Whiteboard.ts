@@ -101,7 +101,7 @@ export type CommandListener<P> = (payload: P, whiteboard: Whiteboard) => boolean
 
 export type CommandListenerPriority = 0 | 1 | 2 | 3 | 4;
 
-export const COMMAND_PRIORITY_TAB_MANAGER = 0;
+export const COMMAND_PRIORITY_WHITEBOARD = 0;
 export const COMMAND_PRIORITY_LOW = 1;
 export const COMMAND_PRIORITY_NORMAL = 2;
 export const COMMAND_PRIORITY_HIGH = 3;

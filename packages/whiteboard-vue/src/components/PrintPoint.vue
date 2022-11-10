@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useWhiteboard } from "@meogic/whiteboard-vue";
+import { useWhiteboard } from "../composables/useWhiteboard";
 import { onMounted } from "vue";
 import { $getPointInWhiteboardFromEventPoint, MOUSE_DOWN_COMMAND } from "@meogic/whiteboard";
 

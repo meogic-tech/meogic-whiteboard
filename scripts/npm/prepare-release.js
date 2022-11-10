@@ -11,22 +11,22 @@
 'use strict';
 
 const {exec} = require('child-process-promise');
-const {TAB_MANAGER_PKG, DEFAULT_PKGS} = require('./packages');
+const {WHITEBOARD_PKG, DEFAULT_PKGS} = require('./packages');
 
 async function prepareWhiteboardPackage() {
-  await exec(`rm -rf ./packages/${TAB_MANAGER_PKG}/npm`);
-  await exec(`mkdir ./packages/${TAB_MANAGER_PKG}/npm`);
+  await exec(`rm -rf ./packages/${WHITEBOARD_PKG}/npm`);
+  await exec(`mkdir ./packages/${WHITEBOARD_PKG}/npm`);
   await exec(
-    `cp -R ./packages/${TAB_MANAGER_PKG}/dist/* ./packages/${TAB_MANAGER_PKG}/npm`,
+    `cp -R ./packages/${WHITEBOARD_PKG}/dist/* ./packages/${WHITEBOARD_PKG}/npm`,
   );
 
   // Other bits
   await exec(
-    `cp -R ./packages/${TAB_MANAGER_PKG}/package.json ./packages/${TAB_MANAGER_PKG}/npm`,
+    `cp -R ./packages/${WHITEBOARD_PKG}/package.json ./packages/${WHITEBOARD_PKG}/npm`,
   );
-  await exec(`cp -R LICENSE ./packages/${TAB_MANAGER_PKG}/npm`);
+  await exec(`cp -R LICENSE ./packages/${WHITEBOARD_PKG}/npm`);
   await exec(
-    `cp -R ./packages/${TAB_MANAGER_PKG}/README.md ./packages/${TAB_MANAGER_PKG}/npm`,
+    `cp -R ./packages/${WHITEBOARD_PKG}/README.md ./packages/${WHITEBOARD_PKG}/npm`,
   );
   /*// Flow Types
   await exec(

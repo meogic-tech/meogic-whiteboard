@@ -10,10 +10,10 @@
 
 const fs = require('fs-extra');
 const path = require('path');
-const {DEFAULT_PKGS, SHARED_PKG, TAB_MANAGER_PKG} = require('./npm/packages');
+const {DEFAULT_PKGS, SHARED_PKG, WHITEBOARD_PKG} = require('./npm/packages');
 
 fs.removeSync(path.resolve(`./node_modules`));
-const packages = [TAB_MANAGER_PKG, ...DEFAULT_PKGS, SHARED_PKG];
+const packages = [WHITEBOARD_PKG, ...DEFAULT_PKGS, SHARED_PKG];
 packages.forEach((pkg) => {
   fs.removeSync(path.resolve(`./.ts-temp`));
   fs.removeSync(path.resolve(`./packages/${pkg}/dist`));

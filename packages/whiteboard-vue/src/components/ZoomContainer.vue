@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { useWhiteboard } from "@meogic/whiteboard-vue";
+import { useWhiteboard } from "../composables/useWhiteboard";
 import { onMounted, onUnmounted } from "vue";
 import { $isViewportNode, ViewportNode,  $getPointInWhiteboardFromEventPoint, $getViewportNode } from "@meogic/whiteboard";
 import { IS_APPLE } from "shared/environment";
@@ -23,6 +23,7 @@ const onWheel = (event: WheelEvent) => {
       return;
     }
     const oldZoom = viewportNode.getLatest()._zoom
+    // @ts-ignore
     let newZoom = oldZoom + (event.wheelDeltaY > 0 ? 0.1 : -0.1);
     newZoom = Math.max(0.1, newZoom)
     newZoom = Math.round(newZoom * 100) / 100

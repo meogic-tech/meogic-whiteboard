@@ -12,10 +12,10 @@
 
 const readline = require('readline');
 const {exec} = require('child-process-promise');
-const {TAB_MANAGER_PKG, DEFAULT_PKGS} = require('./packages');
+const {WHITEBOARD_PKG, DEFAULT_PKGS} = require('./packages');
 
 async function publish() {
-  const pkgs = [TAB_MANAGER_PKG, ...DEFAULT_PKGS];
+  const pkgs = [WHITEBOARD_PKG, ...DEFAULT_PKGS];
 
   console.info(
     `You're about to publish:
@@ -28,7 +28,7 @@ Type "publish" to confirm.`,
   for (let i = 0; i < pkgs.length; i++) {
     const pkg = pkgs[i];
     try{
-      await exec(`cd ./packages/${pkg}/npm && npm publish --access public`);
+      await exec(`cd ./packages/${pkg}/npm && npm publish`);
     }catch (e) {
       console.log(e)
     }

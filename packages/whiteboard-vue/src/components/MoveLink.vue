@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { onMounted, onUnmounted } from "vue";
-import { $getNodeByKey, $isLinkNode, COMPONENT_NODE_MOVING_COMMAND, ShapeNode } from "@meogic/whiteboard";
+import { $getNodeByKey, $isLinkNode, COMPONENT_NODE_MOVING_COMMAND, LinkNode, ShapeNode } from "@meogic/whiteboard";
+import { useWhiteboard } from "../composables/useWhiteboard";
 
 const whiteboard = useWhiteboard()
 let unregister: () => void

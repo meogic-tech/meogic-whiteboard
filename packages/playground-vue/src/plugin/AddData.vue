@@ -5,9 +5,9 @@ import {
   $createLinkContainerNode,
   $createLinkNode,
   $createShapeNode,
-  $createTextNode,
   $getViewportNode
 } from "@meogic/whiteboard";
+import { $createTextNode } from "@meogic/whiteboard-vue";
 
 const whiteboard = useWhiteboard()
 

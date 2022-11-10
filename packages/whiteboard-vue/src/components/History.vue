@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 
-import { useWhiteboard } from "@meogic/whiteboard-vue";
 import { useHistory } from "../composables/useHistory";
 import { HistoryState } from "@meogic/whiteboard-history";
+import { useWhiteboard } from "../composables/useWhiteboard";
 
 const props = defineProps<{
   externalHistoryState?: HistoryState
