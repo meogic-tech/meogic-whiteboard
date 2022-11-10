@@ -5,7 +5,7 @@ import {
   Spread,
   Whiteboard,
   WhiteboardConfig, WhiteboardNode
-} from '@meogic/whiteboard';
+} from '../';
 
 
 export type SerializedShapeNode = Spread<

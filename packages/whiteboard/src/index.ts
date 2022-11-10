@@ -54,5 +54,8 @@ export {
 export * from './nodes'
 
 
+export * from './composables/ZoomContainer'
+
+
 
 

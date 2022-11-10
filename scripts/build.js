@@ -206,7 +206,7 @@ const packages = [
   {
     modules: [
       {
-        outputFileName: 'MeogicWhiteboard',
+        outputFileName: 'Whiteboard',
         sourceFileName: 'index.ts',
       },
     ],
@@ -218,7 +218,7 @@ const packages = [
   {
     modules: [
       {
-        outputFileName: 'MeogicWhiteboardHistory',
+        outputFileName: 'WhiteboardHistory',
         sourceFileName: 'index.ts',
       },
     ],

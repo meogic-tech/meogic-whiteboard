@@ -6,7 +6,7 @@ import {
   Spread,
   Whiteboard,
   WhiteboardConfig, WhiteboardNode
-} from "@meogic/whiteboard";
+} from "../";
 import { SerializedViewportNode } from "./ViewportNode";
 import { getCenter } from "../WhiteboardUtils";
 

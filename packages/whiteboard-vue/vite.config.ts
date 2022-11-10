@@ -29,15 +29,11 @@ export default defineConfig({
       entry: path.resolve(__dirname, 'src/index.ts'),
       name: pkgName,
       formats: ['es', 'cjs'],
-      fileName: format => {
-        console.log(`format: ${pkgName}.${format}.js`);
-        return `${pkgName}.${format}.js`
-      },
+      fileName: format => `${pkgName}.${format}.js`,
     },
     rollupOptions: {
       external: [
         'vue',
-        'shared/environment',
         ...lexicalPlugins.map(plugin => `@meogic/${plugin}`),
       ],
     },

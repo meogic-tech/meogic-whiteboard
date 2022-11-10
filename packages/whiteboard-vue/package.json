@@ -18,9 +18,9 @@
     "build": "rimraf dist && vue-tsc && vite build"
   },
   "dependencies": {
-    "@meogic/whiteboard": "1.0.0",
-    "@meogic/whiteboard-utils": "1.0.0",
-    "@meogic/whiteboard-history": "1.0.0",
+    "@meogic/whiteboard": "1.0.3",
+    "@meogic/whiteboard-utils": "1.0.3",
+    "@meogic/whiteboard-history": "1.0.3",
     "vue": "^3.2.25"
   },
   "devDependencies": {
@@ -33,11 +33,10 @@
     "vue": ">=3.2.22"
   },
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/meogic-tech/meogic-whiteboard",
     "directory": "packages/whiteboard-vue"
-  },
-  "private": true
+  }
 }
