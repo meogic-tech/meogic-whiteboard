@@ -8,6 +8,8 @@ export function useDecorators(whiteboard: Whiteboard) {
   let unregisterListener: () => void
 
   onMounted(() => {
+    // @ts-ignore
+    decorators.value = whiteboard._decorators
     unregisterListener = whiteboard.registerDecoratorListener((nextDecorators) => {
       // @ts-ignore
       decorators.value = nextDecorators

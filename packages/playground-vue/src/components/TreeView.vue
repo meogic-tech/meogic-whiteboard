@@ -82,9 +82,6 @@ onMounted(() => {
   content.value = generateContent(whiteboard.getWhiteboardState())
   whiteboard.registerUpdateListener(({whiteboardState}) => {
     content.value = generateContent(whiteboardState)
-    /*setTimeout(() => {
-      console.log("whiteboard.getWhiteboardState()._nodeMap", whiteboard.getWhiteboardState()._nodeMap);
-    }, 200)*/
   })
 })
 </script>

@@ -5,14 +5,14 @@ import { WhiteboardNode } from "../WhiteboardNode";
 
 export type SerializedLinkContainerNode = Spread<
   {
-    type: 'container-node'
+    type: 'link-container-node'
   },
   SerializedElementNode
   >;
 
 export class LinkContainerNode extends ElementNode{
   static getType(): string {
-    return 'container-node'
+    return 'link-container-node'
   }
 
   static clone(node: LinkContainerNode): LinkContainerNode {
@@ -47,7 +47,7 @@ export class LinkContainerNode extends ElementNode{
   exportJSON(): SerializedLinkContainerNode {
     return {
       ...super.exportJSON(),
-      type: 'container-node',
+      type: 'link-container-node',
       version: 1,
     };
   }

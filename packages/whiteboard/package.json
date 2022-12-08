@@ -8,8 +8,9 @@
     "drag-and-drop"
   ],
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.15",
   "main": "Whiteboard.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/meogic-tech/meogic-whiteboard",

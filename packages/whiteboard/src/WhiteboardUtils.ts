@@ -158,7 +158,7 @@ export function $getNodeByKey<T extends WhiteboardNode>(
 }
 
 export const $getViewportNode = (): ViewportNode | undefined => {
-    return Array.from(getActiveWhiteboard().getWhiteboardState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
+    return Array.from(getActiveWhiteboardState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
 }
 
 export const getCenter = (x: number, y: number, width: number, height: number) => {
@@ -186,8 +186,8 @@ export function $getPointInWhiteboardFromEventPoint(x: number, y: number): {
     const deltaY = y - rect.y
     return {
         // 减去offset代表的是图上的距离
-        x: (deltaX - viewportNode._offsetX) / viewportNode.getLatest()._zoom,
-        y: (deltaY - viewportNode._offsetY) / viewportNode.getLatest()._zoom
+        x: (deltaX - viewportNode.getOffsetX()) / viewportNode.getLatest()._zoom,
+        y: (deltaY - viewportNode.getOffsetY()) / viewportNode.getLatest()._zoom
     }
 }
 
@@ -269,6 +269,28 @@ export function $getNearestNodeTypeFromDOMNode(
     return null;
 }
 
+export function $getNearestNodeInheritTypeFromDOMNode(
+  startingDOM: Node,
+  nodeKlass?: Klass<WhiteboardNode>,
+  whiteboardState?: WhiteboardState
+): WhiteboardNode | null {
+    let dom: Node | null = startingDOM;
+    while (dom != null) {
+        const node = getNodeFromDOMNode(dom, whiteboardState);
+        if (node === null) {
+            dom = dom.parentNode;
+        }else{
+            // @ts-ignore
+            if(node instanceof nodeKlass){
+                return node
+            }else{
+                dom = dom.parentNode;
+            }
+        }
+    }
+    return null;
+}
+
 export function cloneDecorators(
     whiteboard: Whiteboard,
 ): Record<NodeKey, unknown> {
@@ -305,4 +327,49 @@ export function isRedo(
         return keyCode === 90 && metaKey && shiftKey;
     }
     return (keyCode === 89 && ctrlKey) || (keyCode === 90 && ctrlKey && shiftKey);
+}
+
+export function isDeleteBackward(
+  keyCode: number,
+  altKey: boolean,
+  metaKey: boolean,
+  ctrlKey: boolean,
+): boolean {
+    if (IS_APPLE) {
+        if (altKey || metaKey) {
+            return false;
+        }
+        return isBackspace(keyCode) || (keyCode === 72 && ctrlKey);
+    }
+    if (ctrlKey || altKey || metaKey) {
+        return false;
+    }
+    return isBackspace(keyCode);
+}
+
+export function isDeleteForward(
+  keyCode: number,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+): boolean {
+    if (IS_APPLE) {
+        if (shiftKey || altKey || metaKey) {
+            return false;
+        }
+        return isDelete(keyCode) || (keyCode === 68 && ctrlKey);
+    }
+    if (ctrlKey || altKey || metaKey) {
+        return false;
+    }
+    return isDelete(keyCode);
+}
+
+export function isBackspace(keyCode: number): boolean {
+    return keyCode === 8;
+}
+
+export function isDelete(keyCode: number): boolean {
+    return keyCode === 46;
 }

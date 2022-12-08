@@ -1,13 +1,11 @@
 import {
-  $createShapeNode,
   ElementNode,
   NodeKey,
-  SerializedElementNode, ShapeNode,
+  SerializedElementNode,
   Spread,
   Whiteboard,
   WhiteboardConfig, WhiteboardNode
 } from "../";
-import { SerializedShapeNode } from "./ShapeNode";
 
 export type SerializedBackgroundNode = Spread<
   {

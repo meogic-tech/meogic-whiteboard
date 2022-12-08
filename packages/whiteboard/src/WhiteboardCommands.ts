@@ -12,6 +12,13 @@ export const MOUSE_DOWN_COMMAND: WhiteboardCommand<MouseEvent> = createCommand()
 export const MOUSE_MOVE_COMMAND: WhiteboardCommand<MouseEvent> = createCommand();
 export const MOUSE_UP_COMMAND: WhiteboardCommand<MouseEvent> = createCommand();
 
+export const KEY_BACKSPACE_COMMAND: WhiteboardCommand<KeyboardEvent> =
+  createCommand();
+export const KEY_DELETE_COMMAND: WhiteboardCommand<KeyboardEvent> =
+  createCommand();
+export const DELETE_CHARACTER_COMMAND: WhiteboardCommand<boolean> =
+  createCommand();
+
 export const DRAGSTART_COMMAND: WhiteboardCommand<DragEvent> = createCommand();
 export const DRAGOVER_COMMAND: WhiteboardCommand<DragEvent> = createCommand();
 export const DRAGEND_COMMAND: WhiteboardCommand<DragEvent> = createCommand();
@@ -25,13 +32,6 @@ export const CLEAR_EDITOR_COMMAND: WhiteboardCommand<void> = createCommand()
 export const CLEAR_HISTORY_COMMAND: WhiteboardCommand<void> = createCommand()
 export const REDO_COMMAND: WhiteboardCommand<void> = createCommand()
 export const UNDO_COMMAND: WhiteboardCommand<void> = createCommand()
-
-export const DRAGGING_RESIZE_HANDLE_HORIZONTALLY_COMMAND: WhiteboardCommand<{
-    moveMouseEvent: MouseEvent,
-    downMouseEvent: MouseEvent,
-    percent: number,
-    nodeKey: NodeKey
-}> = createCommand()
 
 export const CONTAINER_MOVE_COMMAND : WhiteboardCommand<{
     offsetX: number,

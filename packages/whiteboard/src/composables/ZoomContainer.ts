@@ -1,5 +1,4 @@
-import { IS_APPLE } from "shared/environment";
-import { $getPointInWhiteboardFromEventPoint, $getViewportNode, Whiteboard } from "@meogic/whiteboard";
+import { $getPointInWhiteboardFromEventPoint, $getViewportNode, Whiteboard } from "../";
 
 /**
  * 这个方法放在这是因为shared/environment只能在rollup打包的包里引用
@@ -7,12 +6,7 @@ import { $getPointInWhiteboardFromEventPoint, $getViewportNode, Whiteboard } fro
  * @param whiteboard
  */
 export const onWheel = (event: WheelEvent, whiteboard: Whiteboard) => {
-  if(IS_APPLE && !event.metaKey){
-    return
-  }
-  if(!IS_APPLE && !event.ctrlKey){
-    return
-  }
+  // 删除根据平台限制ctrlKey和metaKey，因为苹果下用zoom手势会带上ctrlKey
   whiteboard.update(() => {
     const viewportNode = $getViewportNode()
     if(!viewportNode){
@@ -34,7 +28,11 @@ export const onWheel = (event: WheelEvent, whiteboard: Whiteboard) => {
     const deltaX = point.x * zoomRatio
     const deltaY = point.y * zoomRatio
     viewportNode.getWritable()._zoom = newZoom
-    viewportNode.getWritable()._offsetX = -deltaX + oldX
-    viewportNode.getWritable()._offsetY = -deltaY + oldY
+    let offsetX = -deltaX + oldX
+    offsetX = Math.round(offsetX * 100) / 100
+    let offsetY = -deltaY + oldY
+    offsetY = Math.round(offsetY * 100) / 100
+    viewportNode.getWritable()._offsetX = offsetX
+    viewportNode.getWritable()._offsetY = offsetY
   })
 }

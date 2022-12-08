@@ -12,23 +12,15 @@ import {WhiteboardNode} from "../WhiteboardNode";
 
 export type SerializedElementNode = Spread<{
     children: Array<SerializedWhiteboardNode>;
-    active: boolean,
 },
     SerializedWhiteboardNode>;
 
 export class ElementNode extends WhiteboardNode {
     __children: Array<NodeKey>;
-    protected __active: boolean;
 
     constructor(key?: NodeKey) {
         super(key);
         this.__children = [];
-        this.__active = false
-    }
-
-    getActive(): boolean {
-        const self = this.getLatest();
-        return self.__active;
     }
 
     getChildren<T extends WhiteboardNode>(): Array<T> {
@@ -282,11 +274,6 @@ export class ElementNode extends WhiteboardNode {
     }
 
 
-    setActive(active: boolean) {
-        const self = this.getWritable();
-        self.__active = active;
-    }
-
     updateDOM(_prevNode: ElementNode, _dom: HTMLElement, _config: WhiteboardConfig): boolean {
         /**
          * 如果为true，会导致TabGroupNode在激活时调用updateDOM
@@ -303,7 +290,6 @@ export class ElementNode extends WhiteboardNode {
     exportJSON(): SerializedElementNode {
         return {
             children: [],
-            active: this.getActive(),
             type: 'element',
             version: 1,
         };

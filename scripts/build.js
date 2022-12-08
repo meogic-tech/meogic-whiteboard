@@ -224,7 +224,7 @@ const packages = [
     ],
     name: 'Whiteboard History',
     outputPath: './packages/whiteboard-history/dist/',
-    packageName: 'whiteboard',
+    packageName: 'whiteboard-history',
     sourcePath: './packages/whiteboard-history/src/',
   },
   {

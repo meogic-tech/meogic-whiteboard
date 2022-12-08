@@ -1,13 +1,27 @@
-import getDOMSelection from "shared/src/getDOMSelection";
 import {Whiteboard} from "./Whiteboard";
-import { dispatchCommand, isRedo, isUndo } from "./WhiteboardUtils";
 import {
-    BLUR_COMMAND, CLICK_COMMAND,
+    dispatchCommand,
+    isBackspace,
+    isDelete,
+    isDeleteBackward,
+    isDeleteForward,
+    isRedo,
+    isUndo
+} from "./WhiteboardUtils";
+import {
+    BLUR_COMMAND,
+    CLICK_COMMAND, DELETE_CHARACTER_COMMAND,
     DRAGEND_COMMAND,
     DRAGOVER_COMMAND,
     DRAGSTART_COMMAND,
     DROP_COMMAND,
-    FOCUS_COMMAND, MOUSE_DOWN_COMMAND, MOUSE_MOVE_COMMAND, MOUSE_UP_COMMAND, REDO_COMMAND, UNDO_COMMAND
+    FOCUS_COMMAND, KEY_BACKSPACE_COMMAND,
+    KEY_DELETE_COMMAND,
+    MOUSE_DOWN_COMMAND,
+    MOUSE_MOVE_COMMAND,
+    MOUSE_UP_COMMAND,
+    REDO_COMMAND,
+    UNDO_COMMAND
 } from "./WhiteboardCommands";
 
 let lastKeyDownTimeStamp = 0;
@@ -69,6 +83,20 @@ function onKeyDown(event: KeyboardEvent, whiteboard: Whiteboard): void {
     }else if(isRedo(keyCode, shiftKey, metaKey, ctrlKey)){
         event.preventDefault();
         dispatchCommand(whiteboard, REDO_COMMAND, undefined);
+    }else if(isDeleteBackward(keyCode, shiftKey, metaKey, ctrlKey)){
+        if (isBackspace(keyCode)) {
+            dispatchCommand(whiteboard, KEY_BACKSPACE_COMMAND, event);
+        } else {
+            event.preventDefault();
+            dispatchCommand(whiteboard, DELETE_CHARACTER_COMMAND, true);
+        }
+    }else if (isDeleteForward(keyCode, ctrlKey, shiftKey, altKey, metaKey)) {
+        if (isDelete(keyCode)) {
+            dispatchCommand(whiteboard, KEY_DELETE_COMMAND, event);
+        } else {
+            event.preventDefault();
+            dispatchCommand(whiteboard, DELETE_CHARACTER_COMMAND, false);
+        }
     }
 
 }
