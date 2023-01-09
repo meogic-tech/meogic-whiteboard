@@ -12,13 +12,10 @@ const props = defineProps<{
   editing: boolean
 }>()
 
-const style = ref<{ [key: string]: string }>({
-  'user-select': 'none',
-  'pointer-events': 'none',
-})
+const foreignObjectHeight = ref<number>(props.height!)
+const style = ref<{ [key: string]: string }>()
 const editor = ref<HTMLElement | undefined>()
 const foreignObject = ref<HTMLElement | undefined>()
-const foreignObjectHeight = ref<number>(props.height!)
 const classNames = ref<string>("")
 //endregion
 
@@ -42,10 +39,7 @@ watchEffect(() => {
     window.getSelection()?.removeAllRanges()
     window.getSelection()?.addRange(range)
   }else{
-    style.value = {
-      'user-select': 'none',
-      'pointer-events': 'none'
-    }
+    style.value = {}
   }
 })
 const onMousedown =  (mouseEvent: MouseEvent) => {
@@ -70,23 +64,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <foreignObject ref="foreignObject"
-                 :x="props.x"
-                 :y="props.y"
-                 :width="props.width"
-                 :height="foreignObjectHeight"
-                 class="editor-container"
-  >
     <div ref="editor"
          :class="classNames"
-          class="editor" :style="style" :contenteditable="true"
+          class="editor editor-container" :style="style" :contenteditable="false"
          v-html="props.text"
          @mousedown="onMousedown"
          @input="onInput"
     >
     </div>
-
-  </foreignObject>
 </template>
 
 <style scoped lang="scss">

@@ -75,8 +75,8 @@ onMounted(() => {
       if(!viewportNode){
         return false
       }
-      const deltaX = mouseEvent.x - startX
-      const deltaY = mouseEvent.y - startY
+      const deltaX = (mouseEvent.x - startX) / viewportNode.getLatest()._zoom
+      const deltaY = (mouseEvent.y - startY) / viewportNode.getLatest()._zoom
       whiteboard.dispatchCommand(CONTAINER_MOVE_COMMAND, {
         offsetX: startOffsetX + deltaX,
         offsetY: startOffsetY + deltaY,

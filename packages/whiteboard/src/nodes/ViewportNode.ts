@@ -46,9 +46,14 @@ export class ViewportNode extends ElementNode {
 
 //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
+    const self = this.getLatest()
     const svgNS = 'http://www.w3.org/2000/svg';
-    const div = document.createElementNS(svgNS, 'g')
-    div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
+    const div = document.createElement('div')
+    const transform = `scale(${self._zoom}) translate3d(${self._offsetX}px, ${self._offsetY}px, 0px)`
+    div.style.width = '100%'
+    div.style.height = '100%'
+    div.style.transform = transform
+    // div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
     div.style.position = 'relative'
     div.style.transition = 'transform .1s linear'
     // @ts-ignore
@@ -60,7 +65,9 @@ export class ViewportNode extends ElementNode {
   }
 
   updateDOMProperties(prevNode: ViewportNode, dom: HTMLElement, config: WhiteboardConfig) {
-    dom.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
+    const self = this.getLatest()
+    // dom.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
+    dom.style.transform = `scale(${self._zoom}) translate3d(${self._offsetX}px, ${self._offsetY}px, 0px)`
   }
 
   //endregion

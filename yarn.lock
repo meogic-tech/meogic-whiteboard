@@ -829,33 +829,35 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@meogic/whiteboard-history@1.0.0", "@meogic/whiteboard-history@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-history":
+"@meogic/whiteboard-history@1.0.15", "@meogic/whiteboard-history@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-history":
   "resolved" "file:packages/whiteboard-history"
-  "version" "1.0.0"
+  "version" "1.0.15"
 
 "@meogic/whiteboard-playground-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/playground-vue":
   "resolved" "file:packages/playground-vue"
-  "version" "1.0.0"
+  "version" "1.0.15"
   dependencies:
-    "@meogic/whiteboard-vue" "1.0.0"
+    "@meogic/whiteboard-vue" "1.0.15"
     "mitt" "3.0.0"
     "vue" "^3.2.38"
 
-"@meogic/whiteboard-utils@1.0.0", "@meogic/whiteboard-utils@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-utils":
+"@meogic/whiteboard-utils@1.0.15", "@meogic/whiteboard-utils@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-utils":
   "resolved" "file:packages/whiteboard-utils"
-  "version" "1.0.0"
+  "version" "1.0.15"
 
-"@meogic/whiteboard-vue@1.0.0", "@meogic/whiteboard-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-vue":
+"@meogic/whiteboard-vue@1.0.15", "@meogic/whiteboard-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-vue":
   "resolved" "file:packages/whiteboard-vue"
-  "version" "1.0.0"
+  "version" "1.0.15"
   dependencies:
-    "@meogic/whiteboard" "1.0.0"
-    "@meogic/whiteboard-utils" "1.0.0"
+    "@meogic/whiteboard" "1.0.15"
+    "@meogic/whiteboard-history" "1.0.15"
+    "@meogic/whiteboard-utils" "1.0.15"
+    "animejs" "^3.2.1"
     "vue" "^3.2.25"
 
-"@meogic/whiteboard@1.0.0", "@meogic/whiteboard@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard":
+"@meogic/whiteboard@1.0.15", "@meogic/whiteboard@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard":
   "resolved" "file:packages/whiteboard"
-  "version" "1.0.0"
+  "version" "1.0.15"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -1529,6 +1531,11 @@
     "json-schema-traverse" "^1.0.0"
     "require-from-string" "^2.0.2"
     "uri-js" "^4.2.2"
+
+"animejs@^3.2.1":
+  "integrity" "sha512-sWno3ugFryK5nhiDm/2BKeFCpZv7vzerWUcUPyAZLDhMek3+S/p418ldZJbJXo5ZUOpfm2kP2XRO4NJcULMy9A=="
+  "resolved" "https://registry.npmjs.org/animejs/-/animejs-3.2.1.tgz"
+  "version" "3.2.1"
 
 "ansi-colors@^4.1.1":
   "integrity" "sha512-/6w/C21Pm1A7aZitlI5Ni/2J6FFQN8i1Cvz3kHABAAbw93v/NlvKdVOqz7CCWz/3iv/JplRSEEZ83XION15ovw=="
@@ -4617,7 +4624,7 @@
 
 "shared@file:/Users/wing/Develop/meogic-whiteboard/packages/shared":
   "resolved" "file:packages/shared"
-  "version" "1.0.0"
+  "version" "1.0.15"
 
 "shebang-command@^2.0.0":
   "integrity" "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="

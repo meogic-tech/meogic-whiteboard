@@ -25,6 +25,7 @@ let isMoved = false
 onMounted(() => {
   unregister = mergeRegister(
     whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
+      console.log("mouseEvent.target", mouseEvent.target);
       isMoved = false
       const node111 = $getNearestNodeInheritTypeFromDOMNode(mouseEvent.target as HTMLElement, DecoratorNode)
       console.log("node111", node111);
@@ -69,10 +70,13 @@ onMounted(() => {
       return true
     }, 2),
     whiteboard.registerCommand(MOUSE_MOVE_COMMAND, (mouseEvent: MouseEvent) => {
+      mouseEvent.preventDefault()
       if(!isMouseDown){
+        console.warn('isMouseDown is not');
         return false
       }
       if(!movingNode){
+        console.warn('movingNode is ', movingNode);
         return false
       }
       isMoved = true
@@ -83,8 +87,9 @@ onMounted(() => {
       const deltaX = mouseEvent.x - startX
       const deltaY = mouseEvent.y - startY
       whiteboard.update(() => {
-        movingNode!.getWritable()._x = startOffsetX + deltaX / viewportNode._zoom
-        movingNode!.getWritable()._y = startOffsetY + deltaY / viewportNode._zoom
+        console.log(movingNode, 'startOffsetX + deltaX / viewportNode._zoom', startOffsetX + deltaX / viewportNode._zoom);
+        movingNode?.setX(startOffsetX + deltaX / viewportNode._zoom)
+        movingNode?.setY(startOffsetY + deltaY / viewportNode._zoom)
         whiteboard.dispatchCommand(COMPONENT_NODE_MOVING_COMMAND, {
           nodeKey: movingNode!.__key
         })
@@ -106,7 +111,7 @@ onMounted(() => {
           })
           if(!isMoved){
             if($isTextNode(movingNode)){
-              movingNode.getWritable()._editing = true
+              // movingNode.getWritable()._editing = true
             }
           }else{
             isMoved = false

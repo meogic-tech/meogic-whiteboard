@@ -184,6 +184,7 @@ export function $getPointInWhiteboardFromEventPoint(x: number, y: number): {
     // 视觉上的距离
     const deltaX = x - rect.x
     const deltaY = y - rect.y
+    // console.table({deltaY, 'viewportNode.getOffsetY()': viewportNode.getOffsetY(), 'viewportNode.getLatest()._zoom': viewportNode.getLatest()._zoom});
     return {
         // 减去offset代表的是图上的距离
         x: (deltaX - viewportNode.getOffsetX()) / viewportNode.getLatest()._zoom,

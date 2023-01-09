@@ -23,9 +23,14 @@ export class LinkContainerNode extends ElementNode{
   //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
     const svgNS = 'http://www.w3.org/2000/svg';
-    const div = document.createElementNS(svgNS, 'g')
+    const svg = document.createElementNS(svgNS, 'svg')
+    svg.style.width = '100%'
+    svg.style.height = '100%'
+    svg.style.position = 'absolute'
+    svg.style.left = '0'
+    svg.style.right = '0'
     // @ts-ignore
-    return div
+    return svg
   }
 
   updateDOM(prevNode: LinkContainerNode, dom: HTMLElement, config: WhiteboardConfig): boolean {

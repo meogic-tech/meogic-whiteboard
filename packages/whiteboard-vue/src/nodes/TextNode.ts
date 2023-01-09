@@ -1,4 +1,5 @@
 import {
+  $getViewportNode,
   DecoratorNode,
   NodeKey,
   SerializedWhiteboardNode,
@@ -8,6 +9,7 @@ import {
 } from "@meogic/whiteboard";
 import { Component, h } from "vue";
 import TextNodeVue from './TextNodeVue.vue'
+import anime from 'animejs'
 
 
 export type SerializedTextNode = Spread<
@@ -143,12 +145,45 @@ export class TextNode extends DecoratorNode<Component> {
 
   //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
+    const self = this.getLatest()
     const svgNS = 'http://www.w3.org/2000/svg';
-    const g = document.createElementNS(svgNS, 'g')
-    // @ts-ignore
-    return g
+    const div = document.createElement('div')
+    div.style.position = 'absolute'
+    div.style.left = `${self._x}px`
+    div.style.top = `${self._y}px`
+    div.style.width = `${self._width}px`
+    div.style.height = `${self._height}px`
+    return div
   }
 
+  _anime = undefined
+
+  updateDOMProperties(prevNode: unknown, dom: HTMLElement, config: WhiteboardConfig) {
+    const self = this.getWritable()
+    if(dom.style.left === `${self._x}px` && dom.style.top === `${self._y}px`){
+      return
+    }
+    const viewportNode = $getViewportNode()
+    const size = viewportNode?.getChildrenSize()
+    if(size && size > 100){
+      dom.style.left = `${self._x}px`
+      dom.style.top = `${self._y}px`
+    }else{
+      if(self._anime){
+        self._anime.seek(this._anime.duration)
+      }
+      self._anime = anime({
+        targets: dom,
+        left: `${self._x}px`,
+        top: `${self._y}px`,
+        duration: 50,
+      });
+    }
+
+
+
+
+  }
 
   decorate(whiteboard: Whiteboard, config: WhiteboardConfig): Component {
     return h(

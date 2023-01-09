@@ -28,3 +28,6 @@ export {
 export {
     default as ZoomContainer
 } from './ZoomContainer.vue'
+export {
+    default as ShowPoint
+} from './ShowPoint.vue'
