@@ -829,35 +829,35 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@meogic/whiteboard-history@1.0.15", "@meogic/whiteboard-history@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-history":
+"@meogic/whiteboard-history@1.0.16", "@meogic/whiteboard-history@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-history":
   "resolved" "file:packages/whiteboard-history"
-  "version" "1.0.15"
+  "version" "1.0.16"
 
 "@meogic/whiteboard-playground-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/playground-vue":
   "resolved" "file:packages/playground-vue"
-  "version" "1.0.15"
+  "version" "1.0.16"
   dependencies:
-    "@meogic/whiteboard-vue" "1.0.15"
+    "@meogic/whiteboard-vue" "1.0.16"
     "mitt" "3.0.0"
     "vue" "^3.2.38"
 
-"@meogic/whiteboard-utils@1.0.15", "@meogic/whiteboard-utils@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-utils":
+"@meogic/whiteboard-utils@1.0.16", "@meogic/whiteboard-utils@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-utils":
   "resolved" "file:packages/whiteboard-utils"
-  "version" "1.0.15"
+  "version" "1.0.16"
 
-"@meogic/whiteboard-vue@1.0.15", "@meogic/whiteboard-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-vue":
+"@meogic/whiteboard-vue@1.0.16", "@meogic/whiteboard-vue@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard-vue":
   "resolved" "file:packages/whiteboard-vue"
-  "version" "1.0.15"
+  "version" "1.0.16"
   dependencies:
-    "@meogic/whiteboard" "1.0.15"
-    "@meogic/whiteboard-history" "1.0.15"
-    "@meogic/whiteboard-utils" "1.0.15"
+    "@meogic/whiteboard" "1.0.16"
+    "@meogic/whiteboard-history" "1.0.16"
+    "@meogic/whiteboard-utils" "1.0.16"
     "animejs" "^3.2.1"
-    "vue" "^3.2.25"
+    "vue" ">=3.2.22"
 
-"@meogic/whiteboard@1.0.15", "@meogic/whiteboard@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard":
+"@meogic/whiteboard@1.0.16", "@meogic/whiteboard@file:/Users/wing/Develop/meogic-whiteboard/packages/whiteboard":
   "resolved" "file:packages/whiteboard"
-  "version" "1.0.15"
+  "version" "1.0.16"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -4624,7 +4624,7 @@
 
 "shared@file:/Users/wing/Develop/meogic-whiteboard/packages/shared":
   "resolved" "file:packages/shared"
-  "version" "1.0.15"
+  "version" "1.0.16"
 
 "shebang-command@^2.0.0":
   "integrity" "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA=="
@@ -5115,7 +5115,7 @@
     "@volar/vue-language-core" "0.40.13"
     "@volar/vue-typescript" "0.40.13"
 
-"vue@^3.0.0", "vue@^3.2.25", "vue@^3.2.38", "vue@3.2.39":
+"vue@^3.0.0", "vue@^3.2.25", "vue@^3.2.38", "vue@>=3.2.22", "vue@3.2.39":
   "integrity" "sha512-tRkguhRTw9NmIPXhzk21YFBqXHT2t+6C6wPOgQ50fcFVWnPdetmRqbmySRHznrYjX2E47u0cGlKGcxKZJ38R/g=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.39.tgz"
   "version" "3.2.39"

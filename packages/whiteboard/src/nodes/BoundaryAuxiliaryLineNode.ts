@@ -6,7 +6,7 @@ import {
   Whiteboard,
   WhiteboardConfig, WhiteboardNode
 } from "../";
-import { AuxiliaryLineNode } from "./AuxiliaryLineNode";
+import { AuxiliaryLineNode, SerializedAuxiliaryLineNode } from "./AuxiliaryLineNode";
 
 
 export type SerializedBoundaryAuxiliaryLineNode = Spread<
@@ -14,7 +14,7 @@ export type SerializedBoundaryAuxiliaryLineNode = Spread<
     sourceBoundary: 'top' | 'bottom' | 'left' | 'right',
     targetBoundary: 'top' | 'bottom' | 'left' | 'right'
   },
-  SerializedElementNode
+  SerializedAuxiliaryLineNode
   >;
 
 
@@ -91,7 +91,7 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
 
 
   updateDOM(prevNode: BoundaryAuxiliaryLineNode, dom: HTMLElement, config: WhiteboardConfig): boolean {
-    return false
+    return super.updateDOM(prevNode, dom, config);
   }
 
   updateDOMProperties(prevNode: BoundaryAuxiliaryLineNode, dom: HTMLElement, config: WhiteboardConfig) {

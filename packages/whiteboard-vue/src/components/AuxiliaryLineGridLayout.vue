@@ -68,6 +68,7 @@ onMounted(() => {
         child.remove()
       }
     }
+    return false
   }, COMMAND_PRIORITY_WHITEBOARD)
 })
 

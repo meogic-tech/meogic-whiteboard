@@ -8,7 +8,7 @@
     "drag-and-drop"
   ],
   "license": "MIT",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "Whiteboard.js",
   "types": "./index.d.ts",
   "repository": {

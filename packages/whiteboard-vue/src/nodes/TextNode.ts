@@ -9,6 +9,7 @@ import {
 } from "@meogic/whiteboard";
 import { Component, h } from "vue";
 import TextNodeVue from './TextNodeVue.vue'
+// @ts-ignore
 import anime from 'animejs'
 
 
@@ -170,6 +171,7 @@ export class TextNode extends DecoratorNode<Component> {
       dom.style.top = `${self._y}px`
     }else{
       if(self._anime){
+        // @ts-ignore
         self._anime.seek(this._anime.duration)
       }
       self._anime = anime({
