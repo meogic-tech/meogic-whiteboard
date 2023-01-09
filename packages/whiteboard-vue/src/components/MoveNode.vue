@@ -87,7 +87,6 @@ onMounted(() => {
       const deltaX = mouseEvent.x - startX
       const deltaY = mouseEvent.y - startY
       whiteboard.update(() => {
-        console.log(movingNode, 'startOffsetX + deltaX / viewportNode._zoom', startOffsetX + deltaX / viewportNode._zoom);
         movingNode?.setX(startOffsetX + deltaX / viewportNode._zoom)
         movingNode?.setY(startOffsetY + deltaY / viewportNode._zoom)
         whiteboard.dispatchCommand(COMPONENT_NODE_MOVING_COMMAND, {

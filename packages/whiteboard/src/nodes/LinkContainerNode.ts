@@ -29,6 +29,7 @@ export class LinkContainerNode extends ElementNode{
     svg.style.position = 'absolute'
     svg.style.left = '0'
     svg.style.right = '0'
+    svg.style.overflow = 'visible';
     // @ts-ignore
     return svg
   }

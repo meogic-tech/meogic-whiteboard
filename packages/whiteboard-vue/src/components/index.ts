@@ -31,3 +31,6 @@ export {
 export {
     default as ShowPoint
 } from './ShowPoint.vue'
+export {
+    default as AuxiliaryLineGridLayout
+} from './AuxiliaryLineGridLayout.vue'

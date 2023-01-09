@@ -19,6 +19,7 @@ import {RootNode} from "./nodes/RootNode";
 import {$isElementNode} from "./nodes/ElementNode";
 import { $isViewportNode, ViewportNode } from "./nodes/ViewportNode";
 import { IS_APPLE } from "shared/environment";
+import { $isAuxiliaryLineContainerNode } from "./nodes";
 
 let keyCounter = 1;
 
@@ -159,6 +160,10 @@ export function $getNodeByKey<T extends WhiteboardNode>(
 
 export const $getViewportNode = (): ViewportNode | undefined => {
     return Array.from(getActiveWhiteboardState()._nodeMap.values()).filter((n) => $isViewportNode(n))[0] as ViewportNode | undefined
+}
+
+export const $getAuxiliaryLineContainerNode = (): ViewportNode | undefined => {
+    return Array.from(getActiveWhiteboardState()._nodeMap.values()).filter((n) => $isAuxiliaryLineContainerNode(n))[0] as ViewportNode | undefined
 }
 
 export const getCenter = (x: number, y: number, width: number, height: number) => {
