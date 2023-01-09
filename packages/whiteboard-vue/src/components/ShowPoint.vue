@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 
 import { onMounted, onUnmounted, ref } from "vue";
-import { useWhiteboard } from "@meogic/whiteboard-vue";
+/**
+ * 这里一定不能用@meogic/whiteboard-vue，否则会报错 Failed to resolve entry for package "@meogic/whiteboard-vue"
+ */
+import { useWhiteboard } from "../composables/useWhiteboard";
 import { $getPointInWhiteboardFromEventPoint } from "@meogic/whiteboard";
 
 const whiteboard = useWhiteboard()

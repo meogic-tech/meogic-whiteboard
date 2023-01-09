@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { useWhiteboard } from "@meogic/whiteboard-vue";
+import { useWhiteboard } from "../composables/useWhiteboard";
 import { onMounted, onUnmounted } from "vue";
 import {
   $getNodeByKey,
