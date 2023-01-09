@@ -75,7 +75,8 @@ export {
     $getPointInWhiteboardFromEventPoint,
     $getNearestNodeFromDOMNode,
     $getNearestNodeTypeFromDOMNode,
-    $getNearestNodeInheritTypeFromDOMNode
+    $getNearestNodeInheritTypeFromDOMNode,
+    $getAuxiliaryLineContainerNode
 } from './WhiteboardUtils'
 
 export {
@@ -162,6 +163,37 @@ export {
 export {
     onWheel
 } from './composables/ZoomContainer'
+
+
+export {
+    AuxiliaryLineNode,
+    $createAuxiliaryLineNode,
+    $isAuxiliaryLineNode
+} from './nodes/AuxiliaryLineNode'
+
+export type {
+    SerializedAuxiliaryLineNode
+} from './nodes/AuxiliaryLineNode'
+
+export {
+    AuxiliaryLineContainerNode,
+    $createAuxiliaryLineContainerNode,
+    $isAuxiliaryLineContainerNode
+} from './nodes/AuxiliaryLineContainerNode'
+
+export type {
+    SerializedAuxiliaryLineContainerNode
+} from './nodes/AuxiliaryLineContainerNode'
+
+export {
+    BoundaryAuxiliaryLineNode,
+    $createBoundaryAuxiliaryLineNode,
+    $isBoundaryAuxiliaryLineNode
+} from './nodes/BoundaryAuxiliaryLineNode'
+
+export type {
+    SerializedBoundaryAuxiliaryLineNode
+} from './nodes/BoundaryAuxiliaryLineNode'
 
 
 

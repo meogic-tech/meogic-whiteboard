@@ -6,10 +6,10 @@ import {
   $getNodeByKey,
   COMMAND_PRIORITY_WHITEBOARD,
   COMPONENT_NODE_MOVING_COMMAND,
-  WhiteboardNode
+  WhiteboardNode,
+  $createBoundaryAuxiliaryLineNode, AuxiliaryLineNode,
+  $getAuxiliaryLineContainerNode
 } from "@meogic/whiteboard";
-import { $createBoundaryAuxiliaryLineNode, AuxiliaryLineNode } from "@meogic/whiteboard/src/nodes";
-import { $getAuxiliaryLineContainerNode } from "@meogic/whiteboard/src/WhiteboardUtils";
 
 const whiteboard = useWhiteboard()
 let unregister: () => void
