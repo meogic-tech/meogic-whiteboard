@@ -1,5 +1,6 @@
 import { $getPointInWhiteboardFromEventPoint, $getViewportNode, Whiteboard } from "../";
-
+// @ts-ignore
+import anime from 'animejs'
 /**
  * 这个方法放在这是因为shared/environment只能在rollup打包的包里引用
  * 当viewport是matrix的时候适用
@@ -27,10 +28,9 @@ export const onWheel = (event: WheelEvent, whiteboard: Whiteboard) => {
     }
     const oldZoom = viewportNode.getLatest()._zoom
     // @ts-ignore
-    let newZoom = oldZoom + (event.wheelDeltaY > 0 ? 1 : -1);
+    let newZoom = oldZoom + (event.wheelDeltaY > 0 ? 0.1 : -0.1);
     newZoom = Math.max(0.1, newZoom)
     newZoom = Math.round(newZoom * 100) / 100
-    viewportNode.getWritable()._zoom = newZoom
     const root = whiteboard.getRootElement()
     if (!root) {
       return
@@ -69,76 +69,27 @@ export const onWheel = (event: WheelEvent, whiteboard: Whiteboard) => {
     let offsetY = oldOffsetY * newZoom / oldZoom + realDistanceY
     offsetY = Math.round(offsetY * 100) / 100
     // console.table({realX1, realX2, 'rect.width': rect.width, realDistanceX, offsetX});
-    viewportNode.getWritable()._offsetX = offsetX
-    viewportNode.getWritable()._offsetY = offsetY
+    const myObject = {
+      zoom: oldZoom * 100,
+      offsetX: oldOffsetX,
+      offsetY: oldOffsetY
+    }
+    anime({
+      targets: myObject,
+      zoom: newZoom * 100,
+      offsetX,
+      offsetY,
+      easing: 'linear',
+      round: 1,
+      duration: 50,
+      update: function() {
+        whiteboard.update(() => {
+          viewportNode.setZoom(myObject.zoom / 100)
+          viewportNode.setOffsetX(myObject.offsetX)
+          viewportNode.setOffsetY(myObject.offsetY)
+        })
+      }
+    })
+
   })
 }
-
-/*
-export const onWheel = (event: WheelEvent, whiteboard: Whiteboard) => {
-  event.preventDefault()
-  event.stopPropagation()
-  if(!event.metaKey && !event.ctrlKey){
-    return
-  }
-  // 删除根据平台限制ctrlKey和metaKey，因为苹果下用zoom手势会带上ctrlKey
-  whiteboard.update(() => {
-    const viewportNode = $getViewportNode()
-    if(!viewportNode){
-      console.warn('not found viewport node');
-      return;
-    }
-    const oldZoom = viewportNode.getLatest()._zoom
-    // @ts-ignore
-    let newZoom = oldZoom + (event.wheelDeltaY > 0 ? 1 : -1);
-    newZoom = Math.max(0.1, newZoom)
-    newZoom = Math.round(newZoom * 100) / 100
-    const zoomRatio = newZoom - oldZoom
-    // point.x:350, point.y: 500
-    const point = $getPointInWhiteboardFromEventPoint(event.x, event.y)
-    if(!point){
-      return;
-    }
-    // oldX:0, oldY: 0
-    const oldX = viewportNode.getOffsetX()
-    const oldY = viewportNode.getOffsetY()
-    /!**
-     * clientWidth: 1800px
-     * clientHeight: 1200px
-     *!/
-    const dom = whiteboard.getElementByKey(viewportNode.getKey())
-    if(!dom){
-      return;
-    }
-    /!**
-     * centerX: 900px
-     * centerY: 600px
-     *!/
-    const centerX = oldX + dom.clientWidth / 2 / oldZoom
-    const centerY = oldY + dom.clientHeight / 2 / oldZoom
-
-    /!**
-     * distanceToCenterX: -100px
-     * distanceToCenterY: -300px
-     *!/
-    const distanceToCenterX = point.x - centerX / newZoom
-    const distanceToCenterY = point.y - centerY / newZoom
-    // console.table({
-    //   clientWidth: dom?.clientWidth,
-    //   scrollWidth: dom?.scrollWidth,
-    //   offsetWidth: dom?.offsetWidth
-    // })
-
-    // offsetX:450, offsetY: 300
-    let offsetX = point.x / newZoom - distanceToCenterX
-    offsetX = Math.round(offsetX * 100) / 100
-    let offsetY = point.y / newZoom - distanceToCenterY
-    offsetY = Math.round(offsetY * 100) / 100
-    console.table({pointX: point.x, pointY: point.y, distanceToCenterX, distanceToCenterY, offsetX, offsetY});
-
-    // viewportNode.getWritable()._offsetX = offsetX
-    // viewportNode.getWritable()._offsetY = offsetY
-    viewportNode.getWritable()._zoom = newZoom
-  })
-}
-*/

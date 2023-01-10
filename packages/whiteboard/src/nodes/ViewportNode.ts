@@ -48,6 +48,21 @@ export class ViewportNode extends ElementNode {
     return self._zoom
   }
 
+  setOffsetX(offsetX: number) {
+    const self = this.getWritable()
+    self._offsetX = offsetX
+  }
+
+  setOffsetY(offsetY: number) {
+    const self = this.getWritable()
+    self._offsetY = offsetY
+  }
+
+  setZoom(zoom: number) {
+    const self = this.getWritable()
+    self._zoom = zoom
+  }
+
 
 //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
