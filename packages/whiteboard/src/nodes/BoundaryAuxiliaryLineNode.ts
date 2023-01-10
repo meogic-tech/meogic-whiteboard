@@ -63,7 +63,6 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
       return
     }
     if(this._sourceBoundary === 'left' || this._sourceBoundary === 'right'){
-      console.log("sourceNode", sourceNode);
       // 当一个是左或者右的时候，那就说明当前边界辅助线是垂直辅助线，所以x很好确定
       this.getWritable()._sourceX = this._sourceBoundary === 'left' ? sourceNode._x : sourceNode._x + sourceNode.getLatest()._width
       this.getWritable()._targetX = this.getWritable()._sourceX

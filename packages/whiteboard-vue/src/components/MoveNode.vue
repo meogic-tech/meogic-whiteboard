@@ -25,14 +25,11 @@ let isMoved = false
 onMounted(() => {
   unregister = mergeRegister(
     whiteboard.registerCommand(MOUSE_DOWN_COMMAND, (mouseEvent: MouseEvent) => {
-      console.log("mouseEvent.target", mouseEvent.target);
       isMoved = false
       const node111 = $getNearestNodeInheritTypeFromDOMNode(mouseEvent.target as HTMLElement, DecoratorNode)
-      console.log("node111", node111);
       let node: ShapeNode|TextNode | undefined = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, ShapeNode) as ShapeNode
       if(!node){
         node = $getNearestNodeTypeFromDOMNode(mouseEvent.target as HTMLElement, TextNode) as TextNode
-        console.log("node", node);
         if(!node){
           for (let whiteboardNode of selectedNodes) {
             if($isTextNode(whiteboardNode)){

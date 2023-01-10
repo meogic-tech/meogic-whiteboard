@@ -32,7 +32,6 @@ onMounted(() => {
       .filter(n => n.getLatest()._x !== undefined)
       .filter(n => n.getKey() !== node.getKey())
     const sameXNodes = nodes.filter(n => Math.abs(n.getLatest()._x - x) < gap)
-    console.log("sameXNodes", sameXNodes);
     if(sameXNodes.length > 0){
       let minYGap = Number.MAX_VALUE
       let minYGapNodes: WhiteboardNode[] = []
@@ -55,7 +54,6 @@ onMounted(() => {
         )
         auxiliaryLineContainerNode.append(newAuxiliaryLine)
       }
-      console.log("minYGapNodes", minYGapNodes);
       if(minYGapNodes.length === 0){
         for (let child of auxiliaryLineContainerNode.getChildren()) {
           child.remove()

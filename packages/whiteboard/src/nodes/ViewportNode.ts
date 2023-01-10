@@ -85,7 +85,6 @@ export class ViewportNode extends ElementNode {
   }
 
   updateDOMProperties(prevNode: ViewportNode, dom: HTMLElement, config: WhiteboardConfig) {
-    console.log("updateDOMProperties");
     const self = this.getLatest()
     // dom.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
     dom.style.transform = `matrix(${self._zoom}, 0, 0, ${self._zoom}, ${self._offsetX}, ${self._offsetY})`
