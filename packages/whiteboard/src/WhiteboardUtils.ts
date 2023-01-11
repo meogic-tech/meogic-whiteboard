@@ -172,6 +172,32 @@ export const getCenter = (x: number, y: number, width: number, height: number) =
         y: y + height / 2,
     }
 }
+
+export function $getEventPointFromWhiteboardPoint(x: number, y: number): {
+    x: number, y: number
+} | undefined {
+    const whiteboard = getActiveWhiteboard()
+    const root = whiteboard.getRootElement()
+    if (!root) {
+        return
+    }
+    const viewportNode = $getViewportNode()
+    if (!viewportNode) {
+        return
+    }
+    /**
+     * width: 1800px
+     */
+    const rect = root.getBoundingClientRect()
+    const offsetX = viewportNode.getOffsetX()
+    const offsetY = viewportNode.getOffsetY()
+
+    return {
+        x: (x + offsetX / viewportNode.getZoom() - rect.width / 2) * viewportNode.getZoom() + (rect.width / 2),
+        y: (y + offsetY / viewportNode.getZoom() - rect.height / 2) * viewportNode.getZoom() + (rect.height / 2),
+    }
+}
+
 /**
  * 以前的算法
  * @param x

@@ -76,7 +76,8 @@ export {
     $getNearestNodeFromDOMNode,
     $getNearestNodeTypeFromDOMNode,
     $getNearestNodeInheritTypeFromDOMNode,
-    $getAuxiliaryLineContainerNode
+    $getAuxiliaryLineContainerNode,
+    $getEventPointFromWhiteboardPoint
 } from './WhiteboardUtils'
 
 export {
@@ -192,7 +193,8 @@ export {
 } from './nodes/BoundaryAuxiliaryLineNode'
 
 export type {
-    SerializedBoundaryAuxiliaryLineNode
+    SerializedBoundaryAuxiliaryLineNode,
+    BoundaryType
 } from './nodes/BoundaryAuxiliaryLineNode'
 
 

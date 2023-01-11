@@ -46,6 +46,26 @@ export class AuxiliaryLineNode extends ElementNode {
     this._targetY = 0
   }
 
+  getSourceKey(): NodeKey | undefined{
+    const self = this.getLatest()
+    return self._sourceKey
+  }
+
+  getTargetKey(): NodeKey | undefined{
+    const self = this.getLatest()
+    return self._targetKey
+  }
+
+  setSourceKey(sourceKey: NodeKey | undefined){
+    const self = this.getWritable()
+    self._sourceKey = sourceKey
+  }
+
+  setTargetKey(targetKey: NodeKey | undefined){
+    const self = this.getWritable()
+    self._targetKey = targetKey
+  }
+
 
   //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {

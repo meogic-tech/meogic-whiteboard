@@ -7,7 +7,7 @@ import {
   MOUSE_DOWN_COMMAND,
   MOUSE_MOVE_COMMAND,
   MOUSE_UP_COMMAND,
-  ShapeNode, WhiteboardNode
+  ShapeNode, WhiteboardNode, $getEventPointFromWhiteboardPoint
 } from "@meogic/whiteboard";
 import { mergeRegister } from "@meogic/whiteboard-utils";
 import { $isTextNode, TextNode } from "../nodes";
@@ -86,6 +86,7 @@ onMounted(() => {
       whiteboard.update(() => {
         movingNode?.setX(startOffsetX + deltaX / viewportNode._zoom)
         movingNode?.setY(startOffsetY + deltaY / viewportNode._zoom)
+        console.log("getEventPointFromWhiteboardPoint", $getEventPointFromWhiteboardPoint(startOffsetX + deltaX / viewportNode._zoom, startOffsetY + deltaY / viewportNode._zoom));
         whiteboard.dispatchCommand(COMPONENT_NODE_MOVING_COMMAND, {
           nodeKey: movingNode!.__key
         })

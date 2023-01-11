@@ -11,11 +11,13 @@ import { AuxiliaryLineNode, SerializedAuxiliaryLineNode } from "./AuxiliaryLineN
 
 export type SerializedBoundaryAuxiliaryLineNode = Spread<
   {
-    sourceBoundary: 'top' | 'bottom' | 'left' | 'right',
-    targetBoundary: 'top' | 'bottom' | 'left' | 'right'
+    sourceBoundary: BoundaryType
+    targetBoundary: BoundaryType
   },
   SerializedAuxiliaryLineNode
   >;
+
+export type BoundaryType = 'top' | 'bottom' | 'left' | 'right'
 
 
 
@@ -29,8 +31,8 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
     return boundaryAuxiliaryLineNode
   }
 
-  _sourceBoundary: 'top' | 'bottom' | 'left' | 'right'
-  _targetBoundary: 'top' | 'bottom' | 'left' | 'right'
+  _sourceBoundary: BoundaryType
+  _targetBoundary: BoundaryType
   _sourceX: number
   _sourceY: number
   _targetX: number
@@ -38,8 +40,8 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
 
 
   constructor(sourceKey: NodeKey | undefined, targetKey: NodeKey | undefined,
-              sourceBoundary: 'top' | 'bottom' | 'left' | 'right',
-              targetBoundary: 'top' | 'bottom' | 'left' | 'right',
+              sourceBoundary: BoundaryType,
+              targetBoundary: BoundaryType,
               key?: NodeKey) {
     super(sourceKey, targetKey, key);
     this._sourceBoundary = sourceBoundary
@@ -48,6 +50,26 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
     this._sourceY = 0
     this._targetX = 0
     this._targetY = 0
+  }
+
+  getSourceBoundary(): BoundaryType{
+    const self = this.getLatest()
+    return self._sourceBoundary
+  }
+
+  getTargetBoundary(): BoundaryType{
+    const self = this.getLatest()
+    return self._targetBoundary
+  }
+
+  setSourceBoundary(sourceBoundary: BoundaryType){
+    const self = this.getWritable()
+    self._sourceBoundary = sourceBoundary
+  }
+
+  setTargetBoundary(targetBoundary: BoundaryType){
+    const self = this.getWritable()
+    self._targetBoundary = targetBoundary
   }
 
   $setNewPosition() {
@@ -89,12 +111,15 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
   }
 
 
-  updateDOM(prevNode: BoundaryAuxiliaryLineNode, dom: HTMLElement, config: WhiteboardConfig): boolean {
-    return super.updateDOM(prevNode, dom, config);
-  }
-
   updateDOMProperties(prevNode: BoundaryAuxiliaryLineNode, dom: HTMLElement, config: WhiteboardConfig) {
-
+    const self = this.getLatest()
+    if(this._sourceX !== self._sourceX
+      || this._sourceY !== self._sourceY
+      || this._targetX !== self._targetX
+      || this._targetY !== self._targetY
+    ){
+      dom.setAttribute('d', `M ${self._sourceX} ${self._sourceY} L ${self._sourceX} ${self._sourceY} L ${self._targetX} ${self._targetY}`)
+    }
   }
   //endregion
 
@@ -121,8 +146,8 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
 }
 
 export function $createBoundaryAuxiliaryLineNode(sourceKey: NodeKey | undefined, targetKey: NodeKey | undefined,
-                                                 sourceBoundary: 'top' | 'bottom' | 'left' | 'right',
-                                                 targetBoundary: 'top' | 'bottom' | 'left' | 'right',) {
+                                                 sourceBoundary: BoundaryType,
+                                                 targetBoundary: BoundaryType,) {
   return new BoundaryAuxiliaryLineNode(sourceKey, targetKey, sourceBoundary, targetBoundary)
 }
 
