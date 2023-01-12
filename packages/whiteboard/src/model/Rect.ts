@@ -73,6 +73,8 @@ export class Rect {
   extend(sizeOrX: number, y?: number){
     this.x -= sizeOrX
     this.y -= y !== undefined ? y : sizeOrX
+    this.width += sizeOrX * 2
+    this.height += (y !== undefined ? y : sizeOrX) * 2
   }
 
   extendWithRect(rect: Rect): Rect {

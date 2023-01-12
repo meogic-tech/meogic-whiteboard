@@ -20,4 +20,9 @@ describe('rect', () => {
     const r = rect2.extendWithRect(rect1);
     expect(r).toEqual(new Rect(0, 0, 150, 150))
   })
+  it('extend', () => {
+    const rect1 = new Rect(0, 0, 50, 50)
+    rect1.extend(10);
+    expect(rect1).toEqual(new Rect(-10, -10, 70, 70))
+  })
 })
