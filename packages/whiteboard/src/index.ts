@@ -197,6 +197,11 @@ export type {
     BoundaryType
 } from './nodes/BoundaryAuxiliaryLineNode'
 
+export {
+    Point,
+    Rect
+} from './model'
+
 
 
 

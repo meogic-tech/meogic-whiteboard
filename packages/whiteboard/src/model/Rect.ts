@@ -47,15 +47,21 @@ export class Rect {
   }
 
   containerPoint(point: Point): boolean;
-  containerPoint(x: number, y: number): boolean
-  {
-    const point = new Point(x, y)
-    return point.x >= this.getLeft() && point.x <= this.getRight()
-      && point.y >= this.getTop() && point.y <= this.getBottom()
+  containerPoint(point?: Point, x?: number, y?: number): boolean {
+    let p: Point
+    if (point) {
+      p = point
+    } else {
+      p = new Point(x!, y!)
+    }
+    return p.x >= this.getLeft() && p.x <= this.getRight()
+      && p.y >= this.getTop() && p.y <= this.getBottom()
   }
 
   interactRect(rect: Rect): boolean{
-
-    return this.containerPoint()
+    return this.containerPoint(rect.getLeftTop()) || this.containerPoint(rect.getLeftBottom())
+    || this.containerPoint(rect.getRightTop()) || this.containerPoint(rect.getRightBottom())
+    || rect.containerPoint(this.getLeftTop()) || rect.containerPoint(this.getLeftBottom())
+    || rect.containerPoint(this.getRightTop()) || rect.containerPoint(this.getRightBottom())
   }
 }
