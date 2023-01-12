@@ -64,4 +64,24 @@ export class Rect {
     || rect.containerPoint(this.getLeftTop()) || rect.containerPoint(this.getLeftBottom())
     || rect.containerPoint(this.getRightTop()) || rect.containerPoint(this.getRightBottom())
   }
+
+  /**
+   * 传一个就是横竖两个方向的每边都扩展对应的数值
+   * @param size
+   */
+  extend(size: number): void;
+  extend(sizeOrX: number, y?: number){
+    this.x -= sizeOrX
+    this.y -= y !== undefined ? y : sizeOrX
+  }
+
+  extendWithRect(rect: Rect): Rect {
+    const r = new Rect(this.x, this.y, this.width, this.height)
+    r.x = Math.min(this.getLeft(), rect.getLeft())
+    r.y = Math.min(this.getTop(), rect.getTop())
+    r.width = Math.max(this.getRight(), rect.getRight()) - r.x
+    r.height = Math.max(this.getBottom(), rect.getBottom()) - r.y
+    return r
+  }
+
 }
