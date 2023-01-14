@@ -75,10 +75,29 @@ export class Rect {
   }
 
   interactRect(rect: Rect): boolean{
+    // 四个角有被包含的场景
     return this.containerPoint(rect.getLeftTop()) || this.containerPoint(rect.getLeftBottom())
     || this.containerPoint(rect.getRightTop()) || this.containerPoint(rect.getRightBottom())
     || rect.containerPoint(this.getLeftTop()) || rect.containerPoint(this.getLeftBottom())
     || rect.containerPoint(this.getRightTop()) || rect.containerPoint(this.getRightBottom())
+
+    // 四个角在范围内的场景
+    // 自己是横向，rect是竖向
+      /**
+       *    -----
+       * ---|---|--------
+       * |  |   |       |
+       * ---|---|--------
+       *    |   |
+       *    -----
+       */
+    || (rect.getLeft() >= this.getLeft() && rect.getRight() <= this.getRight()
+        && this.getTop() >= rect.getTop() && this.getBottom() <= rect.getBottom()
+      )
+    // 自己是竖向，rect是横向
+    || (this.getLeft() >= rect.getLeft() && this.getRight() <= rect.getRight()
+        && rect.getTop() >= this.getTop() && rect.getBottom() <= this.getBottom()
+      )
   }
 
   /**

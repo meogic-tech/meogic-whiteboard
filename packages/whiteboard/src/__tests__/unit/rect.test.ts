@@ -25,4 +25,10 @@ describe('rect', () => {
     rect1.extend(10);
     expect(rect1).toEqual(new Rect(-10, -10, 70, 70))
   })
+  it('interactRect', () => {
+    const rect1 = new Rect(0, 20, 50, 20)
+    const rect2 = new Rect(10, 10, 20, 50)
+    expect(rect1.interactRect(rect2)).toEqual(true)
+    expect(rect2.interactRect(rect1)).toEqual(true)
+  })
 })
