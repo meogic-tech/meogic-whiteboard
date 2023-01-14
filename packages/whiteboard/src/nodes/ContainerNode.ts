@@ -1,6 +1,7 @@
 import { ElementNode, SerializedElementNode } from "./ElementNode";
 import { Spread, Whiteboard, WhiteboardConfig } from "../Whiteboard";
 import { WhiteboardNode } from "../WhiteboardNode";
+import { getCachedClassNameArray } from "../WhiteboardUtils";
 
 
 export type SerializedContainerNode = Spread<
@@ -28,10 +29,10 @@ export class ContainerNode extends ElementNode{
     div.style.height = '100%'
     div.style.overflow = 'hidden'
     div.style.position = 'relative'
-    // div.style.left = '0'
-    // div.style.top = '0'
-    // div.style.right = '0'
-    // div.style.bottom = '0'
+    const classes = getCachedClassNameArray(config.theme, 'container')
+    if (classes) {
+      div.classList.add(...classes)
+    }
     // @ts-ignore
     return div
   }

@@ -1,4 +1,4 @@
-import { NodeKey, WhiteboardNode } from "../";
+import { getCachedClassNameArray, NodeKey, WhiteboardNode } from "../";
 
 import { Spread, Whiteboard, WhiteboardConfig } from '../Whiteboard';
 import { ElementNode, SerializedElementNode } from './ElementNode';
@@ -67,7 +67,6 @@ export class ViewportNode extends ElementNode {
 //region DOM
   createDOM(config: WhiteboardConfig, whiteboard: Whiteboard): HTMLElement {
     const self = this.getLatest()
-    const svgNS = 'http://www.w3.org/2000/svg';
     const div = document.createElement('div')
     const transform = `matrix(${self._zoom}, 0, 0, ${self._zoom}, ${self._offsetX}, ${self._offsetY})`
     div.style.width = '100%'
@@ -76,6 +75,10 @@ export class ViewportNode extends ElementNode {
     // div.setAttribute('transform', `matrix(${this._zoom}, 0, 0, ${this._zoom}, ${this._offsetX}, ${this._offsetY})`)
     div.style.position = 'relative'
     div.style.transition = 'transform .1s linear'
+    const classes = getCachedClassNameArray(config.theme, 'viewport')
+    if (classes) {
+      div.classList.add(...classes)
+    }
     // @ts-ignore
     return div
   }

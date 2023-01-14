@@ -1,6 +1,7 @@
 import { ElementNode, SerializedElementNode } from "./ElementNode";
 import { Spread, Whiteboard, WhiteboardConfig } from "../Whiteboard";
 import { WhiteboardNode } from "../WhiteboardNode";
+import { getCachedClassNameArray } from "../WhiteboardUtils";
 
 
 export type SerializedLinkContainerNode = Spread<
@@ -30,6 +31,10 @@ export class LinkContainerNode extends ElementNode{
     svg.style.left = '0'
     svg.style.right = '0'
     svg.style.overflow = 'visible';
+    const classes = getCachedClassNameArray(config.theme, 'link-container')
+    if (classes) {
+      svg.classList.add(...classes)
+    }
     // @ts-ignore
     return svg
   }

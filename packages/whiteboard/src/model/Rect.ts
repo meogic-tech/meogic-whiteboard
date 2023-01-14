@@ -46,6 +46,22 @@ export class Rect {
     return new Point(this.getRight(), this.getBottom())
   }
 
+  getLeftMiddle(): Point {
+    return new Point(this.getLeft(), this.getTop() + this.height / 2)
+  }
+
+  getRightMiddle(): Point {
+    return new Point(this.getRight(), this.getTop() + this.height / 2)
+  }
+
+  getTopMiddle(): Point {
+    return new Point(this.getLeft() + this.width / 2, this.getTop())
+  }
+
+  getBottomMiddle(): Point {
+    return new Point(this.getLeft() + this.width / 2, this.getBottom())
+  }
+
   containerPoint(point: Point): boolean;
   containerPoint(point?: Point, x?: number, y?: number): boolean {
     let p: Point
