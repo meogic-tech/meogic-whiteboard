@@ -229,6 +229,14 @@ export function commitPendingUpdates(whiteboard: Whiteboard): void {
             tags,
             dirtyLeaves,
         );
+        triggerInheritableMutationListeners(
+          whiteboard,
+          currentWhiteboardState,
+          pendingWhiteboardState,
+          mutatedNodes,
+          tags,
+          dirtyLeaves,
+        );
     }
     const pendingDecorators = whiteboard._pendingDecorators;
     if(pendingDecorators !== null) {
@@ -514,6 +522,34 @@ function triggerMutationListeners(
                 updateTags,
             });
         }
+    }
+}
+
+function triggerInheritableMutationListeners(
+  editor: Whiteboard,
+  currentEditorState: WhiteboardState,
+  pendingEditorState: WhiteboardState,
+  mutatedNodes: MutatedNodes,
+  updateTags: Set<string>,
+  dirtyLeaves: Set<string>,
+): void {
+    const listeners = Array.from(editor._listeners.inheritableMutation);
+    const listenersLength = listeners.length;
+
+    for (let i = 0; i < listenersLength; i++) {
+        const [listener, klass] = listeners[i];
+        for (const k of Array.from(mutatedNodes.keys())) {
+            if (k.prototype instanceof klass || k === klass) {
+                const mutatedNodesByType = mutatedNodes.get(k);
+                if (mutatedNodesByType !== undefined) {
+                    listener(mutatedNodesByType, {
+                        dirtyLeaves,
+                        updateTags,
+                    });
+                }
+            }
+        }
+
     }
 }
 

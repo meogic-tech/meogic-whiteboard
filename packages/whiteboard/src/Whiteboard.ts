@@ -85,6 +85,7 @@ type Listeners = {
     decorator: Set<DecoratorListener>;
     update: Set<UpdateListener>;
     mutation: MutationListeners;
+    inheritableMutation: MutationListeners;
 };
 
 export type Listener =
@@ -304,7 +305,8 @@ export class Whiteboard {
         this._listeners = {
             decorator: new Set(),
             update: new Set(),
-            mutation: new Map()
+            mutation: new Map(),
+            inheritableMutation: new Map()
         };
         // Commands
         this._commands = new Map();
@@ -343,20 +345,41 @@ export class Whiteboard {
     }
 
     registerMutationListener(
-        klass: Klass<WhiteboardNode>,
-        listener: MutationListener,
+      klass: Klass<WhiteboardNode>,
+      listener: MutationListener,
     ): () => void {
         const registeredNode = this._nodes.get(klass.getType());
 
         if (registeredNode === undefined) {
             invariant(
-                false,
-                'Node %s has not been registered. Ensure node has been passed to createEditor.',
-                klass.name,
+              false,
+              'Node %s has not been registered. Ensure node has been passed to createEditor.',
+              klass.name,
             );
         }
 
         const mutations = this._listeners.mutation;
+        mutations.set(listener, klass);
+        return () => {
+            mutations.delete(listener);
+        };
+    }
+
+    registerInheritableMutationListener(
+      klass: Klass<WhiteboardNode>,
+      listener: MutationListener,
+    ): () => void {
+        const registeredNode = this._nodes.get(klass.getType());
+
+        if (registeredNode === undefined) {
+            invariant(
+              false,
+              'Node %s has not been registered. Ensure node has been passed to createEditor.',
+              klass.name,
+            );
+        }
+
+        const mutations = this._listeners.inheritableMutation;
         mutations.set(listener, klass);
         return () => {
             mutations.delete(listener);

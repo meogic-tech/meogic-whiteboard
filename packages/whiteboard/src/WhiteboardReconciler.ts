@@ -21,6 +21,7 @@ let activeWhiteboardNodes: RegisteredNodes;
 let treatAllNodesAsDirty = false;
 let activeWhiteboardStateReadOnly = false;
 let activeMutationListeners: MutationListeners;
+let activeInheritableMutationListeners: MutationListeners;
 let activeTextDirection: 'ltr' | 'rtl' | null = null;
 let activeDirtyElements: Map<NodeKey, IntentionallyMarkedAsDirtyElement>;
 let activeDirtyLeaves: Set<NodeKey>;
@@ -147,6 +148,7 @@ function createNode(
         mutatedNodes,
         activeWhiteboardNodes,
         activeMutationListeners,
+        activeInheritableMutationListeners,
         node,
         'created',
     );
@@ -173,6 +175,7 @@ export function reconcileRoot(
     activeWhiteboardConfig = whiteboard._config;
     activeWhiteboardNodes = whiteboard._nodes;
     activeMutationListeners = activeWhiteboard._listeners.mutation;
+    activeInheritableMutationListeners = activeWhiteboard._listeners.inheritableMutation;
     activeDirtyElements = dirtyElements;
     activeDirtyLeaves = dirtyLeaves;
     activePrevNodeMap = prevWhiteboardState._nodeMap;
@@ -242,6 +245,7 @@ function destroyNode(key: NodeKey, parentDOM: null | HTMLElement): void {
             mutatedNodes,
             activeWhiteboardNodes,
             activeMutationListeners,
+            activeInheritableMutationListeners,
             node,
             'destroyed',
         );
@@ -431,6 +435,7 @@ function reconcileNode(
             mutatedNodes,
             activeWhiteboardNodes,
             activeMutationListeners,
+            activeInheritableMutationListeners,
             nextNode,
             'updated',
         );
@@ -515,10 +520,11 @@ export function setMutatedNode(
     mutatedNodes: MutatedNodes,
     registeredNodes: RegisteredNodes,
     mutationListeners: MutationListeners,
+    inheritableMutationListeners: MutationListeners,
     node: WhiteboardNode,
     mutation: NodeMutation,
 ) {
-    if (mutationListeners.size === 0) {
+    if (mutationListeners.size === 0 && inheritableMutationListeners.size === 0) {
         return;
     }
     const nodeType = node.__type;

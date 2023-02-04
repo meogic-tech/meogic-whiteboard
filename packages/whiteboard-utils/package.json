@@ -1,10 +1,10 @@
 {
   "name": "@meogic/whiteboard-utils",
   "peerDependencies": {
-    "@meogic/whiteboard": "1.0.28"
+    "@meogic/whiteboard": "1.0.29"
   },
   "license": "MIT",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "main": "WhiteboardUtils.js",
   "repository": {
     "type": "git",
