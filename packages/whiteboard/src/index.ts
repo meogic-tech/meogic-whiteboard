@@ -80,6 +80,7 @@ export {
     getCenter,
     getCachedClassNameArray,
     $getPointInWhiteboardFromEventPoint,
+    $getEventPointFromPointInWhiteboard,
     $getNearestNodeFromDOMNode,
     $getNearestNodeTypeFromDOMNode,
     $getNearestNodeInheritTypeFromDOMNode,

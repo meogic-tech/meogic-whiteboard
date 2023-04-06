@@ -269,6 +269,47 @@ export function $getPointInWhiteboardFromEventPoint(x: number, y: number): {
     }
 }
 
+export function $getEventPointFromPointInWhiteboard(x: number, y: number): {
+    x: number, y: number
+} | undefined {
+    const whiteboard = getActiveWhiteboard()
+    const root = whiteboard.getRootElement()
+    if (!root) {
+        return
+    }
+    const viewportNode = $getViewportNode()
+    if (!viewportNode) {
+        return
+    }
+    /**
+     * width: 1800px
+     */
+    const rect = root.getBoundingClientRect()
+    // 距离中心点的距离
+    /**
+     * deltaX: 0
+     */
+    const deltaX = x - (rect.x + rect.width / 2)
+    const deltaY = y - (rect.y + rect.height / 2)
+
+    const offsetX = viewportNode.getOffsetX()
+    const offsetY = viewportNode.getOffsetY()
+
+    // 900 - 0 - 0
+    const pointX = rect.width / 2 - offsetX * viewportNode.getZoom() + deltaX * viewportNode.getZoom()
+    // 900 - 0 - 0
+    const pointY = rect.height / 2 - offsetY * viewportNode.getZoom() + deltaY * viewportNode.getZoom()
+    /*console.table({deltaY,
+        'x': pointX,
+        'y': pointY,
+    });*/
+    return {
+        // 减去offset代表的是图上的距离
+        x: pointX,
+        y: pointY
+    }
+}
+
 export function getNodeFromDOMNode(
     dom: Node,
     whiteboardState?: WhiteboardState,
