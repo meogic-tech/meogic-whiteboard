@@ -36,6 +36,9 @@ export {
 
 export {
     createCommand,
+    CUT_COMMAND,
+    COPY_COMMAND,
+    PASTE_COMMAND,
     CLICK_COMMAND,
     MOUSE_DOWN_COMMAND,
     MOUSE_MOVE_COMMAND,
@@ -57,6 +60,10 @@ export {
     CONTAINER_MOVE_COMMAND,
     CONTAINER_ZOOM_COMMAND,
     COMPONENT_NODE_MOVING_COMMAND,
+} from './WhiteboardCommands'
+
+export type {
+    PasteCommandType,
 } from './WhiteboardCommands'
 
 

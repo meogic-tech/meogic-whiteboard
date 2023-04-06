@@ -2,10 +2,14 @@ import {WhiteboardCommand} from "./Whiteboard";
 import {NodeKey} from "./WhiteboardNode";
 
 
+export type PasteCommandType = ClipboardEvent | InputEvent | KeyboardEvent;
 export function createCommand<T>(): WhiteboardCommand<T> {
     return {};
 }
 
+export const CUT_COMMAND: WhiteboardCommand<ClipboardEvent | KeyboardEvent> = createCommand()
+export const COPY_COMMAND: WhiteboardCommand<ClipboardEvent | KeyboardEvent> = createCommand()
+export const PASTE_COMMAND: WhiteboardCommand<PasteCommandType> = createCommand()
 export const CLICK_COMMAND: WhiteboardCommand<MouseEvent> = createCommand()
 
 export const MOUSE_DOWN_COMMAND: WhiteboardCommand<MouseEvent> = createCommand();

@@ -10,7 +10,7 @@ import {
 } from "./WhiteboardUtils";
 import {
     BLUR_COMMAND,
-    CLICK_COMMAND, DELETE_CHARACTER_COMMAND,
+    CLICK_COMMAND, COPY_COMMAND, CUT_COMMAND, DELETE_CHARACTER_COMMAND,
     DRAGEND_COMMAND,
     DRAGOVER_COMMAND,
     DRAGSTART_COMMAND,
@@ -19,7 +19,7 @@ import {
     KEY_DELETE_COMMAND,
     MOUSE_DOWN_COMMAND,
     MOUSE_MOVE_COMMAND,
-    MOUSE_UP_COMMAND,
+    MOUSE_UP_COMMAND, PASTE_COMMAND,
     REDO_COMMAND,
     UNDO_COMMAND
 } from "./WhiteboardCommands";
@@ -44,6 +44,9 @@ const PASS_THROUGH_COMMAND = Object.freeze({});
 
 const rootElementEvents: RootElementEvents = [
     ['keydown', onKeyDown],
+    ['cut', PASS_THROUGH_COMMAND],
+    ['copy', PASS_THROUGH_COMMAND],
+    ['paste', PASS_THROUGH_COMMAND],
     ['click', PASS_THROUGH_COMMAND],
     ['mousedown', PASS_THROUGH_COMMAND],
     ['mousemove', PASS_THROUGH_COMMAND],
@@ -134,6 +137,26 @@ export function addRootElementEvents(
                 }
                 : (event: Event) => {
                     switch (eventName) {
+                        case 'cut':
+                            return dispatchCommand(
+                              whiteboard,
+                              CUT_COMMAND,
+                              event as ClipboardEvent,
+                            );
+
+                        case 'copy':
+                            return dispatchCommand(
+                              whiteboard,
+                              COPY_COMMAND,
+                              event as ClipboardEvent,
+                            );
+
+                        case 'paste':
+                            return dispatchCommand(
+                              whiteboard,
+                              PASTE_COMMAND,
+                              event as ClipboardEvent,
+                            );
                         case 'click':
                             return dispatchCommand(
                                 whiteboard,
