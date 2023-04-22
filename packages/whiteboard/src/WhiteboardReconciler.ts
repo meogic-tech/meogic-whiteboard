@@ -107,7 +107,6 @@ function createNode(
     if (node === undefined) {
         invariant(false, 'createNode: node does not exist in nodeMap');
     }
-
     const dom = node.createDOM(activeWhiteboardConfig, activeWhiteboard);
     storeDOMWithKey(key, dom, activeWhiteboard);
 
