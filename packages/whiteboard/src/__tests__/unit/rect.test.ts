@@ -1,4 +1,4 @@
-import { Rect } from "@meogic/whiteboard/src/model/Rect";
+import { Rect } from '@meogic/whiteboard/src/model/Rect';
 
 
 describe('rect', () => {
@@ -32,3 +32,67 @@ describe('rect', () => {
     expect(rect2.interactRect(rect1)).toEqual(true)
   })
 })
+
+describe('Rect', () => {
+  describe('distance', () => {
+    it('should return 0 for identical rectangles', () => {
+      const rect = new Rect(0, 0, 10, 10);
+      expect(rect.distance(rect)).toEqual(-0);
+    });
+
+    it('should return correct distance for non-overlapping rectangles', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(20, 0, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(10);
+    });
+
+    it('should return correct distance for rectangles with shared edge', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(10, 0, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(0);
+    });
+
+    it('should return correct distance for rectangles with common corner', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(10, 10, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(0);
+    });
+
+    it('should return correct distance for vertically aligned rectangles', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(0, 20, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(10);
+    });
+
+    it('should return correct distance for horizontally aligned rectangles', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(20, 0, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(10);
+    });
+
+    it('should return correct distance for horizontally aligned rectangles', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(-20, 0, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(10);
+    });
+
+    it('should return correct distance for rectangles with different sizes', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(15, 15, 20, 20);
+      expect(rect1.distance(rect2)).toEqual(5 * Math.sqrt(2));
+    });
+
+    it('should return correct distance for rectangles with negative coordinates', () => {
+      const rect1 = new Rect(-20, -20, 10, 10);
+      const rect2 = new Rect(0, 0, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(10 * Math.sqrt(2));
+    });
+
+    it('should return correct distance for overlapping rectangles', () => {
+      const rect1 = new Rect(0, 0, 10, 10);
+      const rect2 = new Rect(5, 5, 10, 10);
+      expect(rect1.distance(rect2)).toEqual(-7.0710678118654755);
+    });
+  });
+});
+
