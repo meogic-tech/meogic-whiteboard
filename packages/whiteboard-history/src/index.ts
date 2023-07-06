@@ -209,7 +209,14 @@ export function registerHistory(
 
     tags: Set<UpdateTagType>;
   }): void => {
-    if (!tags.has('add-history') && !tags.has('history-merge')) {
+    if (!tags.has('add-history')
+      && !tags.has('history-merge')
+    ) {
+      // 虽然没有加入到history中，但是要更新给historyState
+      historyState.current = {
+        whiteboard,
+        whiteboardState,
+      };
       return;
     }
     const current = historyState.current;

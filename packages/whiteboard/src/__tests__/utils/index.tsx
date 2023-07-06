@@ -1,6 +1,5 @@
 import {WhiteboardState} from "../../WhiteboardState";
-import {createWhiteboard, Spread, Whiteboard, WhiteboardConfig, WhiteboardThemeClasses} from "../../Whiteboard";
-import {SerializedTabNode, TabNode} from "@meogic/whiteboard";
+import {createWhiteboard, Whiteboard, WhiteboardThemeClasses} from "../../Whiteboard";
 
 const DEFAULT_NODES = [
     ]

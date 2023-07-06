@@ -33,10 +33,6 @@ export class BoundaryAuxiliaryLineNode extends AuxiliaryLineNode {
 
   _sourceBoundary: BoundaryType
   _targetBoundary: BoundaryType
-  _sourceX: number
-  _sourceY: number
-  _targetX: number
-  _targetY: number
 
 
   constructor(sourceKey: NodeKey | undefined, targetKey: NodeKey | undefined,

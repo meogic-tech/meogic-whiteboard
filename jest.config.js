@@ -25,11 +25,13 @@ module.exports = {
         },
       },
       moduleNameMapper: {
-        '^./dist/(.+)': './src/$1',
+        "^@/(.*)$": "<rootDir>/src/$1",
         '^@meogic/whiteboard$': '<rootDir>/packages/whiteboard/src/index.ts',
         '^@meogic/whiteboard-history$': '<rootDir>/packages/whiteboard-history/src/index.ts',
         '^@meogic/whiteboard-utils$': '<rootDir>/packages/whiteboard-utils/src/index.ts',
+        '^@meogic/whiteboard-vue$': '<rootDir>/packages/whiteboard-vue/src/index.ts',
         '^shared/invariant$': '<rootDir>/packages/shared/src/invariant.ts',
+        '^shared/environment$': '<rootDir>/packages/shared/src/environment.ts',
       },
       preset: 'ts-jest',
       testEnvironment: 'jsdom',
@@ -38,6 +40,7 @@ module.exports = {
         '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.tsx$': 'ts-jest',
         '^.+\\.svg$': '<rootDir>/scripts/svgTransform.js',
+        '^.+\\.vue$': '@vue/vue3-jest'
       },
     },
     {
