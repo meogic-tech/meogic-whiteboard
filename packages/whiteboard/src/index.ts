@@ -85,7 +85,8 @@ export {
     $getNearestNodeTypeFromDOMNode,
     $getNearestNodeInheritTypeFromDOMNode,
     $getAuxiliaryLineContainerNode,
-    $getEventPointFromWhiteboardPoint
+    $getEventPointFromWhiteboardPoint,
+    internalMarkNodeAsDirty
 } from './WhiteboardUtils'
 
 export {

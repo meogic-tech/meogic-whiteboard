@@ -116,7 +116,8 @@ onMounted(() => {
         }, {
           onUpdate() {
             movingNode = undefined
-          }
+          },
+          tag: 'add-history'
         })
         return true
       }

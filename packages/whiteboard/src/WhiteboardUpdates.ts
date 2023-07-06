@@ -7,13 +7,12 @@ import {
 import invariant from "shared/invariant";
 import {
     Listener,
-    ListenerType, MutatedNodes,
+    MutatedNodes,
     RegisteredNodes,
     resetWhiteboard,
     Whiteboard,
     WhiteboardCommand,
     WhiteboardUpdateOptions,
-    UpdateListener
 } from "./Whiteboard";
 import {internalCreateSelection} from "./WhiteboardSelection";
 import {FULL_RECONCILE, NO_DIRTY_NODES} from "./WhiteboardConstants";
@@ -31,6 +30,7 @@ let activeWhiteboard: null | Whiteboard = null;
 let isAttemptingToRecoverFromReconcilerError = false;
 let infiniteTransformCount = 0;
 
+export type UpdateTagType = 'add-history' | 'history-merge' | string
 
 
 export function errorOnInfiniteTransforms(): void {
@@ -507,7 +507,7 @@ function triggerMutationListeners(
     currentEditorState: WhiteboardState,
     pendingEditorState: WhiteboardState,
     mutatedNodes: MutatedNodes,
-    updateTags: Set<string>,
+    updateTags: Set<UpdateTagType>,
     dirtyLeaves: Set<string>,
 ): void {
     const listeners = Array.from(editor._listeners.mutation);
@@ -530,7 +530,7 @@ function triggerInheritableMutationListeners(
   currentEditorState: WhiteboardState,
   pendingEditorState: WhiteboardState,
   mutatedNodes: MutatedNodes,
-  updateTags: Set<string>,
+  updateTags: Set<UpdateTagType>,
   dirtyLeaves: Set<string>,
 ): void {
     const listeners = Array.from(editor._listeners.inheritableMutation);

@@ -22,6 +22,7 @@ import {
   REDO_COMMAND,
   UNDO_COMMAND,
 } from '@meogic/whiteboard';
+import {UpdateTagType} from "@meogic/whiteboard/src/WhiteboardUpdates";
 
 type MergeAction = 0 | 1 | 2;
 const HISTORY_MERGE = 0;
@@ -62,7 +63,7 @@ function createMergeActionGetter(
   prevWhiteboardState: null | WhiteboardState,
   nextWhiteboardState: WhiteboardState,
   currentHistoryEntry: null | HistoryStateEntry,
-  tags: Set<string>,
+  tags: Set<UpdateTagType>,
 ) => MergeAction {
   let prevChangeTime = Date.now();
   let prevChangeType = OTHER;
@@ -206,9 +207,9 @@ export function registerHistory(
     whiteboardState: WhiteboardState;
     prevWhiteboardState: WhiteboardState;
 
-    tags: Set<string>;
+    tags: Set<UpdateTagType>;
   }): void => {
-    if(tags.has('ignoreHistory')){
+    if (!tags.has('add-history') && !tags.has('history-merge')) {
       return;
     }
     const current = historyState.current;

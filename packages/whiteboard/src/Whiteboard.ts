@@ -11,7 +11,7 @@ import {
     commitPendingUpdates,
     internalGetActiveWhiteboard,
     parseWhiteboardState,
-    triggerListeners, updateWhiteboard
+    triggerListeners, UpdateTagType, updateWhiteboard
 } from "./WhiteboardUpdates";
 // import {WindowNode} from "./nodes/WindowNode";
 import {addRootElementEvents, removeRootElementEvents} from "./WhiteboardEvents";
@@ -52,18 +52,18 @@ export type ErrorHandler = (error: Error) => void;
 export type WhiteboardUpdateOptions = {
     onUpdate?: () => void;
     skipTransforms?: true;
-    tag?: string;
+    tag?: UpdateTagType;
 };
 
 export type WhiteboardSetOptions = {
-    tag?: string;
+    tag?: UpdateTagType;
 };
 
 export type UpdateListener = (arg0: {
     whiteboardState: WhiteboardState;
     normalizedNodes: Set<NodeKey>;
     prevWhiteboardState: WhiteboardState;
-    tags: Set<string>;
+    tags: Set<UpdateTagType>;
 }) => void;
 
 export type DecoratorListener<T = never> = (
@@ -74,7 +74,7 @@ export type NodeMutation = 'created' | 'updated' | 'destroyed';
 
 export type MutationListener = (
     nodes: Map<NodeKey, NodeMutation>,
-    payload: {updateTags: Set<string>; dirtyLeaves: Set<string>},
+    payload: {updateTags: Set<UpdateTagType>; dirtyLeaves: Set<string>},
 ) => void;
 
 export type MutationListeners = Map<MutationListener, Klass<WhiteboardNode>>;
@@ -278,7 +278,7 @@ export class Whiteboard {
     _nodes: RegisteredNodes;
     _decorators: Record<NodeKey, unknown>;
     _pendingDecorators: null | Record<NodeKey, unknown>;
-    _updateTags: Set<string>;
+    _updateTags: Set<UpdateTagType>;
     _deferred: Array<() => void>;
     _dirtyType: 0 | 1 | 2;
     _cloneNotNeeded: Set<NodeKey>;
