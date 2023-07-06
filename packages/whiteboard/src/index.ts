@@ -5,7 +5,8 @@ export type {
     WhiteboardConfig,
     WhiteboardCommand,
     WhiteboardThemeClasses,
-    IntentionallyMarkedAsDirtyElement
+    IntentionallyMarkedAsDirtyElement,
+    DispatchCommandOptions
 } from './Whiteboard';
 export type {WhiteboardState, SerializedWhiteboardState} from './WhiteboardState';
 

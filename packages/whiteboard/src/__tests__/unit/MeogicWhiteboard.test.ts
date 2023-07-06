@@ -7,31 +7,32 @@ import {
 import {useHistory} from "@meogic/whiteboard-vue";
 
 describe('MeogicWhiteboard tests', () => {
-  it('Should handle nested updates in the correct sequence', async () => {
-    const rootElement = document.createElement('div');
-    const whiteboard = createTestWhiteboard({
-    })
-    whiteboard.setRootElement(rootElement)
-    let log: Array<string> = [];
+  const rootElement = document.createElement('div');
+  const whiteboard = createTestWhiteboard({
+  })
+  whiteboard.setRootElement(rootElement)
+  let log: Array<string> = [];
+  useHistory(whiteboard)
+  whiteboard.update(() => {
+    const root = $getRoot();
+    const containerNode = $createContainerNode()
+    const viewportNode = $createViewportNode(0, 0, 1)
 
-    useHistory(whiteboard)
-
-    whiteboard.update(() => {
-      const root = $getRoot();
-      const containerNode = $createContainerNode()
-      const viewportNode = $createViewportNode(0, 0, 1)
-
-      root.append(
-        containerNode
-          .append(
-            viewportNode
-          )
-      )
-    }, {
-      tag: 'history-merge'
-    });
+    root.append(
+      containerNode
+        .append(
+          viewportNode
+        )
+    )
+  }, {
+    tag: 'history-merge'
+  });
+  beforeEach(async () => {
+    log = []
     await Promise.resolve().then();
+  })
 
+  it('Should handle nested updates in the correct sequence', async () => {
     whiteboard.registerCommand(CLICK_COMMAND, () => {
       log.push('B1');
       console.log('开始层3更新')
@@ -97,30 +98,6 @@ describe('MeogicWhiteboard tests', () => {
   });
 
   it('Should handle nested updates in the correct sequence2', async () => {
-    const rootElement = document.createElement('div');
-    const whiteboard = createTestWhiteboard({
-    })
-    whiteboard.setRootElement(rootElement)
-    let log: Array<string> = [];
-
-    useHistory(whiteboard)
-
-    whiteboard.update(() => {
-      const root = $getRoot();
-      const containerNode = $createContainerNode()
-      const viewportNode = $createViewportNode(0, 0, 1)
-
-      root.append(
-        containerNode
-          .append(
-            viewportNode
-          )
-      )
-    }, {
-      tag: 'history-merge'
-    });
-    await Promise.resolve().then();
-
     whiteboard.registerCommand(CLICK_COMMAND, () => {
       log.push('B1');
       console.log('开始层3更新')
@@ -194,30 +171,6 @@ describe('MeogicWhiteboard tests', () => {
   });
 
   it('Should handle nested updates in the correct sequence without add-history-but-ignore-history', async () => {
-    const rootElement = document.createElement('div');
-    const whiteboard = createTestWhiteboard({
-    })
-    whiteboard.setRootElement(rootElement)
-    let log: Array<string> = [];
-
-    useHistory(whiteboard)
-
-    whiteboard.update(() => {
-      const root = $getRoot();
-      const containerNode = $createContainerNode()
-      const viewportNode = $createViewportNode(0, 0, 1)
-
-      root.append(
-        containerNode
-          .append(
-            viewportNode
-          )
-      )
-    }, {
-      tag: 'history-merge'
-    });
-    await Promise.resolve().then();
-
     whiteboard.registerCommand(CLICK_COMMAND, () => {
       log.push('B1');
       console.log('开始层3更新')
@@ -296,6 +249,38 @@ describe('MeogicWhiteboard tests', () => {
       offsetX: 100,
       zoom: 2
     });
+  });
+
+  it('Should handle nested updates in the correct sequence3', async () => {
+    whiteboard.registerCommand(CLICK_COMMAND, () => {
+      log.push('B1');
+      return false
+    }, 1)
+
+    await new Promise<void>((resolve) => {
+      whiteboard.update(() => {
+        whiteboard.update(
+          () => {
+            log.push('A1');
+            // To enforce the update
+            setTimeout(() => {
+              whiteboard.dispatchCommand(CLICK_COMMAND, null, {
+                onUpdate() {
+                  log.push('C1');
+                  resolve()
+                }
+              })
+            })
+          },
+          {
+            tag: 'add-history'
+          },
+        );
+      })
+    })
+
+    expect(log).toStrictEqual([ 'A1', 'B1', 'C1' ]);
+
 
 
   });

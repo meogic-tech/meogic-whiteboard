@@ -1,6 +1,6 @@
 import {NodeKey, NodeMap, WhiteboardNode} from "./WhiteboardNode";
 import {
-    CommandPayloadType,
+    CommandPayloadType, DispatchCommandOptions,
     IntentionallyMarkedAsDirtyElement, Klass,
     Whiteboard,
     WhiteboardCommand,
@@ -66,8 +66,8 @@ export function $setNodeKey(
 export function dispatchCommand<
     TCommand extends WhiteboardCommand<unknown>,
     TPayload extends CommandPayloadType<TCommand>,
-    >(whiteboard: Whiteboard, type: TCommand, payload: TPayload): boolean {
-    return triggerCommandListeners(whiteboard, type, payload);
+    >(whiteboard: Whiteboard, type: TCommand, payload: TPayload, options?: DispatchCommandOptions): boolean {
+    return triggerCommandListeners(whiteboard, type, payload, options);
 }
 
 

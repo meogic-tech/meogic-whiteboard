@@ -70,6 +70,10 @@ export type DecoratorListener<T = never> = (
     decorator: Record<NodeKey, T>,
 ) => void;
 
+export type DispatchCommandOptions = {
+    onUpdate?: () => void
+}
+
 export type NodeMutation = 'created' | 'updated' | 'destroyed';
 
 export type MutationListener = (
@@ -435,8 +439,8 @@ export class Whiteboard {
     dispatchCommand<
         TCommand extends WhiteboardCommand<unknown>,
         TPayload extends CommandPayloadType<TCommand>,
-        >(type: TCommand, payload: TPayload): boolean {
-        return dispatchCommand(this, type, payload);
+        >(type: TCommand, payload: TPayload, options?: DispatchCommandOptions): boolean {
+        return dispatchCommand(this, type, payload, options);
     }
 
 

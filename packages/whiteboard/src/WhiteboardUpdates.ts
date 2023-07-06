@@ -6,6 +6,7 @@ import {
 } from "./WhiteboardState";
 import invariant from "shared/invariant";
 import {
+    DispatchCommandOptions,
     Listener,
     MutatedNodes,
     RegisteredNodes,
@@ -577,19 +578,22 @@ export function triggerCommandListeners<P>(
     whiteboard: Whiteboard,
     type: WhiteboardCommand<P>,
     payload: P,
+    options?: DispatchCommandOptions
 ): boolean {
     if (whiteboard._updating === false || activeWhiteboard !== whiteboard) {
         let returnVal = false;
         whiteboard.update(() => {
-            returnVal = triggerCommandListeners(whiteboard, type, payload);
+            // 为什么这里必须要传入options?
+            returnVal = triggerCommandListeners(whiteboard, type, payload, options);
         });
         return returnVal;
     }
 
     const whiteboards = getWhiteboardsToPropagate(whiteboard);
+    let isReturn = false
 
-    for (let i = 4; i >= 0; i--) {
-        for (let e = 0; e < whiteboards.length; e++) {
+    for (let i = 4; i >= 0 && !isReturn; i--) {
+        for (let e = 0; e < whiteboards.length && !isReturn; e++) {
             const currentWhiteboard = whiteboards[e];
             const commandListeners = currentWhiteboard._commands;
             const listenerInPriorityOrder = commandListeners.get(type);
@@ -603,7 +607,8 @@ export function triggerCommandListeners<P>(
 
                     for (let j = 0; j < listenersLength; j++) {
                         if (listeners[j](payload, whiteboard) === true) {
-                            return true;
+                            isReturn = true;
+                            break;
                         }
                     }
                 }
@@ -611,7 +616,10 @@ export function triggerCommandListeners<P>(
         }
     }
 
-    return false;
+    if (options && options.onUpdate) {
+        options.onUpdate();
+    }
+    return isReturn;
 }
 
 export function internalGetActiveWhiteboard(): null | Whiteboard {

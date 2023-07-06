@@ -55,30 +55,4 @@ whiteboard.update(
 ```
 以下是输出结果
 ```text
-commitPendingUpdates更新
-在commitPendingUpdates函数中，当whiteboard需要被更新时，updateTags重制为new Set()
-tags Set(1) { 'history-merge' }
-
-在beginUpdate中读取updateTags
-在beginUpdate中合并新的tag history-merge
-commitPendingUpdates更新
-在commitPendingUpdates函数中，当whiteboard需要被更新时，updateTags重制为new Set()
-tags Set(1) { 'history-merge' }
-applyChange Set(1) { 'history-merge' } null
-
-在beginUpdate中读取updateTags
-在beginUpdate中合并新的tag add-history
-开始外层更新
-开始CLICK_COMMAND更新
-commitPendingUpdates更新
-在commitPendingUpdates函数中，当whiteboard需要被更新时，updateTags重制为new Set()
-tags Set(1) { 'add-history' }
-applyChange Set(1) { 'add-history' }
-在beginUpdate中读取updateTags
-updateTags 清除
-    
-在beginUpdate中读取updateTags
-new state will be set WhiteboardState
-commitPendingUpdates更新
-tags Set(1) { 'historic' }
 ```
