@@ -36,6 +36,7 @@ export const CLEAR_EDITOR_COMMAND: WhiteboardCommand<void> = createCommand()
 export const CLEAR_HISTORY_COMMAND: WhiteboardCommand<void> = createCommand()
 export const REDO_COMMAND: WhiteboardCommand<void> = createCommand()
 export const UNDO_COMMAND: WhiteboardCommand<void> = createCommand()
+export const SAVE_SNAPSHOT_HISTORY_COMMAND: WhiteboardCommand<void> = createCommand()
 
 export const CONTAINER_MOVE_COMMAND : WhiteboardCommand<{
     offsetX: number,

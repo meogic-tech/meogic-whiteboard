@@ -60,6 +60,7 @@ export {
     CONTAINER_MOVE_COMMAND,
     CONTAINER_ZOOM_COMMAND,
     COMPONENT_NODE_MOVING_COMMAND,
+    SAVE_SNAPSHOT_HISTORY_COMMAND,
 } from './WhiteboardCommands'
 
 export type {

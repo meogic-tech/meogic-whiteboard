@@ -21,6 +21,7 @@ import {
   COMMAND_PRIORITY_WHITEBOARD,
   REDO_COMMAND,
   UNDO_COMMAND,
+  SAVE_SNAPSHOT_HISTORY_COMMAND,
 } from '@meogic/whiteboard';
 import {UpdateTagType} from "@meogic/whiteboard/src/WhiteboardUpdates";
 
@@ -186,6 +187,23 @@ function undo(whiteboard: Whiteboard, historyState: HistoryState): void {
   }
 }
 
+function saveSnapShotHistory(whiteboard: Whiteboard, historyState: HistoryState): void {
+  const current = historyState.current;
+  const redoStack = historyState.redoStack;
+  const undoStack = historyState.undoStack;
+
+  if (redoStack.length !== 0) {
+    historyState.redoStack = [];
+  }
+
+  if (current !== null) {
+    undoStack.push({
+      ...current,
+    });
+    whiteboard.dispatchCommand(CAN_UNDO_COMMAND, true);
+  }
+}
+
 function clearHistory(historyState: HistoryState) {
   historyState.undoStack = [];
   historyState.redoStack = [];
@@ -209,48 +227,6 @@ export function registerHistory(
 
     tags: Set<UpdateTagType>;
   }): void => {
-    if (!tags.has('add-history')
-      && !tags.has('history-merge')
-    ) {
-      // 虽然没有加入到history中，但是要更新给historyState
-      historyState.current = {
-        whiteboard,
-        whiteboardState,
-      };
-      return;
-    }
-    const current = historyState.current;
-    const redoStack = historyState.redoStack;
-    const undoStack = historyState.undoStack;
-    const currentWhiteboardState = current === null ? null : current.whiteboardState;
-
-    if (current !== null && whiteboardState === currentWhiteboardState) {
-      return;
-    }
-
-    const mergeAction = getMergeAction(
-      prevWhiteboardState,
-      whiteboardState,
-      current,
-      tags,
-    );
-
-    if (mergeAction === HISTORY_PUSH) {
-      if (redoStack.length !== 0) {
-        historyState.redoStack = [];
-      }
-
-      if (current !== null) {
-        undoStack.push({
-          ...current,
-        });
-        whiteboard.dispatchCommand(CAN_UNDO_COMMAND, true);
-      }
-    } else if (mergeAction === DISCARD_HISTORY_CANDIDATE) {
-      return;
-    }
-
-    // Else we merge
     historyState.current = {
       whiteboard,
       whiteboardState,
@@ -289,6 +265,14 @@ export function registerHistory(
         whiteboard.dispatchCommand(CAN_REDO_COMMAND, false);
         whiteboard.dispatchCommand(CAN_UNDO_COMMAND, false);
         return true;
+      },
+      COMMAND_PRIORITY_WHITEBOARD,
+    ),
+    whiteboard.registerCommand(
+      SAVE_SNAPSHOT_HISTORY_COMMAND,
+      () => {
+        saveSnapShotHistory(whiteboard, historyState);
+        return false
       },
       COMMAND_PRIORITY_WHITEBOARD,
     ),
