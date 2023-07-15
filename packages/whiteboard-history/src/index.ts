@@ -238,7 +238,7 @@ export function registerHistory(
       UNDO_COMMAND,
       () => {
         undo(whiteboard, historyState);
-        return true;
+        return false;
       },
       COMMAND_PRIORITY_WHITEBOARD,
     ),
@@ -246,7 +246,7 @@ export function registerHistory(
       REDO_COMMAND,
       () => {
         redo(whiteboard, historyState);
-        return true;
+        return false;
       },
       COMMAND_PRIORITY_WHITEBOARD,
     ),
