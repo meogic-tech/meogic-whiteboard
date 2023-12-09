@@ -53,6 +53,7 @@ export type WhiteboardUpdateOptions = {
     onUpdate?: () => void;
     skipTransforms?: true;
     tag?: UpdateTagType;
+    skipReadOnlyCheck?: boolean;
 };
 
 export type WhiteboardSetOptions = {
@@ -253,7 +254,8 @@ export function createWhiteboard(whiteboardConfig?: {
             namespace,
             theme,
         },
-        onError ? onError : console.error
+        onError ? onError : console.error,
+        isReadOnly,
     );
 
     if (initialWhiteboardState !== undefined) {
@@ -288,12 +290,14 @@ export class Whiteboard {
     _cloneNotNeeded: Set<NodeKey>;
     _dirtyLeaves: Set<NodeKey>;
     _dirtyElements: Map<NodeKey, IntentionallyMarkedAsDirtyElement>;
+    _readOnly: boolean;
 
     constructor(
         whiteboardState: WhiteboardState,
         nodes: RegisteredNodes,
         config: WhiteboardConfig,
         onError: ErrorHandler,
+        readOnly: boolean,
     ) {
         // The current editor state
         this._whiteboardState = whiteboardState;
@@ -330,6 +334,8 @@ export class Whiteboard {
         this._key = createUID();
 
         this._onError = onError;
+
+        this._readOnly = readOnly
     }
 
     registerDecoratorListener<T>(listener: DecoratorListener<T>): () => void {

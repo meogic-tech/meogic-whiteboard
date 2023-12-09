@@ -43,6 +43,8 @@ const onWheel = (event: WheelEvent) => {
       offsetX: startOffsetX + deltaX,
       offsetY: startOffsetY + deltaY,
     })
+  }, {
+    skipReadOnlyCheck: true,
   })
 }
 

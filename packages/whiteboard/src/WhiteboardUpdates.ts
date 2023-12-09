@@ -345,6 +345,7 @@ export function parseWhiteboardState(
 function processNestedUpdates(
     whiteboard: Whiteboard,
     initialSkipTransforms?: boolean,
+    skipReadOnlyCheck?: boolean
 ): boolean {
     const queuedUpdates = whiteboard._updates;
     let skipTransforms = initialSkipTransforms || false;
@@ -491,15 +492,91 @@ function beginUpdate(
     }
 }
 
+/**
+ * 加这个函数是为了在只读情况下，还能够在没有跳过只读检查的update内部，可以进行跳过检查的更新
+ * @param whiteboard
+ * @param updateFn
+ * @param options
+ */
+function beginUpdateButReadOnly(
+  whiteboard: Whiteboard,
+  updateFn: () => void,
+  options?: WhiteboardUpdateOptions,
+): void {
+    const updateTags = whiteboard._updateTags;
+    let onUpdate;
+    let tag;
+
+    if (options !== undefined) {
+        onUpdate = options.onUpdate;
+        tag = options.tag;
+        if (tag != null) {
+            updateTags.add(tag);
+        }
+    }
+
+    if (onUpdate) {
+        whiteboard._deferred.push(onUpdate);
+    }
+
+    const currentWhiteboardState = whiteboard._whiteboardState;
+    let pendingWhiteboardState = whiteboard._pendingWhiteboardState;
+    let whiteboardStateWasCloned = false;
+
+    if (pendingWhiteboardState === null) {
+        pendingWhiteboardState = whiteboard._pendingWhiteboardState =
+          cloneWhiteboardState(currentWhiteboardState);
+        whiteboardStateWasCloned = true;
+    }
+
+    const previousActiveWhiteboardState = activeWhiteboardState;
+    const previousActiveWhiteboard = activeWhiteboard;
+    const previouslyUpdating = whiteboard._updating;
+    setActiveWhiteboardState(pendingWhiteboardState)
+    whiteboard._updating = true;
+    activeWhiteboard = whiteboard;
+    try {
+        updateFn();
+        processNestedUpdates(whiteboard, options?.skipTransforms, options?.skipReadOnlyCheck)
+    } catch (e) {
+        console.error(e)
+    } finally {
+        setActiveWhiteboardState(previousActiveWhiteboardState)
+        activeWhiteboard = previousActiveWhiteboard;
+        whiteboard._updating = previouslyUpdating;
+        // 不加这个会报错Cannot assign to read only property '_zoom' of object
+        whiteboard._cloneNotNeeded.clear();
+    }
+    if (whiteboardStateWasCloned) {
+        updateTags.clear();
+        triggerDeferredUpdateCallbacks(whiteboard, whiteboard._deferred)
+        whiteboard._deferred = [];
+        whiteboard._pendingWhiteboardState = null;
+    }
+
+}
+
 export function updateWhiteboard(
     whiteboard: Whiteboard,
     updateFn: () => void,
     options?: WhiteboardUpdateOptions
 ): void {
-    if (whiteboard._updating) {
-        whiteboard._updates.push([updateFn, options]);
+    let isUpdate = true;
+    if (whiteboard._readOnly && (options?.skipReadOnlyCheck === undefined || !options?.skipReadOnlyCheck)) {
+        isUpdate = false
+    }
+    if (isUpdate) {
+        if (whiteboard._updating) {
+            whiteboard._updates.push([updateFn, options]);
+        } else {
+            beginUpdate(whiteboard, updateFn, options);
+        }
     } else {
-        beginUpdate(whiteboard, updateFn, options);
+        if (whiteboard._updating) {
+            whiteboard._updates.push([updateFn, options]);
+        } else {
+            beginUpdateButReadOnly(whiteboard, updateFn, options);
+        }
     }
 }
 

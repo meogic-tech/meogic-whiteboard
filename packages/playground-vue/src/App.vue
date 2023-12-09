@@ -100,6 +100,7 @@ const config = {
   whiteboardState: prepared,
   namespace: 'Playground',
   nodes: [...PlaygroundNodes],
+  readOnly: true,
   theme
 }
 const onError = (error: Error) => {

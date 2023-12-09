@@ -11,6 +11,7 @@ const props = defineProps<{
     namespace?: string
     nodes?: Klass<WhiteboardNode>[]
     theme?: WhiteboardThemeClasses
+    readOnly?: boolean
     whiteboardState?: ((whiteboard: Whiteboard) => void)
   }
 }>()
@@ -21,11 +22,13 @@ const {
   theme,
   namespace,
   nodes,
+  readOnly,
   whiteboardState: initialWhiteboardState,
 } = props.initialConfig;
 const whiteboard = createWhiteboard({
   namespace,
   nodes,
+  readOnly,
   onError: (error: Error) => emit('error', error),
   theme
 })
@@ -35,7 +38,10 @@ if(initialWhiteboardState){
     if (root.isEmpty()){
       initialWhiteboardState(whiteboard)
     }
-  }, HISTORY_MERGE_OPTIONS)
+  }, {
+    ...HISTORY_MERGE_OPTIONS,
+    skipReadOnlyCheck: true,
+  })
 }
 
 provide(whiteboardKey, whiteboard)
