@@ -1,6 +1,6 @@
 {
   "name": "@meogic/whiteboard-playground-vue",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "scripts": {
     "dev": "vite --host",
     "build-dev": "vite build",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@meogic/whiteboard-vue": "1.0.45",
+    "@meogic/whiteboard-vue": "1.0.46",
     "mitt": "3.0.0",
     "vue": "^3.2.38"
   },

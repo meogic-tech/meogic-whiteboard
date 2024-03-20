@@ -79,7 +79,11 @@ export type NodeMutation = 'created' | 'updated' | 'destroyed';
 
 export type MutationListener = (
     nodes: Map<NodeKey, NodeMutation>,
-    payload: {updateTags: Set<UpdateTagType>; dirtyLeaves: Set<string>},
+    payload: {
+        updateTags: Set<UpdateTagType>;
+        dirtyLeaves: Set<string>;
+        prevWhiteboardState: WhiteboardState;
+    },
 ) => void;
 
 export type MutationListeners = Map<MutationListener, Klass<WhiteboardNode>>;

@@ -597,6 +597,7 @@ function triggerMutationListeners(
         if (mutatedNodesByType !== undefined) {
             listener(mutatedNodesByType, {
                 dirtyLeaves,
+                prevWhiteboardState: currentEditorState,
                 updateTags,
             });
         }
@@ -622,6 +623,7 @@ function triggerInheritableMutationListeners(
                 if (mutatedNodesByType !== undefined) {
                     listener(mutatedNodesByType, {
                         dirtyLeaves,
+                        prevWhiteboardState: currentEditorState,
                         updateTags,
                     });
                 }
